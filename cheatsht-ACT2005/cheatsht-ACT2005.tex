@@ -1,0 +1,48 @@
+%% Aide-mémoire
+\documentclass[french, landscape]{article}
+%% -----------------------------
+%% Préambule
+%% -----------------------------
+\input{cheatsht-preamble.tex}
+
+% Couleur de la page
+%\pagecolor{gray!10!white}
+\newcolumntype{a}{>{\columncolor{red!20!white}$}p{2cm}<{$}}
+
+%% -----------------------------
+%% Début du document
+%% -----------------------------
+\begin{document}
+
+\small
+\begin{multicols*}{2} % Nombre de colonnes (peut être changé plus tard.)
+\section{Rappel de probabilité}
+\subsection*{Certaines lois à savoir}
+\begin{tabular}{|a| * {4}{C|}}
+\hline
+\rowcolor{red!30!white}\text{Loi} & \prob{X = x} \text{ ou } f_X(x) & \esp{X} & Var(X) & M_X(t) \\\hline
+Bin(n,p)	& \binom{n}{x} p^x (1-p)^{n-x} & np & np(1-p) & \left( (1-p) + p^t \right)^n \\\hline
+Pois(\lambda) & \frac{e^{-\lambda} \lambda^x}{x!} & \lambda & \lambda & e^{\lambda(t-1)} \\\hline
+Gamma(\alpha, \lambda) & \frac{\lambda^{\alpha} x^{\alpha-1} e^{-\lambda x}}{\Gamma(\alpha)} & \frac{\alpha}{\lambda} & \frac{\alpha}{\lambda^2} & \left( \frac{\lambda}{\lambda - t} \right)^\alpha \\\hline
+Normale(\mu, \sigma^2) & \frac{1}{\sqrt{2 \pi} \sigma} e^{- \frac{1}{2} \left( \frac{x-\mu}{\sigma} \right)^2} & \mu & \sigma^2 & e^{\mu t + \frac{\sigma^2 t^2}{2}} \\\hline
+\end{tabular}
+
+\begin{itemize}
+\item gl
+\end{itemize}
+
+\subsection*{Moments à savoir}
+\begin{align*}
+\mu_k^{\prime} 	& = \esp{X^k} \\
+\mu_k			& = \esp{(X-\mu)^k} \\
+CV				& = \frac{\sigma}{\esp{X}} \\
+\gamma_1			& = \frac{\mu_3}{\sigma^3} \\
+\gamma_2			& = \frac{\mu_4}{\sigma^4} \\
+\end{align*}
+
+\end{multicols*}
+
+%% -----------------------------
+%% Fin du document
+%% -----------------------------
+\end{document}
