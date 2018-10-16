@@ -162,9 +162,9 @@ f_{ij} = \sum_{k=0}^{m} p_{ik} f_{kj}
 \begin{enumerate}[label=\faAngleRight]
 \item \textbf{État périodique} : si l'état a une période $d$, alors il sera possible de revenir à cet état après $n$ étapes, qui est un multiple de $d$. i.e
 \begin{align*}
-d = P.G.C.D\{n \in \naturels ~ | ~ p_{ii}^{(n) > 0} \}
+d(i) = P.G.C.D\{n \in \naturels ~ | ~ p_{ii}^{(n)} > 0 \}
 \end{align*}
-\item si $d=1$, alors l'état est \textbf{apériodique}.
+\item si $d(i)=1$, alors l'état $i$ est \textbf{apériodique}.
 \item La périodicité est une propriété de classe : si $i \leftrightarrow j$, alors $d(i) = d(j)$.
 \item Le temps de retour moyen pour l'état $i$ est défini par
 \begin{align*}
@@ -181,6 +181,8 @@ d = P.G.C.D\{n \in \naturels ~ | ~ p_{ii}^{(n) > 0} \}
 	\item $\pi_j = \sum_{i=0}^{\infty} \pi_i p_{ij}$
 	\item $\sum_{j=0}^{\infty} \pi_j = 1$
 \end{enumerate}
+
+\item On peut alors résoudre un système d'équations pour trouver nos $\pi_i$.
 \end{enumerate}
 
 \section{Processus de Poisson}
