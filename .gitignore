@@ -1,0 +1,5 @@
+# Git ignore pour les log files de la compilation
+*.aux
+*.log
+*.out
+*.gz
