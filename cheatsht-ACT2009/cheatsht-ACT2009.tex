@@ -240,11 +240,19 @@ Avec $N_1(t)$ et $N_2(t)$ qui sont stochastiquement indépendants.
 
 
 \subsection*{Distribution conditionnelle des temps d'occurence}
-Pour un processus de Poisson $\{ N(t) ; t \geq 0 \}$, la distribution conditionnelle des temps d'occurence $S_1, ... S_n$ sachant que $N(t) = n$ est définie par
+\begin{itemize}
+\item Pour un processus de Poisson $\{ N(t) ; t \geq 0 \}$, la distribution conditionnelle des temps d'occurence $S_1, ... S_n$ sachant que $N(t) = n$ est définie par
 \begin{align*}
 f_{S_1, ..., S_n | N(t)}(s_1, ..., s_n | n) = \frac{n!}{t^n}
 \end{align*}
 pour $0 < s_1 < ... < s_n$.
+
+\item La distribution de $S_1, ..., S_n | N(t) = n$ a la même distribution que les statistiques d'ordre : 
+\begin{align*}
+U_{(1)}, ..., U_{(n)} \sim U(0,t)
+\end{align*}
+\end{itemize}
+
 \end{multicols*}
 
 %% -----------------------------
