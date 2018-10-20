@@ -53,7 +53,8 @@
 %% -----------------------------
 %% Math configuration
 %% -----------------------------
-\usepackage{amsmath,amsthm,amssymb,latexsym,amsfonts}
+\usepackage[fleqn]{amsmath}
+\usepackage{amsthm,amssymb,latexsym,amsfonts}
 \usepackage{empheq}
 \usepackage{numprint}
 
@@ -67,6 +68,7 @@
 \newcommand{\prob}[1]{\Pr \left( #1 \right)}
 \newcommand{\esp}[1]{E \left[ #1 \right]}
 \newcommand{\laplace}{\mathcal{L}}
+\newcommand{\matr}[1]{\mathbf{#1}} % matricial notation variable
 
 % To indicate equation number on a specific line in align environment
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
@@ -136,6 +138,9 @@ after title = {\large \hfill \faBook}
 \newcolumntype{L}{>{$}l<{$}} % math-mode version of "l" column type
 \newcolumntype{R}{>{$}r<{$}} % math-mode version of "l" column type
 \newcolumntype{f}{>{\columncolor{green!20!white}}p{1cm}}
+% configuration to force a line break within a single cell
+\usepackage{makecell}
+
 
 
 %% -----------------------------

@@ -70,10 +70,10 @@ Sachant que $Y_0 = \beta_0 + \beta_1 x_0 + \varepsilon$, on a l'IC suivant
 \subsection*{Analyse de la variance (ANOVA)}
 \begin{tabular}{|f| *{4}{C|}}
 \hline
-\rowcolor{green!40!black} Source & \text{dl} & \text{Sum of squares} & \text{Mean squares} & f \\\hline
-Model & p = 1 & SSR = \sum_{i=1}^{n} (\hat{Y}_i - \bar{Y})^2 & MSR = \frac{SSR}{dl_1} & F = \frac{MSR}{MSE} \\\hline
-Residual error & n -2 & SSE = \sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2 & MSE = \frac{SSE}{dl_2} & \\\hline
-Total & n - 2 + p & SST = \sum_{i=1}^{n} (Y_i - \bar{Y})i)^2 & & \\\hline
+\rowcolor{green!40!black} Source & \text{dl} & \text{SS} & \text{MS} & F \\\hline
+Model & p & \thead{\sum_{i=1}^{n} (\hat{Y}_i - \bar{Y})^2 \\ (SSR)}  & \thead{SSR / dl_1 \\ (MSR)} & \frac{MSR}{MSE} \\\hline
+Residual error & n - p' & \thead{\sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2 \\ (SSE)} & \thead{SSE / dl_2 \\(MSE)} & \\\hline
+Total & n - 1 & \thead{\sum_{i=1}^{n} (Y_i - \bar{Y})i)^2 \\ (SST)} & & \\\hline
 \end{tabular}
 
 \subsection*{Test F de Fisher pour la validité globale de la régression}
@@ -84,6 +84,7 @@ $H_1$ : La régression est pertinente
 F_{obs} = \frac{MSR}{MSE} \sim F_{1, n-2}
 \end{align*}
 On rejette $H_0$ si $F_{obs} > F_{1, n-2}\left( \frac{\alpha}{2} \right)$
+
 
 \subsection*{Distribution d'un résidu $\varepsilon$}
 \begin{align*}
