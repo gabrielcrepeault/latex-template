@@ -3,45 +3,8 @@
 %% -----------------------------
 %% Préambule
 %% -----------------------------
-\input{preambule_utf8.tex}
+\input{cheatsht-preamble.tex}
 
-%% -----------------------------
-%% Variable definition (paramètres à une classe?)
-%% -----------------------------
-\def\cours{Modèles linéaires}
-\def\sigle{ACT-2003}
-\def\session{Automne 2018}
-\def\auteur{Gabriel Crépeault-Cauchon}
-\def\SectionColor{green!40!black}
-
-%% -----------------------------
-%% Section Font customization
-%% -----------------------------
-\usepackage{sectsty}
-\sectionfont{\color{\SectionColor}}
-
-%% -----------------------------
-%% Tabular column type customization
-%% -----------------------------
-\newcolumntype{C}{>{$}c<{$}} % math-mode version of "l" column type
-\newcolumntype{L}{>{$}l<{$}} % math-mode version of "l" column type
-\newcolumntype{R}{>{$}r<{$}} % math-mode version of "l" column type
-
-%% -----------------------------
-%% Footer/Header Customization
-%% -----------------------------
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-% Header
-\fancyhead{} 	% Reset
-\fancyhead[L]{Feuille de formules pour~ \cours ~(\textbf{\sigle})}
-\fancyhead[R]{\auteur}
-
-% Footer
-\fancyfoot{}		% Reset
-\fancyfoot[R]{\thepage}
-
-\pagecolor{green!5!white}
 %% -----------------------------
 %% Début du document
 %% -----------------------------
@@ -105,9 +68,9 @@ Sachant que $Y_0 = \beta_0 + \beta_1 x_0 + \varepsilon$, on a l'IC suivant
 \end{align*}
 
 \subsection*{Analyse de la variance (ANOVA)}
-\begin{tabular}{|p{1cm}| *{4}{C|}}
+\begin{tabular}{|f| *{4}{C|}}
 \hline
-Source & \text{dl} & \text{Sum of squares} & \text{Mean squares} & f \\\hline
+\rowcolor{green!40!black} Source & \text{dl} & \text{Sum of squares} & \text{Mean squares} & f \\\hline
 Model & p = 1 & SSR = \sum_{i=1}^{n} (\hat{Y}_i - \bar{Y})^2 & MSR = \frac{SSR}{dl_1} & F = \frac{MSR}{MSE} \\\hline
 Residual error & n -2 & SSE = \sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2 & MSE = \frac{SSE}{dl_2} & \\\hline
 Total & n - 2 + p & SST = \sum_{i=1}^{n} (Y_i - \bar{Y})i)^2 & & \\\hline
