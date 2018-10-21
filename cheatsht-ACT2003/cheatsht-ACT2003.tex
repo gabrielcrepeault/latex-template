@@ -79,15 +79,22 @@ Residual error & n - p' & \thead{\sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2 \\ (SSE)} & 
 Total & n - 1 & \thead{\sum_{i=1}^{n} (Y_i - \bar{Y})^2 \\ (SST)} & \cellcolor{gray!30!white} & \cellcolor{gray!30!white} \\\hline
 \end{tabular}
 
+\subsubsection*{Coefficient de détermination}
+\begin{align*}
+R^2 = \frac{SSR}{SST} = 1 - \frac{SSE}{SST}
+\end{align*}
+On a aussi la relation suivante avec $F_{obs}$ : 
+\begin{align*}
+F = \frac{R^2}{1 - R^2} \cdot \frac{n-p'}{p}
+\end{align*}
 
 \subsection*{Test F de Fisher pour la validité globale de la régression}
-$H_0$ : La régression n'est pas pertinente (i.e. $\beta_1 = 0$)
-
-$H_1$ : La régression est pertinente
+On rejette $H_0 : \beta_1 =  \beta_2 = ... =  \beta_p = 0$ si 
 \begin{align*}
-F_{obs} = \frac{MSR}{MSE} \sim F_{1, n-2}
+F_{obs} = \frac{MSR}{MSE} \geq F_{n, n-p'}(1 - \alpha)
 \end{align*}
-On rejette $H_0$ si $F_{obs} > F_{1, n-2}\left( \frac{\alpha}{2} \right)$
+où $p$ est le nombre de variables explicatives dans le modèle (régression linéaire simple, $p=1$ et $p' = p+1$.
+
 
 
 \subsection*{Distribution d'un résidu $\varepsilon$}
@@ -154,14 +161,51 @@ Pour les résidus de la droite de régression, on a
 
 \subsection*{Intervalle de confiance pour la prévision}
 \subsubsection*{Théorème de Gauss-Markov}
+Selon les postulats $H_1$ à $H_4$, l'estimateur
+\begin{align*}
+\mathrm{a^\top} \hat{\bm{\beta}} = \matr{a^\top (X^\top X)^{-1} X^\top Y}
+\end{align*}
+est le meilleur estimateur pour $\matr{a^\top} \bm{\beta}$
+
+(BLUE : \textit{Best linear unbiaised estimator}).
+
+\subsubsection*{I.C. pour la prévision de la valeur moyenne $\esp{\matr{Y} | \matr{X^*}}$}
+\begin{align*}
+\left[ \matr{{X^*}^\top} \hat{\bm{\beta}} \pm t_{n-p'}\left(1 - \frac{\alpha}{2} \right) \sqrt{s^2 \matr{{X^*}^\top} (X^\top X)^{-1}{X^*}^\top} \right]
+\end{align*}
+
+\subsubsection*{I.C. pour la valeur prédite $\hat{\matr{Y}}|\matr{X^*}$}
+\begin{align*}
+\left[ \matr{{X^*}^\top} \hat{\bm{\beta}} \pm t_{n-p'}\left(1 - \frac{\alpha}{2} \right) \sqrt{s^2\left( 1 +  \matr{{X^*}^\top} (X^\top X)^{-1}{X^*}^\top\right)} \right]
+\end{align*}
 
 
+\subsection*{Analyse de la variance}
+\subsubsection*{Tableau ANOVA}
+\begin{itemize}
+\item On utilise le même tableau ANOVA qu'en régression linéaire simple.
+\item $SSR_{\text{régression}} = \sum_{i=1}^{p} SSR_i $, où $SSR_i$ représente le SSR individuel de la variable explicative $i$ calculé par R. On peut ensuite trouver $MSR$ et la statistique $F_{obs}$.
+\end{itemize}
+
+\subsubsection*{Test F pour la validité globale de la régression}
+Même test qu'en régression linéaire simple.
 
 
-\subsubsection*{I.C pour la prévision de la valeur moyenne $\esp{\matr{Y} | \matr{X^*}}$}
+\subsubsection*{Test F partiel pour la réduction du modèle}
+Avec $k < p$, on va rejeter
+\begin{align*}
+H_0 : Y_i = \beta_0 + \beta_1 x_{i1} + ... \beta_{ik} \quad \text{(modèle réduit)}
+\end{align*}
+Pour
+\begin{align*}
+H_1 : Y_i = \beta_0 + \beta_1 x_{i1} + ... \beta_{ip} \quad \text{(modèle complet)}
+\end{align*}
+Si
+\begin{align*}
+F_{obs} = \frac{(SSE^{(0)} - SSE^{(1)}) / \Delta dl}{SSE^{(1)} / (n-p')} \geq F_{p-k, n-p'}(1- \alpha)
+\end{align*}
+où $\Delta dl = p - k$, $SSE^{(0)}$ pour le modèle réduit ($H_0$) et $SSE^{(1)}$ pour le modèle complet ($H_1$).
 
-
-\subsubsection*{I.C pour la valeur prédite $\hat{\matr{Y}}|\matr{X^*}$}
 
 
 
