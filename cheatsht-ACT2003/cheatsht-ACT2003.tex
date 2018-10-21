@@ -5,10 +5,13 @@
 %% -----------------------------
 \input{cheatsht-preamble.tex}
 
+
 %% -----------------------------
 %% Début du document
 %% -----------------------------
 \begin{document}
+
+
 
 \small
 \begin{multicols*}{3} % Nombre de colonnes (peut être changé plus tard.)
@@ -72,9 +75,10 @@ Sachant que $Y_0 = \beta_0 + \beta_1 x_0 + \varepsilon$, on a l'IC suivant
 \hline
 \rowcolor{green!40!black} Source & \text{dl} & \text{SS} & \text{MS} & F \\\hline
 Model & p & \thead{\sum_{i=1}^{n} (\hat{Y}_i - \bar{Y})^2 \\ (SSR)}  & \thead{SSR / dl_1 \\ (MSR)} & \frac{MSR}{MSE} \\\hline
-Residual error & n - p' & \thead{\sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2 \\ (SSE)} & \thead{SSE / dl_2 \\(MSE)} & \\\hline
-Total & n - 1 & \thead{\sum_{i=1}^{n} (Y_i - \bar{Y})i)^2 \\ (SST)} & & \\\hline
+Residual error & n - p' & \thead{\sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2 \\ (SSE)} & \thead{SSE / dl_2 \\(MSE = s^2)} & \cellcolor{gray!30!white} \\\hline
+Total & n - 1 & \thead{\sum_{i=1}^{n} (Y_i - \bar{Y})^2 \\ (SST)} & \cellcolor{gray!30!white} & \cellcolor{gray!30!white} \\\hline
 \end{tabular}
+
 
 \subsection*{Test F de Fisher pour la validité globale de la régression}
 $H_0$ : La régression n'est pas pertinente (i.e. $\beta_1 = 0$)
@@ -95,8 +99,75 @@ où $h_{ii} = \frac{1}{n} + \frac{(\bar{x} - x_i)^2}{S_{XX}}$.
 
 
 \section{Régression linéaire multiple}
-\end{multicols*}
+% \mathrm{•} utilise la notation matricielle
+% \bm{•} est utilisé pour la notation matricielle, mais lorsqu'il y a des symboles mathématiques.
+\subsection*{Le modèle et ses propriétés}
+\begin{align*}
+\matr{Y}_{n \times 1} & = \matr{X}_{n \times p'} \bm{\beta}_{p' \times 1} + \bm{\varepsilon}_{n \times 1} \\
+\esp{\matr{Y}}	& = \matr{X} \bm{\beta} \quad , Var(\matr{Y}) = \sigma^2 \matr{I}_{n \times n} \\
+Y & \overset{H_4}{\sim} N_n(\matr{X} \bm{\beta}, \sigma^2 \matr{I}_{n \times n}) \\
+\end{align*}
 
+\subsection*{Paramètres du modèle}
+\subsubsection*{Estimation et propriétés des paramètres}
+\begin{align*}
+\hat{\bm{\beta}} & = \matr{(X^\top X)^{-1} X^\top Y} \\
+\esp{\hat{\bm{\beta}}}	& = \bm{\beta} \quad , Var(\matr{Y}) = \sigma^2 (\matr{X^\top X)^{-1}} \\
+\hat{\bm{\beta}} & \overset{H_4}{\sim} N_p(\bm{\beta}, \sigma^2 (\matr{X^\top X)^{-1}})
+\end{align*}
+\subsubsection*{Intervalle de confiance sur les paramètres}
+\begin{align*}
+\left[ \hat{\bm{\beta}} \pm t_{n-p'}(1- \frac{\alpha}{2}) \sqrt{s^2 v_{jj}} \right]
+\end{align*}
+où $v_{jj}$ est l'élément $(i,i)$ de la matrice $\matr{(X^\top X)^{-1}}$.
+\subsubsection*{Estimation de $\sigma^2$}
+\begin{align*}
+\hat{\sigma}^2 = s^2 = \frac{\hat{\bm{\varepsilon}}^\top \hat{\bm{\varepsilon}}}{n-p'}
+\end{align*}
+
+\subsubsection*{Test d'hypothèse sur un paramètre du modèle}
+On rejète $H_0 : \beta_j = 0$ si
+\begin{align*}
+|t_{obs, j}| = \frac{\beta_j \sqrt{n-p'}}{\sqrt{v_{jj} \hat{\bm{\varepsilon}}^\top \hat{\bm{\varepsilon}}}} > t_{n-p'}\left(1 - \frac{\alpha}{2} \right) \\
+\end{align*}
+
+\subsection*{Propriétés de la droite de régression}
+\begin{align*}
+\hat{\matr{Y}}	& = \matr{X} \bm{\beta} \\
+	& = \matr{X(X^\top X)^{-1} X^\top Y} \\
+	& = \matr{H Y} 
+\end{align*}
+où $\matr{H = X(X^\top X)^{-1}X^\top}$ est la \textit{hat matrix}.
+
+On a aussi que
+\begin{align*}
+\esp{\hat{\matr{Y}}} & = \matr{X} \bm{\beta} \quad , Var(\hat{\matr{Y}}) = \sigma^2 \matr{H} \\
+\hat{\matr{Y}} & \overset{H_4}{\sim} N_n(\matr{X} \bm{\beta} , \sigma^2 \matr{H}) \\
+\end{align*}
+
+Pour les résidus de la droite de régression, on a
+\begin{align*}
+\esp{\hat{\bm{\varepsilon}}}  \overset{H_1}{=} 0 \quad , Var(\hat{\bm{\varepsilon}}) = \sigma^2(\matr{I}_{n \times n} - \matr{H}) \\
+\hat{\bm{\varepsilon}} \overset{H_4}{\sim} N_n(0, \sigma^2 (\matr{I}_{n \times n} - \matr{H})) \\
+\end{align*}
+
+
+\subsection*{Intervalle de confiance pour la prévision}
+\subsubsection*{Théorème de Gauss-Markov}
+
+
+
+
+\subsubsection*{I.C pour la prévision de la valeur moyenne $\esp{\matr{Y} | \matr{X^*}}$}
+
+
+\subsubsection*{I.C pour la valeur prédite $\hat{\matr{Y}}|\matr{X^*}$}
+
+
+
+
+
+\end{multicols*}
 %% -----------------------------
 %% Fin du document
 %% -----------------------------

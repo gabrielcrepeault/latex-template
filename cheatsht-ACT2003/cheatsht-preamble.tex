@@ -23,16 +23,30 @@
 \def\session{Automne 2018}
 \def\auteur{Gabriel Crépeault-Cauchon}
 \def\BackgroundColor{white}
-\def\SectionColor{green!40!black}
-\def\SubSectionColor{black!20!black}
+\def\SectionColor{green!50!black}
+\def\SubSectionColor{green!20!black}
 
 
 %% -----------------------------
 %% Margin and layout
 %% -----------------------------
+% Determine the margin for cheatsheet
 \usepackage[landscape, hmargin=1cm, vmargin=1.7cm]{geometry}
 \usepackage{multicol}
+
+% Remove automatic indentation after section/subsection title.
 \setlength{\parindent}{0cm}
+
+% Save space in cheatsheet by removing space between align environment and normal text.
+\usepackage{etoolbox}
+\newcommand{\zerodisplayskips}{%
+  \setlength{\abovedisplayskip}{0pt}%
+  \setlength{\belowdisplayskip}{0pt}%
+  \setlength{\abovedisplayshortskip}{0pt}%
+  \setlength{\belowdisplayshortskip}{0pt}}
+\appto{\normalsize}{\zerodisplayskips}
+\appto{\small}{\zerodisplayskips}
+\appto{\footnotesize}{\zerodisplayskips}
 
 %% -----------------------------
 %% URL and links
@@ -68,7 +82,6 @@
 \newcommand{\prob}[1]{\Pr \left( #1 \right)}
 \newcommand{\esp}[1]{E \left[ #1 \right]}
 \newcommand{\laplace}{\mathcal{L}}
-\newcommand{\matr}[1]{\mathbf{#1}} % matricial notation variable
 
 % To indicate equation number on a specific line in align environment
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
@@ -77,6 +90,10 @@
 \usepackage{actuarialsymbol}
 \usepackage{actuarialangle}
 
+% Matricial anotation for math symbols (\bm{•})
+\usepackage{bm}
+% matricial notation variable (bold style)
+\newcommand{\matr}[1]{\mathbf{#1}}
 
 
 
