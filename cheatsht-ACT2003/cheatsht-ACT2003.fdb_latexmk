@@ -1,6 +1,6 @@
 # Fdb version 3
-["pdflatex"] 1540163771 "/Users/nicholaslangevin/Repertoire git/latex-template/cheatsht-ACT2003/cheatsht-ACT2003.tex" "cheatsht-ACT2003.pdf" "cheatsht-ACT2003" 1540163773
-  "/Users/nicholaslangevin/Repertoire git/latex-template/cheatsht-ACT2003/cheatsht-ACT2003.tex" 1540163771 17769 7bff2ac0de4e071d709f3589a08893b2 ""
+["pdflatex"] 1540165041 "/Users/nicholaslangevin/Repertoire git/latex-template/cheatsht-ACT2003/cheatsht-ACT2003.tex" "cheatsht-ACT2003.pdf" "cheatsht-ACT2003" 1540165042
+  "/Users/nicholaslangevin/Repertoire git/latex-template/cheatsht-ACT2003/cheatsht-ACT2003.tex" 1540165040 17804 b7eee21bbb95b3078f19ab55c846ad70 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc" 1480098666 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/fontawesome/fontawesomeone.enc" 1480098667 1687 f004baecce60175c6453d0e3f808cf20 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/fontawesome/fontawesometwo.enc" 1480098667 2679 32dd8ae231bf4a0752b98f62dc097183 ""
@@ -224,12 +224,12 @@
   "/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1495593472 2350277 a699055bee05bf8a40b0504752487295 ""
   "/usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt" 1495593487 4129592 0e6cfee100d68e6d96b92c0258f2ff73 ""
   "/usr/local/texlive/2017/texmf.cnf" 1495593465 577 2b71d4d888f9e5560b2e99985915a9fa ""
-  "cheatsht-ACT2003.aux" 1540163773 1427 57d71fd16dec36f3f4d01af5c184ff05 ""
-  "cheatsht-ACT2003.out" 1540163773 231 51950a01a3d33bcbfb10a7306d408d3b ""
-  "cheatsht-ACT2003.tex" 1540163771 17769 7bff2ac0de4e071d709f3589a08893b2 ""
+  "cheatsht-ACT2003.aux" 1540165042 1427 57d71fd16dec36f3f4d01af5c184ff05 ""
+  "cheatsht-ACT2003.out" 1540165042 231 51950a01a3d33bcbfb10a7306d408d3b ""
+  "cheatsht-ACT2003.tex" 1540165040 17804 b7eee21bbb95b3078f19ab55c846ad70 ""
   "cheatsht-preamble.tex" 1540138999 5871 5a89d95e06d077cb12ce8a243d2308e8 ""
   (generated)
-  "cheatsht-ACT2003.out"
   "cheatsht-ACT2003.log"
   "cheatsht-ACT2003.pdf"
   "cheatsht-ACT2003.aux"
+  "cheatsht-ACT2003.out"

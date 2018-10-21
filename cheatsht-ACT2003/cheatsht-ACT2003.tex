@@ -193,10 +193,10 @@ Pour les résidus de la droite de régression, on a
 \subsection*{Matrice de projection}
 Les matrices $\matr{H}$ et $\matr{I_n - H}$ peuvent être vues commes des matrices de projection. Ces deux opérateurs possèdent plusieurs propriétés:
 \begin{enumerate}
-	\item $\matr{H}^T = \matr{H}\:$(symétrie)
+	\item $\matr{H}^\top = \matr{H}\:$(symétrie)
 	\item $\matr{H}\matr{H} = \matr{H}\:$(idempotence)
 	\item $\matr{HX} = \matr{X}$
-	\item $(\matr{I}_n - \matr{H}) = (\matr{I}_n - \matr{H})^T\:$(symétrie)
+	\item $(\matr{I}_n - \matr{H}) = (\matr{I}_n - \matr{H})^\top \:$(symétrie)
 	\item $(\matr{I}_n - \matr{H})(\matr{I}_n - \matr{H}) = (\matr{I}_n - \matr{H})$
 	\item $(\matr{I}_n - \matr{H})\matr{X} = 0 $
 	\item $(\matr{I}_n - \matr{H})\matr{H} = 0 $
@@ -214,12 +214,12 @@ est le meilleur estimateur pour $\matr{a^\top} \bm{\beta}$
 
 \subsubsection*{I.C. pour la prévision de la valeur moyenne $\esp{\matr{Y} | \matr{X^*}}$}
 \begin{align*}
-\left[ \matr{{X^*}^\top} \hat{\bm{\beta}} \pm t_{n-p'}\left(1 - \frac{\alpha}{2} \right) \sqrt{s^2 \matr{{X^*}^\top} (X^\top X)^{-1}{X^*}^\top} \right]
+\left[ \matr{{X^*}^\top} \hat{\bm{\beta}} \pm t_{n-p'}\left(1 - \frac{\alpha}{2} \right) \sqrt{s^2 \matr{{X^*}^\top} (\matr{X}^\top \matr{X})^{-1}\matr{X^*}} \right]
 \end{align*}
 
 \subsubsection*{I.C. pour la valeur prédite $\hat{\matr{Y}}|\matr{X^*}$}
 \begin{align*}
-\left[ \matr{{X^*}^\top} \hat{\bm{\beta}} \pm t_{n-p'}\left(1 - \frac{\alpha}{2} \right) \sqrt{s^2\left( 1 +  \matr{{X^*}^\top} (X^\top X)^{-1}{X^*}^\top\right)} \right]
+\left[ \matr{{X^*}^\top} \hat{\bm{\beta}} \pm t_{n-p'}\left(1 - \frac{\alpha}{2} \right) \sqrt{s^2\left( 1 +  \matr{{X^*}^\top} (\matr{X}^\top \matr{X})^{-1}\matr{X^*}\right)} \right]
 \end{align*}
 
 
