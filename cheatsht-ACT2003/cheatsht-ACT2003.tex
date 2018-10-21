@@ -170,10 +170,10 @@ On rejète $H_0 : \beta_j = 0$ si
 
 \subsection*{Propriétés de la droite de régression}
 \begin{align*}
-\hat{\matr{Y}}	& = \matr{X} \bm{\beta} \\
-	& = \matr{X(X^\top X)^{-1} X^\top Y} \\
-	& = \matr{H Y} 
-\end{align*}
+	\hat{\matr{Y}}	& = \matr{X} \bm{\beta}  &&\hat{\varepsilon} = \matr{Y} - \hat{\matr{Y}}\\
+		& = \matr{X(X^\top X)^{-1} X^\top Y} && \:\:= (\matr{I}_n - \matr{H})\matr{Y}	\\
+		& = \matr{H Y} 
+\end{align*}	
 où $\matr{H = X(X^\top X)^{-1}X^\top}$ est la \textit{hat matrix}.
 
 On a aussi que
@@ -188,6 +188,17 @@ Pour les résidus de la droite de régression, on a
 \hat{\bm{\varepsilon}} \overset{H_4}{\sim} N_n(0, \sigma^2 (\matr{I}_{n \times n} - \matr{H})) \\
 \end{align*}
 
+\subsection*{Matrice de projection}
+Les matrices $\matr{H}$ et $\matr{I_n - H}$ peuvent être vues commes des matrices de projection. Ces deux opérateurs possèdent plusieurs propriétés:
+\begin{enumerate}
+	\item $\matr{H}^T = \matr{H}\:$(symétrie)
+	\item $\matr{H}\matr{H} = \matr{H}\:$(idempotence)
+	\item $\matr{HX} = \matr{X}$
+	\item $(\matr{I}_n - \matr{H}) = (\matr{I}_n - \matr{H})^T\:$(symétrie)
+	\item $(\matr{I}_n - \matr{H})(\matr{I}_n - \matr{H}) = (\matr{I}_n - \matr{H})$
+	\item $(\matr{I}_n - \matr{H})\matr{X} = 0 $
+	\item $(\matr{I}_n - \matr{H})\matr{H} = 0 $
+\end{enumerate}
 
 \subsection*{Intervalle de confiance pour la prévision}
 \subsubsection*{Théorème de Gauss-Markov}
@@ -257,10 +268,17 @@ où $\Delta dl = p - k$, $SSE^{(0)}$ pour le modèle réduit ($H_0$) et $SSE^{(1
 VIF_j = \frac{1}{1 - R_j^2}
 \end{align*}
 avec $R_j^2$ le coefficient de détermination de la régression ayant comme variable réponse le $j$\up{e} variable et les $(j-1)$ autres variables exogènes en \textit{input}.
+\item La variance de $\hat{\beta}_i$ s'exprime en fonction du VIF comme suit:
+\begin{align*}
+	Var(\hat{\beta}_i) = \frac{\sigma^2}{(\matr{X^{*T} \matr{X^*})_{jj}}} VIF_j
+\end{align*}
 \end{itemize}
 
 \subsubsection*{Solution}
-On retire les variables ayant un VIF élevé (une à la fois)
+\begin{itemize}
+	\item On retire les variables ayant un VIF élevé (une à la fois)
+	\item On combine des variables exogènes redondantes	
+\end{itemize}
 
 \subsection*{Validation du modèle et des postulats}
 \subsubsection*{Linéarité}
@@ -285,8 +303,98 @@ On retire les variables ayant un VIF élevé (une à la fois)
 \end{itemize}
 
 
+\section{Sélection de modèle et régression régularisée}
+En présence de beaucoup de variable exogène, on court le danger d'en garder trop ou pas assez
+\begin{itemize}
+	\item \textbf{Trop}: On augmente inutilement la variance des estimations$(\hat{\beta})$
+	\item \textbf{Moins}: On augmente inutilement le biais des estimations$(\hat{\beta})$
+\end{itemize}
+
+\subsection*{Critères de comparaison classiques}
+\begin{itemize}
+	\item Mesure de la qualité global du modèle:
+	\[ R_2 = \frac{SSR}{SST} \]
+	Si on ajoute un variable exogène, il est certain que $R^2$ augmentera, on utilise donc ce critère pour validé si la régression est utilise pour prédire Y, mais pas pour trouver les variables exogènes.
+	\item Coeficient de détermination ajusté:
+	\[ R_a^2 = \frac{MSE}{MST} \]
+	Ce critère permet de validé l'ajout de nouvelle variable exogènes.
+\end{itemize}
+Ces deux critère sont inutile pour comparer des modèles avec des transformations différentes et pour des modèles avec/sans ordonnée à l'origine.
+
+\subsection*{Méthode basées sur la puissance de prévision}
+Ce critère maximise l'habileté du modèle a prédire de nouvelle donner.
+
+\begin{itemize}
+	\item \textbf{Le principe de validation croisée}
+	\begin{enumerate}
+		\item Enlever la ième observation du jeu de données.
+		\item Estimer les paramètres du modèle à partir des $n - 1$ données restante.
+		\item Prédire $Y_i$ à partir de $x_i$ et du modèle obtenue en 2, noté $\hat{Y}_{i,-i}$
+		\item Répéter les étapes 1-3 pour chaque $i, i = 1,..., n$
+		\item Calculer la somme des carrées des erreurs de prévision PRESS = $\sum_{i=1}^n (Y_i - \hat{Y}_{i,-i})^2$
+	\end{enumerate}
+	On cherche a minimiser le PRESS ou à maximiser le coefficient de détermination de prévision:
+	\[ R_p^2 = 1 - \frac{PRESS}{SST} \]
+	\item \textbf{Les résidus PRESS} \\
+	Il est possible de trouver la statistique PRESS sans calculé n régression:
+	\[ PRESS = \sum_{i=1}^n \left( \frac{\hat{\varepsilon_i}}{1 - h_{ii}} \right)^2 \]
+	\item \textbf{Échantillion de test et validation croisée par k ensemble}
+	\begin{enumerate}
+		\item Enlever le $k$ème ensemble de de jeu de donner.
+		\item Estimer les paramètres du modèle à partir des $k - 1$ Échantillion restant.
+		\item Prédire les observations du $k$ème ensemble $(\hat{Y}_{i,-k})$ et calculé 
+		\[ MSEP_k = \frac{1}{n_k} \sum_{i\in group\:k} (Y_i - \hat{Y}_{i,-k})^2 \]
+		\item Répéter les étapes 1-3 pour chaque $k, k = 1,...,k$
+		\item Calculer la moyenne la moyenne des sommes des carrés des erreurs de prévision $\frac{1}{k} \sum_{k=1}^k MSEP_k$
+	\end{enumerate}
+	On choisi le modèle qui minimise $\frac{1}{k} \sum_{k=1}^k MSEP_k$
+\end{itemize}
+
+\subsection*{Le $C_p$ de Mallows}
+\[ C_p = p' + \frac{(s_p^2 - \hat{\sigma^2})(n - p')}{\hat{\sigma^2}} = \frac{SSE}{\hat{\sigma^2}} + 2P' - n\]
+On charche le modèle pour lequel $C_p \approx p'$
+
+\subsection*{Critère d'information d'akaike et critère bayésien de Schwarz}
+Ce critère est le plus utiliser dans la pratique et permet d'évaluer la qualité de l'ajustement d'un modèle.
+\[ AIC = n \cdot ln\left(\frac{SSE}{n}\right) + 2p' \]
+AIC prend en compte à la fois la qualité des prédictions du modèle et sa complexité.
+\[ BIC = n \cdot ln\left(\frac{SSE}{n}\right) + ln(n)p' \]
+BIC est similaire a AIC, mais la pénalité des paramètres dépend de la grandeur de l'échantillion. \\
+On cherche à minimiser c'est 2 critère.
+
+\subsection*{Méthode algorithmiques}
 
 
+% je voulais faire un page récap de l'analyse des résidues mais je suis pas capable de mettre un graph dans le multi col
+% % Analyses des risidues
+% \newpage
+% \section*{Analyse des résidues}
+% L'analyse des résidues permets de validées les 4 postulats nécéssaires au modèles.
+
+% \subsection*{Divers types de résidus}
+% \begin{itemize}
+% 	\item Les résidus ordinaires, $\varepsilon_i$ le ième résidu défini par $\varepsilon_i = Y_i - \hat{Y}_i$
+% 	\begin{itemize}
+% 		\item Si l'hypothèse $H_1$ est vrai: $E[\hat{\varepsilon}_i] = 0$
+% 		\item Si l'hypothèse $H_2$ est vrai: $Var(\hat{\varepsilon}_i) = (1 - h_{ii})\sigma^2$ où $h_{ii} = 1/n + (x_i - \bar{x})^2 / S_{xx} $
+% 		\item Si l'hypothèse $H_3$ est vrai: $cov(\hat{\varepsilon}_i, \hat{\varepsilon}_j) = -h_{ii}\sigma^2 $
+% 		\item Si l'hypothèse $H_4$ est vrai: $\hat{\varepsilon}_i \sim N(0, (1 - h_{ii})\sigma^2)$
+% 	\end{itemize}
+% 	\item Les résidus studentisés, $r_i$ le ième résidu studentisés défini par
+% 	\begin{align*}
+% 		r_i = \frac{\hat{\varepsilon}_i}{s sqrt{1 - h_{ii}}}
+% 	\end{align*}
+% 	C'est résidues permet d'éliminer la non-homogénéité de la variance des risidue ordinaires et leur interprétation dans un graphique est beaucoup plus directe.
+% \end{itemize}
+
+% \subsection*{$H_1$: Linéarité}
+% \begin{itemize}
+% 	\item \textbf{Nuage de point de $Y_i$ en fonction $x_i$}
+% 	\begin{figure}[!h]
+% 		\centering
+% 		\includegraphics[width=3cm]{graphique_residus/lineaire1.png}
+% 	 \end{figure}
+% \end{itemize}
 
 
 
