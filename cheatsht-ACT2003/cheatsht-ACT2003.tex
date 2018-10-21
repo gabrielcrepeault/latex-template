@@ -103,6 +103,36 @@ où $p$ est le nombre de variables explicatives dans le modèle (régression lin
 \end{align*}
 où $h_{ii} = \frac{1}{n} + \frac{(\bar{x} - x_i)^2}{S_{XX}}$.
 
+\subsection*{Vérification des postulats}
+Les résidus studentisés sont définis par
+\begin{align*}
+r_i = \frac{\hat{\varepsilon}}{\sqrt{s^2(1 - h_{ii})}}
+\end{align*}
+\subsubsection*{Linéarité}
+\begin{itemize}
+\item graphique $Y_i | x_i$
+\item graphique $\hat{\varepsilon}_i | \hat{Y}_i$
+\item graphique $\hat{\varepsilon}_i | \hat{x}_i$
+\end{itemize}
+Les deux derniers graphique doivent être centrés à 0 et d'allure aléatoire.
+
+\subsubsection*{Homoscédasticité}
+\begin{itemize}
+\item Graphique $r_i | \hat{Y}_i$ : la dispersion des résidus doit être constante, pas de forme d'entonnoir ou de résisus absolus supérieurs à 3.
+\end{itemize}
+
+\subsubsection*{Indépendance}
+\begin{itemize}
+\item Graphique $r_i|i$ : si il y a un \textit{pattern}, présence d'auto-corrélation (le postulat $H_3$ n'est donc pas respecté).
+\end{itemize}
+
+\subsubsection*{Normalité}
+\begin{itemize}
+\item Histogramme des $r_i$
+\item Q-Q Plot Normal : les résidus du modèle doivent suivre la droite des quantiles normaux théoriques.
+\end{itemize}
+
+
 
 
 \section{Régression linéaire multiple}
@@ -232,8 +262,8 @@ avec $R_j^2$ le coefficient de détermination de la régression ayant comme vari
 \subsubsection*{Solution}
 On retire les variables ayant un VIF élevé (une à la fois)
 
-\subsection*{Analyse des résidus et validation du modèle}
-\subsubsection*{Vérification de la linéarité}
+\subsection*{Validation du modèle et des postulats}
+\subsubsection*{Linéarité}
 \begin{itemize}
 \item On trace les graphiques à variable ajoutée ( $\hat{\varepsilon}_{\matr{Y} | \matr{X_{-j}}}$ en fonction de $\hat{\varepsilon}_{x_j | \matr{X_{-j}}}$).
 \item Ces graphiques doivent normalement donner une droite de pente $\beta_j$.
@@ -241,6 +271,17 @@ On retire les variables ayant un VIF élevé (une à la fois)
 	\item Si le graphique ressemble à un graphique de résidus normaux, $x_j$ est inutile.
 	\item Si il y a une courbe, $x_j$ est non-linéaire.
 \end{itemize}
+\end{itemize}
+
+\subsubsection*{Homogénéité des variances}
+\begin{itemize}
+\item Graphique $r_i | \hat{Y}_i$
+\end{itemize}
+
+\subsubsection*{Indépendance entre les observations}
+\begin{itemize}
+\item Graphique $\hat{\varepsilon}_i | i$
+\item Test de Durbin-Watson (pas à l'examen)
 \end{itemize}
 
 
