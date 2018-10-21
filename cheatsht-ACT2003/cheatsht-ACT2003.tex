@@ -306,7 +306,7 @@ avec $R_j^2$ le coefficient de détermination de la régression ayant comme vari
 
 
 \section{Sélection de modèle et régression régularisée}
-En présence de beaucoup de variable exogène, on court le danger d'en garder trop ou pas assez
+En présence de beaucoup de variable exogènes, on court le danger d'en garder trop ou pas assez
 \begin{itemize}
 	\item \textbf{Trop}: On augmente inutilement la variance des estimations$(\hat{\beta})$
 	\item \textbf{Moins}: On augmente inutilement le biais des estimations$(\hat{\beta})$
@@ -316,62 +316,70 @@ En présence de beaucoup de variable exogène, on court le danger d'en garder tr
 \begin{itemize}
 	\item Mesure de la qualité global du modèle:
 	\[ R_2 = \frac{SSR}{SST} \]
-	Si on ajoute un variable exogène, il est certain que $R^2$ augmentera, on utilise donc ce critère pour validé si la régression est utilise pour prédire Y, mais pas pour trouver les variables exogènes.
+	Si on ajoute un variable exogène, il est certain que $R^2$ augmentera, on utilise donc ce critère pour valider si la régression est utile pour prédire $Y$, mais pas pour trouver les variables exogènes.
 	\item Coeficient de détermination ajusté:
 	\[ R_a^2 = \frac{MSE}{MST} \]
-	Ce critère permet de validé l'ajout de nouvelle variable exogènes.
+	Ce critère permet de valider l'ajout de nouvelles variables exogènes.
 \end{itemize}
-Ces deux critère sont inutile pour comparer des modèles avec des transformations différentes et pour des modèles avec/sans ordonnée à l'origine.
+Ces deux critères sont inutiles pour comparer des modèles avec des transformations différentes et pour des modèles avec/sans ordonnée à l'origine.
 
 \subsection*{Méthode basées sur la puissance de prévision}
-Ce critère maximise l'habileté du modèle a prédire de nouvelle donner.
-
-\begin{itemize}
-	\item \textbf{Le principe de validation croisée}
-	\begin{enumerate}
-		\item Enlever la ième observation du jeu de données.
+Ce critère maximise l'habileté du modèle a prédire de nouvelles données.
+\subsubsection*{Principe de la validation croisée}
+\begin{enumerate}
+		\item Enlever la $i$\up{e} observation du jeu de données.
 		\item Estimer les paramètres du modèle à partir des $n - 1$ données restante.
 		\item Prédire $Y_i$ à partir de $x_i$ et du modèle obtenue en 2, noté $\hat{Y}_{i,-i}$
 		\item Répéter les étapes 1-3 pour chaque $i, i = 1,..., n$
-		\item Calculer la somme des carrées des erreurs de prévision PRESS = $\sum_{i=1}^n (Y_i - \hat{Y}_{i,-i})^2$
-	\end{enumerate}
+		\item Calculer la somme des carrées des erreurs de prévision $PRESS = \sum_{i=1}^n (Y_i - \hat{Y}_{i,-i})^2$
+\end{enumerate}
 	On cherche a minimiser le PRESS ou à maximiser le coefficient de détermination de prévision:
 	\[ R_p^2 = 1 - \frac{PRESS}{SST} \]
-	\item \textbf{Les résidus PRESS} \\
+\subsubsection*{Les résidus PRESS}
 	Il est possible de trouver la statistique PRESS sans calculé n régression:
 	\[ PRESS = \sum_{i=1}^n \left( \frac{\hat{\varepsilon_i}}{1 - h_{ii}} \right)^2 \]
-	\item \textbf{Échantillion de test et validation croisée par k ensemble}
+\subsubsection*{Échantillion de test et validation croisée par $k$ ensemble}
 	\begin{enumerate}
 		\item Enlever le $k$ème ensemble de de jeu de donner.
 		\item Estimer les paramètres du modèle à partir des $k - 1$ Échantillion restant.
-		\item Prédire les observations du $k$ème ensemble $(\hat{Y}_{i,-k})$ et calculé 
+		\item Prédire les observations du $k$\up{e} ensemble $(\hat{Y}_{i,-k})$ et calculer 
 		\[ MSEP_k = \frac{1}{n_k} \sum_{i\in group\:k} (Y_i - \hat{Y}_{i,-k})^2 \]
-		\item Répéter les étapes 1-3 pour chaque $k, k = 1,...,k$
+		\item Répéter les étapes 1 à 3 pour chaque $k, k = 1,...,k$
 		\item Calculer la moyenne la moyenne des sommes des carrés des erreurs de prévision $\frac{1}{k} \sum_{k=1}^k MSEP_k$
 	\end{enumerate}
-	On choisi le modèle qui minimise $\frac{1}{k} \sum_{k=1}^k MSEP_k$
-\end{itemize}
+	On choisit le modèle qui minimise $\frac{1}{k} \sum_{k=1}^k MSEP_k$
+
 
 \subsection*{Le $C_p$ de Mallows}
 \[ C_p = p' + \frac{(s_p^2 - \hat{\sigma^2})(n - p')}{\hat{\sigma^2}} = \frac{SSE}{\hat{\sigma^2}} + 2P' - n\]
 On charche le modèle pour lequel $C_p \approx p'$
 
 \subsection*{Critère d'information d'akaike et critère bayésien de Schwarz}
-Ce critère est le plus utiliser dans la pratique et permet d'évaluer la qualité de l'ajustement d'un modèle.
+\begin{itemize}
+\item Ce critère est le plus utilisé dans la pratique et permet d'évaluer la qualité de l'ajustement d'un modèle. 
 \[ AIC = n \cdot ln\left(\frac{SSE}{n}\right) + 2p' \]
 AIC prend en compte à la fois la qualité des prédictions du modèle et sa complexité.
+\item BIC est similaire a AIC, mais la pénalité des paramètres dépend de la grandeur de l'échantillion.
+On cherche à minimiser ces 2 critères.
 \[ BIC = n \cdot ln\left(\frac{SSE}{n}\right) + ln(n)p' \]
-BIC est similaire a AIC, mais la pénalité des paramètres dépend de la grandeur de l'échantillion. \\
-On cherche à minimiser c'est 2 critère.
+\end{itemize}
+
+
+
+
 
 \subsection*{Méthode algorithmiques}
+% test
+\includegraphics[width=3cm]{graphique_residus/lineaire1.png}
+
+
 
 
 % je voulais faire un page récap de l'analyse des résidues mais je suis pas capable de mettre un graph dans le multi col
-% % Analyses des risidues
+% % Analyses des résidus
 % \newpage
-% \section*{Analyse des résidues}
-% L'analyse des résidues permets de validées les 4 postulats nécéssaires au modèles.
+% \section*{Analyse des résidus}
+% L'analyse des résidus permet de valider les 4 postulats nécéssaires au modèle.
 
 % \subsection*{Divers types de résidus}
 % \begin{itemize}
