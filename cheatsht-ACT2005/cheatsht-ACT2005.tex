@@ -1,0 +1,101 @@
+%% Aide-mémoire
+\documentclass[french, landscape]{article}
+%% -----------------------------
+%% Préambule
+%% -----------------------------
+\input{cheatsht-preamble.tex}
+
+% Couleur de la page
+%\pagecolor{gray!10!white}
+\newcolumntype{a}{>{\columncolor{red!20!white}$}p{2cm}<{$}}
+
+%% -----------------------------
+%% Début du document
+%% -----------------------------
+\begin{document}
+
+\small
+\begin{multicols*}{3} % Nombre de colonnes (peut être changé plus tard.)
+% \section{Rappel de probabilité}
+% \subsection*{Certaines lois à savoir}
+% \begin{tabular}{|a| * {4}{C|}}
+% \hline
+% \rowcolor{red!30!white}\text{Loi} & \prob{X = x} \text{ ou } f_X(x) & \esp{X} & Var(X) & M_X(t) \\\hline
+% Bin(n,p)	& \binom{n}{x} p^x (1-p)^{n-x} & np & np(1-p) & \left( (1-p) + p^t \right)^n \\\hline
+% Pois(\lambda) & \frac{e^{-\lambda} \lambda^x}{x!} & \lambda & \lambda & e^{\lambda(t-1)} \\\hline
+% Gamma(\alpha, \lambda) & \frac{\lambda^{\alpha} x^{\alpha-1} e^{-\lambda x}}{\Gamma(\alpha)} & \frac{\alpha}{\lambda} & \frac{\alpha}{\lambda^2} & \left( \frac{\lambda}{\lambda - t} \right)^\alpha \\\hline
+% Normale(\mu, \sigma^2) & \frac{1}{\sqrt{2 \pi} \sigma} e^{- \frac{1}{2} \left( \frac{x-\mu}{\sigma} \right)^2} & \mu & \sigma^2 & e^{\mu t + \frac{\sigma^2 t^2}{2}} \\\hline
+% \end{tabular}
+
+\section{Estimation non-paramétrique}
+\subsection*{Moments à savoir}
+\begin{align*}
+\mu_k^{\prime} 	& = \esp{X^k} \\
+\mu_k			& = \esp{(X-\mu)^k} \\
+CV				& = \frac{\sigma}{\esp{X}} \\
+\gamma_1			& = \frac{\mu_3}{\sigma^3}  \\
+\gamma_2			& = \frac{\mu_4}{\sigma^4} \\
+\end{align*}
+
+\subsection*{Fonction empirique}
+\begin{align*}
+F_n(x) &= \frac{1}{n} \sum\limits_{j=1}^n I_{\{ x_j \leq x\}} \\
+f_n(x) &= \frac{1}{n} \sum\limits_{j=1}^n I_{\{ x_j = x\}}  \\
+ n F_n&(x)  \sim \text{bin}(n, F(x))\\
+E[F_n(x)] &= \frac{n F_n(x)}{n} = F_n(x)\\
+\widehat{Var}[F_n(x)] &= \frac{n F_n(x)(1 - F)n(x)}{n^2} \\
+       &= \frac{F_n(x)(1 - F_n(x))}{n}  \\
+\widehat{Var}[S_n(x)] &= \frac{S_n(x)(1 - S_n(x))}{n} \\
+F_n(x) &= 
+\left\{
+	\begin{array}{ll}
+		0,  &  x < y_1 \\
+        1 - \frac{r_j}{n}, &  y_{j-1} \leq x < y_j, j=2,...,k \\
+        1, & x > y_k 
+	\end{array}
+\right.
+\end{align*}
+
+\subsection*{Estimateur de Nelson-Aalen}
+\begin{itemize}
+    \item L'estimateur de Nelson–Aalen est une alternative à la fonction de répartition empirique comme estimateur de la fonction de survie dans le cas de données complètes.
+\end{itemize}
+\begin{align*}
+    h(x) &= -ln S(x) \\
+    \hat{H}(x) &= 
+    \left\{
+	\begin{array}{ll}
+		0,  &  x < y_1 \\
+        \sum\limits_{i=1}^{j-1} \frac{s_i}{r_i}, &  y_{j-1} \leq x < y_j, j=2,...,k \\
+        \sum\limits_{i=1}^{k} \frac{s_i}{r_i}, & x > y_k 
+	\end{array}
+\right. \\
+\hat{S}(x) &= e^{-\hat{H}(x)} \\
+\frac{s_i}{r_i} &= \frac{s_i/n}{r_i/n} \\
+                &= \frac{s_i/n}{1 - (1 - F_n(y_{i-1}))} \\
+                &= \frac{f_n(y_i)}{1 - (1 - F_n(y_{i-1}))} \\
+E[\hat{H}(y_j)] &= H(y_j) \\
+\widehat{Var}[\hat{H}(y_j)] &\approx \sum_{i=1}^j \frac{s_i}{r_i^2} 
+\end{align*}
+
+\subsection*{Estimateur de Kaplan-Meier}
+\begin{align*}
+    r_i &= \text{\# sujets sortis du groupe à ou après $y_i$} \\
+        &= \text{\# sujets non encore entrés dans le groupe à $y_i$} \\
+    \hat{S}(x) &=
+    \left\{
+	\begin{array}{ll}
+		1,  &  0 \leq x < y_1 \\
+        \prod\limits_{i=1}^{j-1} \frac{r_i - s_i}{r_i}, &  y_{j-1} \leq x < y_j, j=2,...,k \\
+        \prod\limits_{i=1}^{k} \frac{r_i - s_i}{r_i}, & x > y_k \: \text{(0 si données complètes)}
+	\end{array}
+    \right. \\
+    E[\hat{S}(x)] &= \frac{S(y_i)}{S(y_1)}\: \text{i.e. sans biais à $y_i$} \\
+    \widehat{Var}[\hat{S}(y_j)] &= [\hat{S}(y_j)]^2 \sum_{i=1}^j \frac{s_i}{r_i(r_i - s_i)}\: \textbf{(Aprox. GreenWood)}
+\end{align*}
+\end{multicols*}
+
+%% -----------------------------
+%% Fin du document
+%% -----------------------------
+\end{document}

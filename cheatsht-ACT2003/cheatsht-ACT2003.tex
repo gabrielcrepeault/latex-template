@@ -1,0 +1,260 @@
+\documentclass[10pt, french]{article}
+
+%% -----------------------------
+%% Préambule
+%% -----------------------------
+\input{cheatsht-preamble.tex}
+
+
+%% -----------------------------
+%% Début du document
+%% -----------------------------
+\begin{document}
+
+
+
+\small
+\begin{multicols*}{3} % Nombre de colonnes (peut être changé plus tard.)
+\section{Régression linéaire simple}
+\subsection*{Postulats}
+\begin{enumerate}[label=$\mathbf{H}_{\arabic*}$]
+\item Linéarité : $\esp{\varepsilon_i} = 0$
+\item Homoscédasticité : $Var(\varepsilon_i)= \sigma^2$
+\item Indépendance : $Cov(\varepsilon_i, \varepsilon_j) = 0$
+\item Normalité : $\varepsilon_i \sim N(0, \sigma^2)$
+\end{enumerate}
+\subsection*{Modèle}
+\begin{align*}
+\esp{Y_i | x_i} 	& = \beta_0 + \beta_1 x_i \\
+Var(Y_i | x_i)	& = \sigma^2 \\
+Y_i | x_i & \overset{\mathbf{H}_4}{\sim} N(\beta_0 + \beta_1 x_i, \sigma^2) \\
+\end{align*}
+
+\subsection*{Estimation des paramètres}
+\begin{align*}
+\hat{\beta}_0 	& = \bar{Y} - \hat{\beta}_1 \bar{x} \\
+\hat{\beta}_1	& = \frac{\sum_{i=1}^{n} x_i Y_i - \bar{Y} \sum_{i=1}^{n} x_i}{\sum_{i=1}^{n} x_i^2 - \bar{x} \sum_{i=1}^{n} x_i} = \frac{S_{XY}}{S_{XX}}
+\end{align*}
+
+\subsection*{Estimation de $\sigma^2$}
+\begin{align*}
+\hat{\sigma^2} = s^2 = \frac{\sum_{i=1}^{n} \hat{\varepsilon_i}^2}{n-p'} = \frac{\sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2}{n-2}
+\end{align*}
+
+\subsection*{Propriété des estimateurs}
+\begin{align*}
+\esp{\hat{\beta}_1} = \beta_1 \quad , Var(\hat{\beta}_1) = \frac{\sigma^2}{S_{XX}} \\
+\hat{\beta}_1 \overset{H_4}{\sim} N(\beta_1, \frac{\sigma^2}{S_{XX}}) \\
+\esp{\hat{\beta}_0} = \beta_0 \quad , Var(\hat{\beta}_0) = \sigma^2 \left( \frac{1}{n} + \frac{\bar{X}^2}{S_{XX}} \right) \\
+\hat{\beta}_0 \overset{H_4}{\sim} N(\beta_0, \sigma^2 \left( \frac{1}{n}  + \frac{\bar{x}^2}{S_{XX}} \right) \\
+Cov(\hat{\beta}_0, \hat{\beta}_1) = - \frac{\bar{x} \sigma^2}{S_{XX}}
+\end{align*}
+
+\subsection*{Tests d'hypothèse sur les paramètres}
+$H_0$ : $\hat{\beta} = \theta_0$ , $H_1$ : $\hat{\beta} \neq \theta_0$
+\begin{align*}
+t_{obs} = \frac{\hat{\beta} - \theta_0}{\sqrt{\hat{Var(\hat{\beta}}}} \sim T_{n-2}
+\end{align*}
+On Rejette $H_0$ si $t_{obs} > | t_{n-2} (1 - \frac{\alpha}{2})|$
+
+\subsection*{Intervalle de confiance}
+\subsubsection*{Pour la droite de régression ($\esp{Y_0|x_0}$)}
+Sachant que $\esp{Y_0 | x_0} = \beta_0 + \beta_1 x_0$, on a l'IC suivant
+\begin{align*}
+\left[ \hat{Y_0} \pm t_{n-2} \left(\frac{\alpha}{2} \right) \sqrt{s^2 \left( \frac{1}{n} + \frac{(x_0 - \bar{x})^2}{S_{XX}} \right)} \right]
+\end{align*}
+
+\subsubsection*{Pour la prévision de $Y_0$}
+Sachant que $Y_0 = \beta_0 + \beta_1 x_0 + \varepsilon$, on a l'IC suivant
+\begin{align*}
+\hat{Y_0} \pm t_{n-2} \left(\frac{\alpha}{2} \right) \sqrt{s^2 \left( 1 + \frac{1}{m} + \frac{(x_0 - \bar{x})^2}{S_{XX}} \right)}
+\end{align*}
+
+\subsection*{Analyse de la variance (ANOVA)}
+\begin{tabular}{|f| *{4}{C|}}
+\hline
+\rowcolor{green!40!black} Source & \text{dl} & \text{SS} & \text{MS} & F \\\hline
+Model & p & \thead{\sum_{i=1}^{n} (\hat{Y}_i - \bar{Y})^2 \\ (SSR)}  & \thead{SSR / dl_1 \\ (MSR)} & \frac{MSR}{MSE} \\\hline
+Residual error & n - p' & \thead{\sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2 \\ (SSE)} & \thead{SSE / dl_2 \\(MSE = s^2)} & \cellcolor{gray!30!white} \\\hline
+Total & n - 1 & \thead{\sum_{i=1}^{n} (Y_i - \bar{Y})^2 \\ (SST)} & \cellcolor{gray!30!white} & \cellcolor{gray!30!white} \\\hline
+\end{tabular}
+
+\subsubsection*{Coefficient de détermination}
+\begin{align*}
+R^2 = \frac{SSR}{SST} = 1 - \frac{SSE}{SST}
+\end{align*}
+On a aussi la relation suivante avec $F_{obs}$ : 
+\begin{align*}
+F = \frac{R^2}{1 - R^2} \cdot \frac{n-p'}{p}
+\end{align*}
+
+\subsection*{Test F de Fisher pour la validité globale de la régression}
+On rejette $H_0 : \beta_1 =  \beta_2 = ... =  \beta_p = 0$ si 
+\begin{align*}
+F_{obs} = \frac{MSR}{MSE} \geq F_{n, n-p'}(1 - \alpha)
+\end{align*}
+où $p$ est le nombre de variables explicatives dans le modèle (régression linéaire simple, $p=1$ et $p' = p+1$.
+
+
+
+\subsection*{Distribution d'un résidu $\varepsilon$}
+\begin{align*}
+\esp{\hat{\varepsilon_i}} = 0 \quad , Var \left( \hat{\varepsilon_i} \right) = \sigma^2 (1 - h_{ii})
+\end{align*}
+où $h_{ii} = \frac{1}{n} + \frac{(\bar{x} - x_i)^2}{S_{XX}}$.
+
+
+
+\section{Régression linéaire multiple}
+% \mathrm{•} utilise la notation matricielle
+% \bm{•} est utilisé pour la notation matricielle, mais lorsqu'il y a des symboles mathématiques.
+\subsection*{Le modèle et ses propriétés}
+\begin{align*}
+\matr{Y}_{n \times 1} & = \matr{X}_{n \times p'} \bm{\beta}_{p' \times 1} + \bm{\varepsilon}_{n \times 1} \\
+\esp{\matr{Y}}	& = \matr{X} \bm{\beta} \quad , Var(\matr{Y}) = \sigma^2 \matr{I}_{n \times n} \\
+Y & \overset{H_4}{\sim} N_n(\matr{X} \bm{\beta}, \sigma^2 \matr{I}_{n \times n}) \\
+\end{align*}
+
+\subsection*{Paramètres du modèle}
+\subsubsection*{Estimation et propriétés des paramètres}
+\begin{align*}
+\hat{\bm{\beta}} & = \matr{(X^\top X)^{-1} X^\top Y} \\
+\esp{\hat{\bm{\beta}}}	& = \bm{\beta} \quad , Var(\matr{Y}) = \sigma^2 (\matr{X^\top X)^{-1}} \\
+\hat{\bm{\beta}} & \overset{H_4}{\sim} N_p(\bm{\beta}, \sigma^2 (\matr{X^\top X)^{-1}})
+\end{align*}
+\subsubsection*{Intervalle de confiance sur les paramètres}
+\begin{align*}
+\left[ \hat{\bm{\beta}} \pm t_{n-p'}(1- \frac{\alpha}{2}) \sqrt{s^2 v_{jj}} \right]
+\end{align*}
+où $v_{jj}$ est l'élément $(i,i)$ de la matrice $\matr{(X^\top X)^{-1}}$.
+\subsubsection*{Estimation de $\sigma^2$}
+\begin{align*}
+\hat{\sigma}^2 = s^2 = \frac{\hat{\bm{\varepsilon}}^\top \hat{\bm{\varepsilon}}}{n-p'}
+\end{align*}
+
+\subsubsection*{Test d'hypothèse sur un paramètre du modèle}
+On rejète $H_0 : \beta_j = 0$ si
+\begin{align*}
+|t_{obs, j}| = \frac{\beta_j \sqrt{n-p'}}{\sqrt{v_{jj} \hat{\bm{\varepsilon}}^\top \hat{\bm{\varepsilon}}}} > t_{n-p'}\left(1 - \frac{\alpha}{2} \right) \\
+\end{align*}
+
+\subsection*{Propriétés de la droite de régression}
+\begin{align*}
+\hat{\matr{Y}}	& = \matr{X} \bm{\beta} \\
+	& = \matr{X(X^\top X)^{-1} X^\top Y} \\
+	& = \matr{H Y} 
+\end{align*}
+où $\matr{H = X(X^\top X)^{-1}X^\top}$ est la \textit{hat matrix}.
+
+On a aussi que
+\begin{align*}
+\esp{\hat{\matr{Y}}} & = \matr{X} \bm{\beta} \quad , Var(\hat{\matr{Y}}) = \sigma^2 \matr{H} \\
+\hat{\matr{Y}} & \overset{H_4}{\sim} N_n(\matr{X} \bm{\beta} , \sigma^2 \matr{H}) \\
+\end{align*}
+
+Pour les résidus de la droite de régression, on a
+\begin{align*}
+\esp{\hat{\bm{\varepsilon}}}  \overset{H_1}{=} 0 \quad , Var(\hat{\bm{\varepsilon}}) = \sigma^2(\matr{I}_{n \times n} - \matr{H}) \\
+\hat{\bm{\varepsilon}} \overset{H_4}{\sim} N_n(0, \sigma^2 (\matr{I}_{n \times n} - \matr{H})) \\
+\end{align*}
+
+
+\subsection*{Intervalle de confiance pour la prévision}
+\subsubsection*{Théorème de Gauss-Markov}
+Selon les postulats $H_1$ à $H_4$, l'estimateur
+\begin{align*}
+\mathrm{a^\top} \hat{\bm{\beta}} = \matr{a^\top (X^\top X)^{-1} X^\top Y}
+\end{align*}
+est le meilleur estimateur pour $\matr{a^\top} \bm{\beta}$
+
+(BLUE : \textit{Best linear unbiaised estimator}).
+
+\subsubsection*{I.C. pour la prévision de la valeur moyenne $\esp{\matr{Y} | \matr{X^*}}$}
+\begin{align*}
+\left[ \matr{{X^*}^\top} \hat{\bm{\beta}} \pm t_{n-p'}\left(1 - \frac{\alpha}{2} \right) \sqrt{s^2 \matr{{X^*}^\top} (X^\top X)^{-1}{X^*}^\top} \right]
+\end{align*}
+
+\subsubsection*{I.C. pour la valeur prédite $\hat{\matr{Y}}|\matr{X^*}$}
+\begin{align*}
+\left[ \matr{{X^*}^\top} \hat{\bm{\beta}} \pm t_{n-p'}\left(1 - \frac{\alpha}{2} \right) \sqrt{s^2\left( 1 +  \matr{{X^*}^\top} (X^\top X)^{-1}{X^*}^\top\right)} \right]
+\end{align*}
+
+
+\subsection*{Analyse de la variance}
+\subsubsection*{Tableau ANOVA}
+\begin{itemize}
+\item On utilise le même tableau ANOVA qu'en régression linéaire simple.
+\item $SSR_{\text{régression}} = \sum_{i=1}^{p} SSR_i $, où $SSR_i$ représente le SSR individuel de la variable explicative $i$ calculé par R. On peut ensuite trouver $MSR$ et la statistique $F_{obs}$.
+\end{itemize}
+
+\subsubsection*{Test F pour la validité globale de la régression}
+Même test qu'en régression linéaire simple.
+
+
+\subsubsection*{Test F partiel pour la réduction du modèle}
+Avec $k < p$, on va rejeter
+\begin{align*}
+H_0 : Y_i = \beta_0 + \beta_1 x_{i1} + ... \beta_{ik} \quad \text{(modèle réduit)}
+\end{align*}
+Pour
+\begin{align*}
+H_1 : Y_i = \beta_0 + \beta_1 x_{i1} + ... \beta_{ip} \quad \text{(modèle complet)}
+\end{align*}
+Si
+\begin{align*}
+F_{obs} = \frac{(SSE^{(0)} - SSE^{(1)}) / \Delta dl}{SSE^{(1)} / (n-p')} \geq F_{p-k, n-p'}(1- \alpha)
+\end{align*}
+où $\Delta dl = p - k$, $SSE^{(0)}$ pour le modèle réduit ($H_0$) et $SSE^{(1)}$ pour le modèle complet ($H_1$).
+
+\subsection*{Multicollinéarité}
+\subsubsection*{Problèmes potentiels}
+\begin{itemize}
+\item Instabilité de $\mathrm{(X^\top X)^{-1}}$, i.e. une petite variation de $Y$ peut changer de grandes variations en $\hat{\beta}$ et $\hat{Y}$ ;
+\item $\hat{\beta_i}$ de signes contre-intuitif ;
+\item $Var(\hat{\beta_i})$ et $Var(\hat{Y})$ très grandes ;
+\item Les méthodes de sélection de variable ne concordent pas ;
+\item Conclusions erronées sur la significativité de certains paramètres, malgré une forte corrélation avec $Y$.
+\end{itemize}
+
+\subsubsection*{Détection}
+\begin{itemize}
+\item Si $r_{ij}$ dans la matrice de corrélation $\matr{{X^*}^\top X^*}$ est élevée, où $\matr{X^*} = \begin{bmatrix}
+\frac{x_1 - \bar{x}_1}{s_1} & ... & \frac{x_p - \bar{x}_p}{s_p}
+\end{bmatrix}$
+
+\item Si le facteur d'influence de la variance ($VIF_j$) est élevé, où
+\begin{align*}
+VIF_j = \frac{1}{1 - R_j^2}
+\end{align*}
+avec $R_j^2$ le coefficient de détermination de la régression ayant comme variable réponse le $j$\up{e} variable et les $(j-1)$ autres variables exogènes en \textit{input}.
+\end{itemize}
+
+\subsubsection*{Solution}
+On retire les variables ayant un VIF élevé (une à la fois)
+
+\subsection*{Analyse des résidus et validation du modèle}
+\subsubsection*{Vérification de la linéarité}
+\begin{itemize}
+\item On trace les graphiques à variable ajoutée ( $\hat{\varepsilon}_{\matr{Y} | \matr{X_{-j}}}$ en fonction de $\hat{\varepsilon}_{x_j | \matr{X_{-j}}}$).
+\item Ces graphiques doivent normalement donner une droite de pente $\beta_j$.
+\begin{itemize}
+	\item Si le graphique ressemble à un graphique de résidus normaux, $x_j$ est inutile.
+	\item Si il y a une courbe, $x_j$ est non-linéaire.
+\end{itemize}
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+\end{multicols*}
+%% -----------------------------
+%% Fin du document
+%% -----------------------------
+\end{document}
