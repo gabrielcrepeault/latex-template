@@ -61,7 +61,7 @@ On Rejette $H_0$ si $t_{obs} > | t_{n-2} (1 - \frac{\alpha}{2})|$
 \subsubsection*{Pour la droite de régression ($\esp{Y_0|x_0}$)}
 Sachant que $\esp{Y_0 | x_0} = \beta_0 + \beta_1 x_0$, on a l'IC suivant
 \begin{align*}
-\hat{Y_0} \pm t_{n-2} \left(\frac{\alpha}{2} \right) \sqrt{s^2 \left( \frac{1}{n} + \frac{(x_0 - \bar{x})^2}{S_{XX}} \right)}
+\left[ \hat{Y_0} \pm t_{n-2} \left(\frac{\alpha}{2} \right) \sqrt{s^2 \left( \frac{1}{n} + \frac{(x_0 - \bar{x})^2}{S_{XX}} \right)} \right]
 \end{align*}
 
 \subsubsection*{Pour la prévision de $Y_0$}
@@ -205,6 +205,48 @@ Si
 F_{obs} = \frac{(SSE^{(0)} - SSE^{(1)}) / \Delta dl}{SSE^{(1)} / (n-p')} \geq F_{p-k, n-p'}(1- \alpha)
 \end{align*}
 où $\Delta dl = p - k$, $SSE^{(0)}$ pour le modèle réduit ($H_0$) et $SSE^{(1)}$ pour le modèle complet ($H_1$).
+
+\subsection*{Multicollinéarité}
+\subsubsection*{Problèmes potentiels}
+\begin{itemize}
+\item Instabilité de $\mathrm{(X^\top X)^{-1}}$, i.e. une petite variation de $Y$ peut changer de grandes variations en $\hat{\beta}$ et $\hat{Y}$ ;
+\item $\hat{\beta_i}$ de signes contre-intuitif ;
+\item $Var(\hat{\beta_i})$ et $Var(\hat{Y})$ très grandes ;
+\item Les méthodes de sélection de variable ne concordent pas ;
+\item Conclusions erronées sur la significativité de certains paramètres, malgré une forte corrélation avec $Y$.
+\end{itemize}
+
+\subsubsection*{Détection}
+\begin{itemize}
+\item Si $r_{ij}$ dans la matrice de corrélation $\matr{{X^*}^\top X^*}$ est élevée, où $\matr{X^*} = \begin{bmatrix}
+\frac{x_1 - \bar{x}_1}{s_1} & ... & \frac{x_p - \bar{x}_p}{s_p}
+\end{bmatrix}$
+
+\item Si le facteur d'influence de la variance ($VIF_j$) est élevé, où
+\begin{align*}
+VIF_j = \frac{1}{1 - R_j^2}
+\end{align*}
+avec $R_j^2$ le coefficient de détermination de la régression ayant comme variable réponse le $j$\up{e} variable et les $(j-1)$ autres variables exogènes en \textit{input}.
+\end{itemize}
+
+\subsubsection*{Solution}
+On retire les variables ayant un VIF élevé (une à la fois)
+
+\subsection*{Analyse des résidus et validation du modèle}
+\subsubsection*{Vérification de la linéarité}
+\begin{itemize}
+\item On trace les graphiques à variable ajoutée ( $\hat{\varepsilon}_{\matr{Y} | \matr{X_{-j}}}$ en fonction de $\hat{\varepsilon}_{x_j | \matr{X_{-j}}}$).
+\item Ces graphiques doivent normalement donner une droite de pente $\beta_j$.
+\begin{itemize}
+	\item Si le graphique ressemble à un graphique de résidus normaux, $x_j$ est inutile.
+	\item Si il y a une courbe, $x_j$ est non-linéaire.
+\end{itemize}
+\end{itemize}
+
+
+
+
+
 
 
 
