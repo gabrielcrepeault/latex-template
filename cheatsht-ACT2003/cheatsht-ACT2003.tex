@@ -152,11 +152,13 @@ Y & \overset{H_4}{\sim} N_n(\matr{X} \bm{\beta}, \sigma^2 \matr{I}_{n \times n})
 \esp{\hat{\bm{\beta}}}	& = \bm{\beta} \quad , Var(\matr{Y}) = \sigma^2 (\matr{X^\top X)^{-1}} \\
 \hat{\bm{\beta}} & \overset{H_4}{\sim} N_p(\bm{\beta}, \sigma^2 (\matr{X^\top X)^{-1}})
 \end{align*}
+
 \subsubsection*{Intervalle de confiance sur les paramètres}
 \begin{align*}
-\left[ \hat{\bm{\beta}} \pm t_{n-p'}(1- \frac{\alpha}{2}) \sqrt{s^2 v_{jj}} \right]
+&var[\beta_i] = \sigma^2 v_{jj} \\
+&\beta_i \in \left[ \hat{\beta_i} \pm t_{n-p'}(1- \frac{\alpha}{2}) \sqrt{s^2 v_{jj}} \right]
 \end{align*}
-où $v_{jj}$ est l'élément $(i,i)$ de la matrice $\matr{(X^\top X)^{-1}}$.
+où $v_{jj}$ est l'élément $(j,j)$ de la matrice $\matr{(X^\top X)^{-1}}$.
 \subsubsection*{Estimation de $\sigma^2$}
 \begin{align*}
 \hat{\sigma}^2 = s^2 = \frac{\hat{\bm{\varepsilon}}^\top \hat{\bm{\varepsilon}}}{n-p'}
