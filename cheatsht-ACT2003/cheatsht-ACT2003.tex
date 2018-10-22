@@ -159,10 +159,13 @@ Y & \overset{H_4}{\sim} N_n(\matr{X} \bm{\beta}, \sigma^2 \matr{I}_{n \times n})
 &\beta_i \in \left[ \hat{\beta_i} \pm t_{n-p'}(1- \frac{\alpha}{2}) \sqrt{s^2 v_{jj}} \right]
 \end{align*}
 où $v_{jj}$ est l'élément $(j,j)$ de la matrice $\matr{(X^\top X)^{-1}}$.
+
 \subsubsection*{Estimation de $\sigma^2$}
 \begin{align*}
-\hat{\sigma}^2 = s^2 = \frac{\hat{\bm{\varepsilon}}^\top \hat{\bm{\varepsilon}}}{n-p'}
+\hat{\sigma}^2 = s^2 = \frac{\hat{\bm{\varepsilon}}^\top \hat{\bm{\varepsilon}}}{n-p'} \\
 \end{align*}
+Il peut être démontré que cette estimateur est sans biais \\
+et indépendant de $\bm{\hat{\beta}}$
 
 \subsubsection*{Test d'hypothèse sur un paramètre du modèle}
 On rejète $H_0 : \beta_j = 0$ si
