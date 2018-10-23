@@ -45,7 +45,7 @@ Y_i | x_i & \overset{\mathbf{H}_4}{\sim} N(\beta_0 + \beta_1 x_i, \sigma^2) \\
 \begin{align*}
 \esp{\hat{\beta}_1} = \beta_1 \quad , Var(\hat{\beta}_1) = \frac{\sigma^2}{S_{XX}} \\
 \hat{\beta}_1 \overset{H_4}{\sim} N(\beta_1, \frac{\sigma^2}{S_{XX}}) \\
-\esp{\hat{\beta}_0} = \beta_0 \quad , Var(\hat{\beta}_0) = \sigma^2 \left( \frac{1}{n} + \frac{\bar{X}^2}{S_{XX}} \right) \\
+\esp{\hat{\beta}_0} = \beta_0 \quad , Var(\hat{\beta}_0) = \sigma^2 \left( \frac{1}{n} + \frac{\bar{x}^2}{S_{XX}} \right) \\
 \hat{\beta}_0 \overset{H_4}{\sim} N(\beta_0, \sigma^2 \left( \frac{1}{n}  + \frac{\bar{x}^2}{S_{XX}} \right) \\
 Cov(\hat{\beta}_0, \hat{\beta}_1) = - \frac{\bar{x} \sigma^2}{S_{XX}}
 \end{align*}
@@ -53,7 +53,7 @@ Cov(\hat{\beta}_0, \hat{\beta}_1) = - \frac{\bar{x} \sigma^2}{S_{XX}}
 \subsection*{Tests d'hypothèse sur les paramètres}
 $H_0$ : $\hat{\beta} = \theta_0$ , $H_1$ : $\hat{\beta} \neq \theta_0$
 \begin{align*}
-t_{obs} = \frac{\hat{\beta} - \theta_0}{\sqrt{\hat{Var(\hat{\beta}}}} \sim T_{n-2}
+t_{obs} = \frac{\hat{\beta} - \theta_0}{\sqrt{\hat{Var(\hat{\beta}})}} \sim T_{n-2}
 \end{align*}
 On Rejette $H_0$ si $t_{obs} > | t_{n-2} (1 - \frac{\alpha}{2})|$
 
@@ -61,13 +61,13 @@ On Rejette $H_0$ si $t_{obs} > | t_{n-2} (1 - \frac{\alpha}{2})|$
 \subsubsection*{Pour la droite de régression ($\esp{Y_0|x_0}$)}
 Sachant que $\esp{Y_0 | x_0} = \beta_0 + \beta_1 x_0$, on a l'IC suivant
 \begin{align*}
-\left[ \hat{Y_0} \pm t_{n-2} \left(\frac{\alpha}{2} \right) \sqrt{s^2 \left( \frac{1}{n} + \frac{(x_0 - \bar{x})^2}{S_{XX}} \right)} \right]
+\left[ \hat{Y_0} \pm t_{n-2} \left(1 - \frac{\alpha}{2} \right) \sqrt{s^2 \left( \frac{1}{n} + \frac{(x_0 - \bar{x})^2}{S_{XX}} \right)} \right]
 \end{align*}
 
 \subsubsection*{Pour la prévision de $Y_0$}
 Sachant que $Y_0 = \beta_0 + \beta_1 x_0 + \varepsilon$, on a l'IC suivant
 \begin{align*}
-\hat{Y_0} \pm t_{n-2} \left(\frac{\alpha}{2} \right) \sqrt{s^2 \left( 1 + \frac{1}{m} + \frac{(x_0 - \bar{x})^2}{S_{XX}} \right)}
+\hat{Y_0} \pm t_{n-2} \left(1 - \frac{\alpha}{2} \right) \sqrt{s^2 \left( 1 + \frac{1}{m} + \frac{(x_0 - \bar{x})^2}{S_{XX}} \right)}
 \end{align*}
 
 \subsection*{Analyse de la variance (ANOVA)}
@@ -78,6 +78,7 @@ Model & p & \thead{\sum_{i=1}^{n} (\hat{Y}_i - \bar{Y})^2 \\ (SSR)}  & \thead{SS
 Residual error & n - p' & \thead{\sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2 \\ (SSE)} & \thead{SSE / dl_2 \\(MSE = s^2)} & \cellcolor{gray!30!white} \\\hline
 Total & n - 1 & \thead{\sum_{i=1}^{n} (Y_i - \bar{Y})^2 \\ (SST)} & \cellcolor{gray!30!white} & \cellcolor{gray!30!white} \\\hline
 \end{tabular}
+Où $p$ est le nombre de variables explicatives dans le modèle.
 
 \subsubsection*{Coefficient de détermination}
 \begin{align*}
@@ -88,7 +89,7 @@ On a aussi la relation suivante avec $F_{obs}$ :
 F = \frac{R^2}{1 - R^2} \cdot \frac{n-p'}{p}
 \end{align*}
 
-\subsection*{Test F de Fisher pour la validité globale de la régression}
+\subsubsection*{Test F de Fisher pour la validité globale de la régression}
 On rejette $H_0 : \beta_1 =  \beta_2 = ... =  \beta_p = 0$ si 
 \begin{align*}
 F_{obs} = \frac{MSR}{MSE} \geq F_{n, n-p'}(1 - \alpha)
@@ -106,13 +107,13 @@ où $h_{ii} = \frac{1}{n} + \frac{(\bar{x} - x_i)^2}{S_{XX}}$.
 \subsection*{Vérification des postulats}
 Les résidus studentisés sont définis par
 \begin{align*}
-r_i = \frac{\hat{\varepsilon}}{\sqrt{s^2(1 - h_{ii})}}
+r_i = \frac{\hat{\varepsilon}_i}{\sqrt{s^2(1 - h_{ii})}}
 \end{align*}
 \subsubsection*{Linéarité}
 \begin{itemize}
 \item graphique $Y_i | x_i$
 \item graphique $\hat{\varepsilon}_i | \hat{Y}_i$
-\item graphique $\hat{\varepsilon}_i | \hat{x}_i$
+\item graphique $\hat{\varepsilon}_i | x_i$
 \end{itemize}
 Les deux derniers graphique doivent être centrés à 0 et d'allure aléatoire.
 
@@ -314,11 +315,11 @@ En présence de beaucoup de variable exogènes, on court le danger d'en garder t
 
 \subsection*{Critères de comparaison classiques}
 \begin{itemize}
-	\item Mesure de la qualité global du modèle:
+	\item Coefficient de détermination (pour mesurer la qualité globale du modèle) :
 	\[ R_2 = \frac{SSR}{SST} \]
-	Si on ajoute un variable exogène, il est certain que $R^2$ augmentera, on utilise donc ce critère pour valider si la régression est utile pour prédire $Y$, mais pas pour trouver les variables exogènes.
+	Si on ajoute une variable exogène, il est certain que $R^2$ augmentera, on utilise donc ce critère pour valider si la régression est utile pour prédire $Y$, mais pas pour critère de sélection des variables exogènes.
 	\item Coeficient de détermination ajusté:
-	\[ R_a^2 = \frac{MSE}{MST} \]
+	\[ R_a^2 = \frac{SSE / p}{SST / (n-1)} = \frac{MSE}{MST} \]
 	Ce critère permet de valider l'ajout de nouvelles variables exogènes.
 \end{itemize}
 Ces deux critères sont inutiles pour comparer des modèles avec des transformations différentes et pour des modèles avec/sans ordonnée à l'origine.
@@ -327,32 +328,36 @@ Ces deux critères sont inutiles pour comparer des modèles avec des transformat
 Ce critère maximise l'habileté du modèle a prédire de nouvelles données.
 \subsubsection*{Principe de la validation croisée}
 \begin{enumerate}
-		\item Enlever la $i$\up{e} observation du jeu de données.
-		\item Estimer les paramètres du modèle à partir des $n - 1$ données restante.
-		\item Prédire $Y_i$ à partir de $x_i$ et du modèle obtenue en 2, noté $\hat{Y}_{i,-i}$
-		\item Répéter les étapes 1-3 pour chaque $i, i = 1,..., n$
-		\item Calculer la somme des carrées des erreurs de prévision $PRESS = \sum_{i=1}^n (Y_i - \hat{Y}_{i,-i})^2$
+\item Pour $i = 1, ..., n$,
+\begin{enumerate}[label=1.\arabic*]
+	\item Enlever la $i$\up{e} observation du jeu de données.
+	\item Estimer les paramètres du modèle à partir des $n - 1$ données restante.
+	\item Prédire $Y_i$ à partir de $x_i$ et du modèle obtenue en 2, noté $\hat{Y}_{i,-i}$
+\end{enumerate}
+\item Calculer la somme des carrées des erreurs de prévision $PRESS = \sum_{i=1}^n (Y_i - \hat{Y}_{i,-i})^2$
 \end{enumerate}
 	On cherche a minimiser le PRESS ou à maximiser le coefficient de détermination de prévision:
 	\[ R_p^2 = 1 - \frac{PRESS}{SST} \]
 \subsubsection*{Les résidus PRESS}
-	Il est possible de trouver la statistique PRESS sans calculé n régression:
+	Il est possible de trouver la statistique PRESS sans davoir calculer $n$ régressions :
 	\[ PRESS = \sum_{i=1}^n \left( \frac{\hat{\varepsilon_i}}{1 - h_{ii}} \right)^2 \]
 \subsubsection*{Échantillion de test et validation croisée par $k$ ensemble}
-	\begin{enumerate}
-		\item Enlever le $k$ème ensemble de de jeu de donner.
-		\item Estimer les paramètres du modèle à partir des $k - 1$ Échantillion restant.
-		\item Prédire les observations du $k$\up{e} ensemble $(\hat{Y}_{i,-k})$ et calculer 
-		\[ MSEP_k = \frac{1}{n_k} \sum_{i\in group\:k} (Y_i - \hat{Y}_{i,-k})^2 \]
-		\item Répéter les étapes 1 à 3 pour chaque $k, k = 1,...,k$
-		\item Calculer la moyenne la moyenne des sommes des carrés des erreurs de prévision $\frac{1}{k} \sum_{k=1}^k MSEP_k$
-	\end{enumerate}
+\begin{enumerate}
+\item Pour $k = 1, ..., K$,
+\begin{enumerate}[label=1.\arabic*]
+	\item Enlever le $k$\up{e} ensemble du jeu de donnée.
+	\item  Estimer les paramètres du modèle à partir des $k - 1$ Échantillion restant.
+	\item Prédire les observations du $k$\up{e} ensemble $(\hat{Y}_{i,-k})$ et calculer
+	\[ MSEP_k = \frac{1}{n_k} \sum_{i\in group\:k} (Y_i - \hat{Y}_{i,-k})^2 \]
+\end{enumerate}
+	\item Calculer la moyenne des sommes des carrés des erreurs de prévision $\frac{1}{k} \sum_{k=1}^k MSEP_k$
+\end{enumerate}
 	On choisit le modèle qui minimise $\frac{1}{k} \sum_{k=1}^k MSEP_k$
 
 
 \subsection*{Le $C_p$ de Mallows}
-\[ C_p = p' + \frac{(s_p^2 - \hat{\sigma^2})(n - p')}{\hat{\sigma^2}} = \frac{SSE}{\hat{\sigma^2}} + 2P' - n\]
-On charche le modèle pour lequel $C_p \approx p'$
+\[ C_p = p' + \frac{(s_p^2 - \hat{\sigma^2})(n - p')}{\hat{\sigma^2}} = \frac{SSE}{\hat{\sigma^2}} + 2p' - n\]
+On cherche le modèle pour lequel $C_p \approx p'$
 
 \subsection*{Critère d'information d'akaike et critère bayésien de Schwarz}
 \begin{itemize}
@@ -361,7 +366,7 @@ On charche le modèle pour lequel $C_p \approx p'$
 AIC prend en compte à la fois la qualité des prédictions du modèle et sa complexité.
 \item BIC est similaire a AIC, mais la pénalité des paramètres dépend de la grandeur de l'échantillion.
 On cherche à minimiser ces 2 critères.
-\[ BIC = n \cdot ln\left(\frac{SSE}{n}\right) + ln(n)p' \]
+\[ BIC = n \cdot \ln \left(\frac{SSE}{n}\right) + \ln(n)p' \]
 \end{itemize}
 
 
@@ -371,11 +376,38 @@ On cherche à minimiser ces 2 critères.
 \subsection*{Méthode algorithmiques}
 
 \subsubsection*{Méthode d'inclusion (\textit{forward})}
+\begin{enumerate}
+\item On commence avec le modèle le plus simple (i.e. $\hat{Y}_i = \beta_0$)
+\item On essaie d'ajouter la variable qui, en l'incluant dans le modèle, permet de réduire le plus le $SSE$ du modèle.
+\item On valide si la variable diminue de façon significative les résidus avec un test $F$, où
+\begin{align*}
+F_{obs} = \frac{SSE_{\text{petit modèle}} - SSE_{\text{grand modèle}}}{SSE_{\text{grand modèle}} / (n-p')}
+\end{align*}
+On ajoute la variabel au modèle si
+\begin{align*}
+F_{obs} > F_{1, n-p'}(1 - \alpha)
+\end{align*}
+\item On répète jusqu'à ce qu'aucune variable ne vaille la peine d'être ajoutée.
+\end{enumerate}
+
 
 \subsubsection*{Méthode d'exclusion (\textit{backward})}
+\begin{enumerate}
+\item On débute avec le modèle complet
+\item On veut enlever la variable exogène qui, en l'excluant du modèle, permet de minimiser l'augmentation du $SSE$ de la régression.
+\item Même test $F$ qu'à l'étape 3 de la méthode \textit{forward}, sauf qu'on enlève la variable seulement si
+\begin{align*}
+F_{obs} < F_{1, n-p'}(1-\alpha)
+\end{align*}
+\item On répète jusqu'à ce qu'aucune variable ne vaille la peine d'être enlevée.
+\end{enumerate}
+
 
 \subsubsection*{Méthode pas à pas (\textit{step-wise})}
-
+\begin{enumerate}
+\item On débute avec la méthode d'inclusion
+\item Après l'ajout d'une variable au modèle, on effectue la méthode d'exclusion pour les variables qui sont actuellement dans le modèle (on remet constamment le modèle en question).
+\end{enumerate}
 
 %\includegraphics[width=3cm]{graphique_residus/lineaire1.png}
 
