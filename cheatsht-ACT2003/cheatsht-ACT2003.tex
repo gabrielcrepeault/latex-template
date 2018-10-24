@@ -104,6 +104,12 @@ où $p$ est le nombre de variables explicatives dans le modèle (régression lin
 \end{align*}
 où $h_{ii} = \frac{1}{n} + \frac{(\bar{x} - x_i)^2}{S_{XX}}$.
 
+On peut aussi prouver que
+\begin{align*}
+Cov(\hat{\varepsilon}_i, \hat{\varepsilon}_j) & = \sigma^2 \left(\frac{1}{n} - \frac{(\bar{x} - x_i)(x_j - \bar{x})}{S_{XX}} \right) \\
+	& = \sigma^2 h_{ij}
+\end{align*}
+où $h_{ij} = \frac{1}{n} + \frac{(\bar{x}-x_i)(\bar{x}-x_j)}{S_{XX}}$.
 \subsection*{Vérification des postulats}
 Les résidus studentisés sont définis par
 \begin{align*}
@@ -150,7 +156,7 @@ Y & \overset{H_4}{\sim} N_n(\matr{X} \bm{\beta}, \sigma^2 \matr{I}_{n \times n})
 \subsubsection*{Estimation et propriétés des paramètres}
 \begin{align*}
 \hat{\bm{\beta}} & = \matr{(X^\top X)^{-1} X^\top Y} \\
-\esp{\hat{\bm{\beta}}}	& = \bm{\beta} \quad , Var(\matr{Y}) = \sigma^2 (\matr{X^\top X)^{-1}} \\
+\esp{\hat{\bm{\beta}}}	& = \bm{\beta} \quad , Var(\bm{\beta}) = \sigma^2 (\matr{X^\top X)^{-1}} \\
 \hat{\bm{\beta}} & \overset{H_4}{\sim} N_p(\bm{\beta}, \sigma^2 (\matr{X^\top X)^{-1}})
 \end{align*}
 
