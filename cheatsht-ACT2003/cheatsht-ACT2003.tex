@@ -100,16 +100,15 @@ où $p$ est le nombre de variables explicatives dans le modèle (régression lin
 
 \subsection*{Distribution d'un résidu $\varepsilon$}
 \begin{align*}
-\esp{\hat{\varepsilon_i}} = 0 \quad , Var \left( \hat{\varepsilon_i} \right) = \sigma^2 (1 - h_{ii})
+\esp{\hat{\varepsilon}_i} = 0 \quad , Var \left( \hat{\varepsilon}_i \right) = \sigma^2 (1 - h_{ii})
 \end{align*}
 où $h_{ii} = \frac{1}{n} + \frac{(\bar{x} - x_i)^2}{S_{XX}}$.
 
 On peut aussi prouver que
 \begin{align*}
-Cov(\hat{\varepsilon}_i, \hat{\varepsilon}_j) & = \sigma^2 \left(\frac{1}{n} - \frac{(\bar{x} - x_i)(x_j - \bar{x})}{S_{XX}} \right) \\
-	& = \sigma^2 h_{ij}
+Cov(\hat{\varepsilon}_i, \hat{\varepsilon}_j) = - \sigma^2 \left( \frac{1}{n} + \frac{(x_i - \bar{x})(x_j - \bar{x})}{S_{XX}} \right)
 \end{align*}
-où $h_{ij} = \frac{1}{n} + \frac{(\bar{x}-x_i)(\bar{x}-x_j)}{S_{XX}}$.
+
 \subsection*{Vérification des postulats}
 Les résidus studentisés sont définis par
 \begin{align*}
@@ -156,14 +155,14 @@ Y & \overset{H_4}{\sim} N_n(\matr{X} \bm{\beta}, \sigma^2 \matr{I}_{n \times n})
 \subsubsection*{Estimation et propriétés des paramètres}
 \begin{align*}
 \hat{\bm{\beta}} & = \matr{(X^\top X)^{-1} X^\top Y} \\
-\esp{\hat{\bm{\beta}}}	& = \bm{\beta} \quad , Var(\bm{\beta}) = \sigma^2 (\matr{X^\top X)^{-1}} \\
+\esp{\hat{\bm{\beta}}}	& = \bm{\beta} \quad , Var(\hat{\bm{\beta}}) = \sigma^2 (\matr{X^\top X)^{-1}} \\
 \hat{\bm{\beta}} & \overset{H_4}{\sim} N_p(\bm{\beta}, \sigma^2 (\matr{X^\top X)^{-1}})
 \end{align*}
 
 \subsubsection*{Intervalle de confiance sur les paramètres}
 \begin{align*}
 &var[\beta_i] = \sigma^2 v_{jj} \\
-&\beta_i \in \left[ \hat{\beta_i} \pm t_{n-p'}(1- \frac{\alpha}{2}) \sqrt{s^2 v_{jj}} \right]
+&\beta_i \in \left[ \hat{\beta_i} \pm t_{n-p'} \left(1- \frac{\alpha}{2} \right) \sqrt{s^2 v_{jj}} \right]
 \end{align*}
 où $v_{jj}$ est l'élément $(j,j)$ de la matrice $\matr{(X^\top X)^{-1}}$.
 
@@ -282,7 +281,7 @@ VIF_j = \frac{1}{1 - R_j^2}
 avec $R_j^2$ le coefficient de détermination de la régression ayant comme variable réponse le $j$\up{e} variable et les $(j-1)$ autres variables exogènes en \textit{input}.
 \item La variance de $\hat{\beta}_i$ s'exprime en fonction du VIF comme suit:
 \begin{align*}
-	Var(\hat{\beta}_i) = \frac{\sigma^2}{(\matr{X^{*T} \matr{X^*})_{jj}}} VIF_j
+	Var(\hat{\beta}_i) = \frac{\sigma^2}{(\matr{X^{*\top} \matr{X^*})_{jj}}} VIF_j
 \end{align*}
 \end{itemize}
 
@@ -348,14 +347,14 @@ Ce critère maximise l'habileté du modèle a prédire de nouvelles données.
 	On cherche a minimiser le PRESS ou à maximiser le coefficient de détermination de prévision:
 	\[ R_p^2 = 1 - \frac{PRESS}{SST} \]
 \subsubsection*{Les résidus PRESS}
-	Il est possible de trouver la statistique PRESS sans davoir calculer $n$ régressions :
+	Il est possible de trouver la statistique PRESS sans devoir calculer $n$ régressions :
 	\[ PRESS = \sum_{i=1}^n \left( \frac{\hat{\varepsilon_i}}{1 - h_{ii}} \right)^2 \]
 \subsubsection*{Échantillion de test et validation croisée par $k$ ensemble}
 \begin{enumerate}
 \item Pour $k = 1, ..., K$,
 \begin{enumerate}[label=1.\arabic*]
 	\item Enlever le $k$\up{e} ensemble du jeu de donnée.
-	\item  Estimer les paramètres du modèle à partir des $k - 1$ Échantillion restant.
+	\item  Estimer les paramètres du modèle à partir des données des $k - 1$ échantillons restants.
 	\item Prédire les observations du $k$\up{e} ensemble $(\hat{Y}_{i,-k})$ et calculer
 	\[ MSEP_k = \frac{1}{n_k} \sum_{i\in group\:k} (Y_i - \hat{Y}_{i,-k})^2 \]
 \end{enumerate}
@@ -371,9 +370,9 @@ On cherche le modèle pour lequel $C_p \approx p'$
 \subsection*{Critère d'information d'akaike et critère bayésien de Schwarz}
 \begin{itemize}
 \item Ce critère est le plus utilisé dans la pratique et permet d'évaluer la qualité de l'ajustement d'un modèle. 
-\[ AIC = n \cdot ln\left(\frac{SSE}{n}\right) + 2p' \]
+\[ AIC = n \cdot \ln \left(\frac{SSE}{n}\right) + 2p' \]
 AIC prend en compte à la fois la qualité des prédictions du modèle et sa complexité.
-\item BIC est similaire a AIC, mais la pénalité des paramètres dépend de la grandeur de l'échantillion.
+\item BIC est similaire a AIC, mais la pénalité des paramètres dépend de la taille de l'échantillon.
 On cherche à minimiser ces 2 critères.
 \[ BIC = n \cdot \ln \left(\frac{SSE}{n}\right) + \ln(n)p' \]
 \end{itemize}
@@ -392,7 +391,7 @@ On cherche à minimiser ces 2 critères.
 \begin{align*}
 F_{obs} = \frac{SSE_{\text{petit modèle}} - SSE_{\text{grand modèle}}}{SSE_{\text{grand modèle}} / (n-p')}
 \end{align*}
-On ajoute la variabel au modèle si
+On ajoute la variable au modèle si
 \begin{align*}
 F_{obs} > F_{1, n-p'}(1 - \alpha)
 \end{align*}
