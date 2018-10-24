@@ -94,7 +94,7 @@ On rejette $H_0 : \beta_1 =  \beta_2 = ... =  \beta_p = 0$ si
 \begin{align*}
 F_{obs} = \frac{MSR}{MSE} \geq F_{n, n-p'}(1 - \alpha)
 \end{align*}
-où $p$ est le nombre de variables explicatives dans le modèle (régression linéaire simple, $p=1$ et $p' = p+1$.
+où $p$ est le nombre de variables explicatives dans le modèle (régression linéaire simple, $p=1$ et $p' = p+1$).
 
 
 
@@ -161,8 +161,8 @@ Y & \overset{H_4}{\sim} N_n(\matr{X} \bm{\beta}, \sigma^2 \matr{I}_{n \times n})
 
 \subsubsection*{Intervalle de confiance sur les paramètres}
 \begin{align*}
-&var[\beta_i] = \sigma^2 v_{jj} \\
-&\beta_i \in \left[ \hat{\beta_i} \pm t_{n-p'} \left(1- \frac{\alpha}{2} \right) \sqrt{s^2 v_{jj}} \right]
+&var[\beta_j] = \sigma^2 v_{jj} \\
+&\beta_j \in \left[ \hat{\beta_j} \pm t_{n-p'} \left(1- \frac{\alpha}{2} \right) \sqrt{s^2 v_{jj}} \right]
 \end{align*}
 où $v_{jj}$ est l'élément $(j,j)$ de la matrice $\matr{(X^\top X)^{-1}}$.
 
@@ -272,16 +272,16 @@ où $\Delta dl = p - k$, $SSE^{(0)}$ pour le modèle réduit ($H_0$) et $SSE^{(1
 \begin{itemize}
 \item Si $r_{ij}$ dans la matrice de corrélation $\matr{{X^*}^\top X^*}$ est élevée, où $\matr{X^*} = \begin{bmatrix}
 \frac{x_1 - \bar{x}_1}{s_1} & ... & \frac{x_p - \bar{x}_p}{s_p}
-\end{bmatrix}$
+\end{bmatrix}_{1 \times p}$
 
 \item Si le facteur d'influence de la variance ($VIF_j$) est élevé, où
 \begin{align*}
 VIF_j = \frac{1}{1 - R_j^2}
 \end{align*}
 avec $R_j^2$ le coefficient de détermination de la régression ayant comme variable réponse le $j$\up{e} variable et les $(j-1)$ autres variables exogènes en \textit{input}.
-\item La variance de $\hat{\beta}_i$ s'exprime en fonction du VIF comme suit:
+\item La variance de $\hat{\beta}_j$ s'exprime en fonction du VIF comme suit:
 \begin{align*}
-	Var(\hat{\beta}_i) = \frac{\sigma^2}{(\matr{X^{*\top} \matr{X^*})_{jj}}} VIF_j
+	Var(\hat{\beta}_j) = \frac{\sigma^2}{(\matr{X^{*\top} \matr{X^*})_{jj}}} VIF_j
 \end{align*}
 \end{itemize}
 
@@ -340,9 +340,9 @@ Ce critère maximise l'habileté du modèle a prédire de nouvelles données.
 \begin{enumerate}[label=1.\arabic*]
 	\item Enlever la $i$\up{e} observation du jeu de données.
 	\item Estimer les paramètres du modèle à partir des $n - 1$ données restante.
-	\item Prédire $Y_i$ à partir de $x_i$ et du modèle obtenue en 2, noté $\hat{Y}_{i,-i}$
+	\item Prédire $Y_i$ à partir de $x_i$ et du modèle obtenu en 2, noté $\hat{Y}_{i,-i}$
 \end{enumerate}
-\item Calculer la somme des carrées des erreurs de prévision $PRESS = \sum_{i=1}^n (Y_i - \hat{Y}_{i,-i})^2$
+\item Calculer la somme des carrés des erreurs de prévision $PRESS = \sum_{i=1}^n (Y_i - \hat{Y}_{i,-i})^2$
 \end{enumerate}
 	On cherche a minimiser le PRESS ou à maximiser le coefficient de détermination de prévision:
 	\[ R_p^2 = 1 - \frac{PRESS}{SST} \]
