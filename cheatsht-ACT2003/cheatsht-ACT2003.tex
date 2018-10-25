@@ -33,7 +33,7 @@ Y_i | x_i & \overset{\mathbf{H}_4}{\sim} N(\beta_0 + \beta_1 x_i, \sigma^2) \\
 \subsection*{Estimation des paramètres}
 \begin{align*}
 \hat{\beta}_0 	& = \bar{Y} - \hat{\beta}_1 \bar{x} \\
-\hat{\beta}_1	& = \frac{\sum_{i=1}^{n} x_i Y_i - \bar{Y} \sum_{i=1}^{n} x_i}{\sum_{i=1}^{n} x_i^2 - \bar{x} \sum_{i=1}^{n} x_i} = \frac{S_{XY}}{S_{XX}}
+\hat{\beta}_1	& = \frac{\sum_{i=1}^{n} x_i Y_i - \bar{Y} \sum_{i=1}^{n} x_i}{\sum_{i=1}^{n} x_i^2 - \bar{x} \sum_{i=1}^{n} x_i} = \frac{\sum_{i=1}^{n}(x_i - \bar{x})Y_i}{S_{XX}}
 \end{align*}
 
 \subsection*{Estimation de $\sigma^2$}
@@ -46,7 +46,7 @@ Y_i | x_i & \overset{\mathbf{H}_4}{\sim} N(\beta_0 + \beta_1 x_i, \sigma^2) \\
 \esp{\hat{\beta}_1} = \beta_1 \quad , Var(\hat{\beta}_1) = \frac{\sigma^2}{S_{XX}} \\
 \hat{\beta}_1 \overset{H_4}{\sim} N(\beta_1, \frac{\sigma^2}{S_{XX}}) \\
 \esp{\hat{\beta}_0} = \beta_0 \quad , Var(\hat{\beta}_0) = \sigma^2 \left( \frac{1}{n} + \frac{\bar{x}^2}{S_{XX}} \right) \\
-\hat{\beta}_0 \overset{H_4}{\sim} N(\beta_0, \sigma^2 \left( \frac{1}{n}  + \frac{\bar{x}^2}{S_{XX}} \right) \\
+\hat{\beta}_0 \overset{H_4}{\sim} N \left(\beta_0, \sigma^2 \left( \frac{1}{n}  + \frac{\bar{x}^2}{S_{XX}} \right) \right) \\
 Cov(\hat{\beta}_0, \hat{\beta}_1) = - \frac{\bar{x} \sigma^2}{S_{XX}}
 \end{align*}
 
