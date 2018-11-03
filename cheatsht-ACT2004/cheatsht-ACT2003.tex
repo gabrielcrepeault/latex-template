@@ -49,13 +49,16 @@ Le paiement est soit en continu, soit à la fin de l'année ou à la fin de la $
 \Ax{x:\angln}		& = \sum_{k=0}^{n-1} v^{k+1} \qx[k|]{x} + v^n \px[n]{x} \\
 \end{align*}
 
-\paragraph{Assurance différée} On verse le capital à l'assuré lors de son décès seulement si le décès survient dans plus de $m$ année \footnote{Interprétation : Une assurance-vie entière qui débute dans $m$ années.}
+\paragraph{Assurance différée} On verse le capital à l'assuré lors de son décès seulement si le décès survient dans plus de $m$ années \footnote{Interprétation : Une assurance-vie entière qui débute dans $m$ années.}
 
 \begin{align*}
 \Ax*[m|]{x}	& = \int_{m}^{\omega -x} v^t \px[t]{x} \mu_{x+t} dt \\
 	& = v^m \px[m]{x} \int_{0}^{\omega - x - m} v^t \px[t]{x+m} \mu_{(x+m)+t} dt \\
-	& = \Ex[m]{x} \Ax*{x} \\
-\Ax[m|]{x}	& = \sum_{k=m}^{\omega - x - m + 1}	
+	& = \Ex[m]{x} \Ax*{x+m} \\
+\Ax[m|]{x}	& = \sum_{k=m}^{\omega - x -1} v^{k+1} \qx[k|]{x} \\
+	& = \sum_{k=0}^{\omega - x - m - 1} v^{k+1+m} \qx[(k+m)|]{x} \\
+	& = v^m \px[m]{x} \sum_{k=0}^{\omega - (x+m) - 1} v^{k+1} \px[k]{x+m} \qx[]{x+m+k} \\
+	& = \Ex[m]{x} \Ax{x+m} \\
 \end{align*}
 où $\Ex[m]{x}$ est un facteur d'actualisation actuarielle.
 
