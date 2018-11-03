@@ -13,9 +13,52 @@
 
 
 
-\small % Écrire petit (peut être modifié)
+\footnotesize % Écrire petit (peut être modifié)
 \begin{multicols*}{3} % Nombre de colonnes (peut être changé plus tard.)
-\section{Première section}
+\section{Avant l'Examen 1}
+À ajouter plus tard (prendre ce que Nich avait déjà fait avant l'intra)
+
+
+\section{Contrats d'assurance-vie}
+Le paiement est soit en continu, soit à la fin de l'année ou à la fin de la $\frac{1}{m}$ d'année.
+
+\paragraph{Assurance-vie entière} On verse le capital au décès de l'assuré
+
+\begin{flalign*}
+\Ax*{x} & = \int_{0}^{\omega - x} v^t \px[t]{x} \mu_{x+t} dt \\
+\Ax{x}	& = \sum_{k=0}^{\omega - x - 1} v^{k+1} \qx[k|]{x} \\
+	& = \sum_{k=0}^{\omega - x - 1} v^{k+1} \px[k]{x} \qx[]{x+k} \\
+\end{flalign*}
+
+\paragraph{Assurance-vie temporaire} On verse le capital au décès de l'assuré, s'il survient dans les $n$ prochaines années.
+\begin{flalign*}
+\Ax*{\termxn}	& = \int_{0}^{n} v^t \px[t]{x} \mu_{x+t} dt \\
+\Ax{\termxn}		& = \sum_{k=0}^{n-1} v^{k+1} \qx[k|]{x} \\
+	& = \sum_{k=0}^{n-1} v^{k+1} \px[k]{x} \qx[]{x+k} \\
+\end{flalign*}
+
+\paragraph{Assurance-vie dotation pure} On verse le capital à l'assuré si celui-ci est toujours en vie après $n$ années.
+\begin{align*}
+\Ax{\pureendowxn}	& = \px[n]{x} v^n
+\end{align*}
+
+\paragraph{Assurance mixte} On verse le capital à l'assuré si il décède dans les $n$ prochaines années, ou si il est toujours en vie après cette période.
+\begin{align*}
+\Ax*{x:\angln}	& = \int_{0}^{n} v^t \px[t]{x} \mu_{x+t} dt + v^n \px[n]{x} \\
+	& = \Ax*{\termxn} + \Ax{\pureendowxn} \\
+\Ax{x:\angln}		& = \sum_{k=0}^{n-1} v^{k+1} \qx[k|]{x} + v^n \px[n]{x} \\
+\end{align*}
+
+\paragraph{Assurance différée} On verse le capital à l'assuré lors de son décès seulement si le décès survient dans plus de $m$ année \footnote{Interprétation : Une assurance-vie entière qui débute dans $m$ années.}
+
+\begin{align*}
+\Ax*[m|]{x}	& = \int_{m}^{\omega -x} v^t \px[t]{x} \mu_{x+t} dt \\
+	& = v^m \px[m]{x} \int_{0}^{\omega - x - m} v^t \px[t]{x+m} \mu_{(x+m)+t} dt \\
+	& = \Ex[m]{x} \Ax*{x} \\
+\Ax[m|]{x}	& = \sum_{k=m}^{\omega - x - m + 1}	
+\end{align*}
+où $\Ex[m]{x}$ est un facteur d'actualisation actuarielle.
+
 
 
 
