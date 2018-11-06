@@ -103,6 +103,13 @@ où $\Ex[m]{x}$ est un facteur d'actualisation actuarielle.
 		&= \actsymb{\bar{A}}{\nthtop{1}{x}:\angln} + \actsymb[1|]{\bar{A}}{\nthtop{1}{x}:\angl{n-1}} + ... + \actsymb[n-1|]{\bar{A}}{\nthtop{1}{x}:\angl1}
 \end{align*}
 
+\paragraph{Assurance vie entière croissante temporairement} On verse le capital au décès de l'assuré. Ce capital croit pendent $n$ années
+
+\begin{align*}
+	\twoletsymb{I_{\angln}}{\bar{A}}_{x}  &= \int_0^n (1 + \lfloor t \rfloor) v^t \px[t]{x} \mu_{x+t} dt + \int_n^{\omega - x} n v^t \px[t]{x} \mu_{x+t} dt \\
+		&= \Ax*{x} + \Ax*[1|]{x} + ... + \Ax*[n-1|]{x}
+\end{align*}
+
 \paragraph{Assurance Vie temporaire décroissante} On verse le capital au décès de l'assuré, s'il survient dans les $n$ prochaines années. Ce capital décroit chaque années.
 
 \begin{align*}
