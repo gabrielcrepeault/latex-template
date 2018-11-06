@@ -15,9 +15,32 @@
 
 \footnotesize % Écrire petit (peut être modifié)
 \begin{multicols*}{3} % Nombre de colonnes (peut être changé plus tard.)
+\section*{Rappel de Math. financière}
+\paragraph{Annuitées}
+\begin{align*}
+	\actsymb{a}{\angln} &= \frac{1 - v^t}{i} \\
+	\actsymb{a}{\angl{\infty}} &= \frac{1}{i} \\
+	\actsymb{\bar{a}}{\angln} &= \int_0^n v^t dt = \frac{1 - v^t}{\delta}
+\end{align*}
+
 \section{Avant l'Examen 1}
 À ajouter plus tard (prendre ce que Nich avait déjà fait avant l'intra)
 
+\paragraph{Loi de Moivre}
+\begin{align*}
+	X &\sim Uni(0, \omega) \\
+	S_x(x) &= 1 - \frac{x}{\omega},\: 0 < x < \omega \\
+	T_x &\sim Uni(0, \omega - x) \\
+	S_{T_x}(t) &= 1 - \frac{t}{\omega - x},\: 0 < t < \omega - x
+\end{align*}
+
+\paragraph{Loi Exponentielle}
+\begin{align*}
+	x &\sim Exp(\mu) \\
+	S_x(x) &= e^{-\mu x},\: x \geq 0 \\
+	T_x &\sim Exp(\mu) \\
+	S_{T_x}(t) &= e^{-\mu t},\: t \geq 0
+\end{align*}
 
 \section{Contrats d'assurance-vie}
 Le paiement est soit en continu, soit à la fin de l'année ou à la fin de la $\frac{1}{m}$ d'année.
@@ -67,8 +90,38 @@ où $\Ex[m]{x}$ est un facteur d'actualisation actuarielle.
 \Ax*[m|]{x}	& = \Ax*{x} - \Ax*{\termxn}
 \end{align*}
 
+% Je met quelques formules de increase qui permet une rapidité dans les calcules 
+\paragraph{Assurance Vie entière croissante} On verse le capital au décès de l'assuré. Ce capital augmente chaque années.
 
+\begin{align*}
+	\IbA*_x &= \int_0^{\omega - x} t v^t \px[t]{x} \mu_{x+t} dt \\
+		%&= \int_0^{\omega - x} \Ax*[s|]{x} ds \\ 
+	\IA*_{x} &= \int_0^{\omega - x} (1 + \lfloor t \rfloor) v^t \px[t]{x} \mu_{x+t} dt \\
+		&= \Ax*{x} + \Ax*[1|]{x} + \Ax*[2|]{x} + ...
+\end{align*}
 
+\paragraph{Assurance Vie temporaire croissante} On verse le capital au décès de l'assuré, s'il survient dans les $n$ prochaines années. Ce capital croit chaque années.
+
+\begin{align*}
+	\IbA*_{\termxn} &= \int_0^n t v^t \px[t]{x} \mu_{x+t} dt \\
+	\IA*_{\termxn}  &= \int_0^n (1 + \lfloor t \rfloor) v^t \px[t]{x} \mu_{x+t} dt \\
+		&= \actsymb{\bar{A}}{\nthtop{1}{x}:\angln} + \actsymb[1|]{\bar{A}}{\nthtop{1}{x}:\angl{n-1}} + ... + \actsymb[n-1|]{\bar{A}}{\nthtop{1}{x}:\angl1}
+\end{align*}
+
+\paragraph{Assurance vie entière croissante temporairement} On verse le capital au décès de l'assuré. Ce capital croit pendent $n$ années
+
+\begin{align*}
+	\twoletsymb{I_{\angln}}{\bar{A}}_{x}  &= \int_0^n (1 + \lfloor t \rfloor) v^t \px[t]{x} \mu_{x+t} dt + \int_n^{\omega - x} n v^t \px[t]{x} \mu_{x+t} dt \\
+		&= \Ax*{x} + \Ax*[1|]{x} + ... + \Ax*[n-1|]{x}
+\end{align*}
+
+\paragraph{Assurance Vie temporaire décroissante} On verse le capital au décès de l'assuré, s'il survient dans les $n$ prochaines années. Ce capital décroit chaque années.
+
+\begin{align*}
+	\DbA*_{\termxn} &= \int_0^{\omega - x} (n - t) v^t \px[t]{x} \mu_{x+t} dt \\
+	\DA*_{\termxn}  &= \int_0^{\omega - x} (n - \lfloor t \rfloor) v^t \px[t]{x} \mu_{x+t} dt \\
+		&= \actsymb{\bar{A}}{\nthtop{1}{x}:\angl1} + \actsymb{\bar{A}}{\nthtop{1}{x}:\angl2} + ... + \actsymb{\bar{A}}{\nthtop{1}{x}:\angln}
+\end{align*}
 
 
 
