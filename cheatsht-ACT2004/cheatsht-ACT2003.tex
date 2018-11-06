@@ -15,9 +15,32 @@
 
 \footnotesize % Écrire petit (peut être modifié)
 \begin{multicols*}{3} % Nombre de colonnes (peut être changé plus tard.)
+\section*{Rappel de Math. financière}
+\paragraph{Annuitées}
+\begin{align*}
+	\actsymb{a}{\angln} &= \frac{1 - v^t}{i} \\
+	\actsymb{a}{\angl{\infty}} &= \frac{1}{i} \\
+	\actsymb{\bar{a}}{\angln} &= \int_0^n v^t dt = \frac{1 - v^t}{\delta}
+\end{align*}
+
 \section{Avant l'Examen 1}
 À ajouter plus tard (prendre ce que Nich avait déjà fait avant l'intra)
 
+\paragraph{Loi de Moivre}
+\begin{align*}
+	X &\sim Uni(0, \omega) \\
+	S_x(x) &= 1 - \frac{x}{\omega},\: 0 < x < \omega \\
+	T_x &\sim Uni(0, \omega - x) \\
+	S_{T_x}(t) &= 1 - \frac{t}{\omega - x},\: 0 < t < \omega - x
+\end{align*}
+
+\paragraph{Loi Exponentielle}
+\begin{align*}
+	x &\sim Exp(\mu) \\
+	S_x(x) &= e^{-\mu x},\: x \geq 0 \\
+	T_x &\sim Exp(\mu) \\
+	S_{T_x}(t) &= e^{-\mu t},\: t \geq 0
+\end{align*}
 
 \section{Contrats d'assurance-vie}
 Le paiement est soit en continu, soit à la fin de l'année ou à la fin de la $\frac{1}{m}$ d'année.
