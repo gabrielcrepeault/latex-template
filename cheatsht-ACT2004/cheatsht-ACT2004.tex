@@ -9,11 +9,13 @@
 %% -----------------------------
 %% Début du document
 %% -----------------------------
+
+\usepackage{mathrsfs}
 \begin{document}
 
 
-
-\footnotesize % Écrire petit (peut être modifié)
+% j'enlève le footnotesize temporairement, sinon je ne vois rien! GCC
+% \footnotesize % Écrire petit (peut être modifié)
 \begin{multicols*}{3} % Nombre de colonnes (peut être changé plus tard.)
 \section*{Rappel de Math. financière}
 \paragraph{Annuitées}
@@ -23,8 +25,51 @@
 	\actsymb{\bar{a}}{\angln} &= \int_0^n v^t dt = \frac{1 - v^t}{\delta}
 \end{align*}
 
-\section{Avant l'Examen 1}
-À ajouter plus tard (prendre ce que Nich avait déjà fait avant l'intra)
+\section{Matière examen 1}
+\paragraph{Définitions de base}
+\begin{itemize}
+\item[$X$ : ] Âge au décès d'un nouveau-né
+\item[$T_x$ : ] Durée de vie résiduelle d'un individu d'âge $x$.
+\[T_x = (X-x | X \geq x) \]
+\[ f_{T_x} = \px[t]{x} \mu_{x+t} \]
+\[ F_{T_x}   =\qx[t]{x} = \frac{S_X(x) - S_X(x+t)}{S_X(x)}  \]
+\[ \prob{t \leq T_x \leq t+u} = \qx[t|u]{x} = \px[x]{t} \qx[u]{x+t} \]
+\[S_{T_x}(t) = \frac{S_x(x+t)}{S_X(x)} = \exp \left\{ - \int_{0}^{t} \mu_{x+s} ds \right\}  \]
+\item[$K_x$ : ] Durée de vie résiduelle entière d'un individu d'âge $x$.
+\[K_x = \lfloor T_x \rfloor \]
+\[\prob{K_x = k} = \prob{\lfloor T_x \rfloor = k} = \px[k|]{x} \]
+
+\item[$\mu_x$ : ] Force de mortalité pour $(x)$
+\[\mu_x = \lim_{t \to 0} \frac{\qx[t]{x}}{t} = \derivee{x} \Big( \ln(S_X(x)\Big) \]
+\[\mu_{x+t} = - \derivee{x} \Big( \ln ( \px[t]{x}) \Big) \]
+\end{itemize}
+
+\paragraph{Définitions des tables de mortalité}
+\begin{itemize}
+\item[$\ell_0$ : ] Nombre d'individus initial dans une cohorte.
+\item[$\ell_x$ : ] Nombre d'invidu de la cohorte ayant survécu jusqu'à l'âge $x$.
+
+\[\qx[t]{x} = \frac{\ell_x - \ell_{x+t}}{\ell_x}\]
+\[\px[t]{x} = \frac{\ell_{x+t}}{\ell_x} \]
+\[\qx[t|u]{x} = \frac{\dx[u]{x+t}}{\ell_x}\]
+
+\item[$I_j(x)$ : ] Indicateur de survie du $j$\up{e} individu jusqu'à l'âge $x$.
+\[I_j(x) \sim Bin(1, S_X(x))\]
+\item[$\mathscr{L}_x$ : ] v.a. du nombre de survivants jusqu'à l'âge $x$.
+\[\ell_x = \esp{\mathscr{L}_x} = \sum_{j=1}^{\ell_0} I_j(x)\]
+
+\item[$\prescript{}{n}{\mathscr{D}}_x$ : ] v.a. du nombre de décès entre l'âge $x$ et $x+n$.
+\[•\]
+\[\Dx[x]{x} = \mathscr{L}_x - \mathscr{L}_{x+n}\]
+\[\dx[n]{x} = \esp{\Dx[n]{x}} = \ell_{x} - \ell_{x+n} \]
+\end{itemize}
+\paragraph{Espérance de vie résiduelle}
+\[\eringx{x} = \esp{T_x} =  \int_{0}^{\omega - x} t \px[t]{x} \mu_{x+t} dt= \int_{0}^{\omega - x} \px[t]{x} dt \]
+\[\eringx{x:\angln} = \left( \int_{0}^{n} t \px[t]{x} \mu_{x+t} dt   \right) + n \cdot \px[n]{x} = \int_{0}^{n} \px[t]{x} dt \]
+
+
+\paragraph{Hypothèses d'interpolation}
+à terminer plus tard.
 
 \paragraph{Loi de Moivre}
 \begin{align*}
@@ -62,8 +107,9 @@ Le paiement est soit en continu, soit à la fin de l'année ou à la fin de la $
 
 \paragraph{Assurance-vie dotation pure} On verse le capital à l'assuré si celui-ci est toujours en vie après $n$ années.
 \begin{align*}
-\Ax{\pureendowxn}	& = \px[n]{x} v^n
+\Ax{\pureendowxn}	& = \px[n]{x} v^n = \Ex[m]{x} \\
 \end{align*}
+où $\Ex[m]{x}$ est un facteur d'actualisation actuarielle.
 
 \paragraph{Assurance mixte} On verse le capital à l'assuré si il décède dans les $n$ prochaines années, ou si il est toujours en vie après cette période.
 \begin{align*}
@@ -83,7 +129,6 @@ Le paiement est soit en continu, soit à la fin de l'année ou à la fin de la $
 	& = v^m \px[m]{x} \sum_{k=0}^{\omega - (x+m) - 1} v^{k+1} \px[k]{x+m} \qx[]{x+m+k} \\
 	& = \Ex[m]{x} \Ax{x+m} \\
 \end{align*}
-où $\Ex[m]{x}$ est un facteur d'actualisation actuarielle.
 \paragraph{Lien entre assurance différée, assurance vie entière et assurance-vie temporaire}
 
 \begin{align*}
@@ -122,6 +167,28 @@ où $\Ex[m]{x}$ est un facteur d'actualisation actuarielle.
 	\DA*_{\termxn}  &= \int_0^{\omega - x} (n - \lfloor t \rfloor) v^t \px[t]{x} \mu_{x+t} dt \\
 		&= \actsymb{\bar{A}}{\nthtop{1}{x}:\angl1} + \actsymb{\bar{A}}{\nthtop{1}{x}:\angl2} + ... + \actsymb{\bar{A}}{\nthtop{1}{x}:\angln}
 \end{align*}
+
+\section{Contrats de rente}
+\paragraph{Rente viagère} On verse une rente à l'assuré jusqu'à son décès. 
+\begin{align*}
+Y	&  = \ax*{\angl{T_{x}}} = \frac{1-v^{T_x}}{\delta} = \frac{1 -\overline{Z}_x}{\delta} \\
+\ax*{x} & = \int_{0}^{\infty}  \ax*{\angl{T_{x}}}  \px[t]{x} \mu_{x+t} dt \\
+	& = \int_{0}^{\infty} v^t \px[t]{x} dt \\
+	& = \frac{1 - \Ax*{x}}{\delta} \\
+Var(Y)	& = Var\left( \frac{1- v^{T_x}}{\delta} \right) =  \frac{\Ax*[][2]{x} - \Ax*{x}^2}{\delta^2}
+\end{align*}
+
+\paragraph{Rente temporaire $n$ années} Ce contrat de rentes prévoit payer une rente à l'assuré s'il est en vie, au maximum $n$ années.
+\begin{align*}
+Y & = \begin{cases}
+\ax*{\angl{T_x}}	& , T_x < n \\
+\ax*{\angln}			& , T_x \geq n \\
+\end{cases} \\
+	& = \frac{1  - \Ax*{x:\angln}}{\delta} \\
+\ax*{x:\angln}	& = \int_{0}^{n} \ax*{\angl{t}} \  \px[t]{x} \  \mu_{x+t} dt \\
+	& = \int_{0}^{n} v^t \px[t]{x} dt \\
+	& = 
+ \end{align*}
 
 
 
