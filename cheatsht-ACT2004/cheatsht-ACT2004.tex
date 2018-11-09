@@ -156,7 +156,8 @@ où $\Ex[m]{x}$ est un facteur d'actualisation actuarielle.
 \paragraph{Assurance vie entière croissante temporairement} On verse le capital au décès de l'assuré. Ce capital croit pendent $n$ années
 
 \begin{align*}
-	\twoletsymb{I_{\angln}}{\bar{A}}_{x}  &= \int_0^n (1 + \lfloor t \rfloor) v^t \px[t]{x} \mu_{x+t} dt + \int_n^{\omega - x} n v^t \px[t]{x} \mu_{x+t} dt \\
+	\twoletsymb{I_{\angln}}{\bar{A}}_{x}  &= \int_0^n (1 + \lfloor t \rfloor) v^t \px[t]{x} \mu_{x+t} dt \\
+	& + \int_n^{\omega - x} n v^t \px[t]{x} \mu_{x+t} dt \\
 		&= \Ax*{x} + \Ax*[1|]{x} + ... + \Ax*[n-1|]{x}
 \end{align*}
 
@@ -183,11 +184,11 @@ Var(Y)	& = Var\left( \frac{1- v^{T_x}}{\delta} \right) =  \frac{\Ax*[][2]{x} - \
 Y & = \begin{cases}
 \ax*{\angl{T_x}}	& , T_x < n \\
 \ax*{\angln}			& , T_x \geq n \\
-\end{cases} \\
-	& = \frac{1  - \Ax*{x:\angln}}{\delta} \\
+\end{cases} = \frac{1  - \overline{Z}_{x:\angln}}{\delta} \\
 \ax*{x:\angln}	& = \int_{0}^{n} \ax*{\angl{t}} \  \px[t]{x} \  \mu_{x+t} dt \\
 	& = \int_{0}^{n} v^t \px[t]{x} dt \\
-	& = 
+	& = \frac{1 - \Ax*{x:\angln}}{\delta} \\
+Var(Y)	& = \frac{\Ax*[][2]{x:\angln} - \Ax*{x:\angln}^2}{\delta^2} \\	
  \end{align*}
 
 
