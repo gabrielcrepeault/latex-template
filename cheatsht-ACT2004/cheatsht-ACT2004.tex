@@ -176,7 +176,7 @@ Y	&  = \ax*{\angl{T_{x}}} = \frac{1-v^{T_x}}{\delta} = \frac{1 -\overline{Z}_x}{
 \ax*{x} & = \int_{0}^{\infty}  \ax*{\angl{T_{x}}}  \px[t]{x} \mu_{x+t} dt \\
 	& = \int_{0}^{\infty} v^t \px[t]{x} dt \\
 	& = \frac{1 - \Ax*{x}}{\delta} \\
-Var(Y)	& = Var\left( \frac{1- v^{T_x}}{\delta} \right) =  \frac{\Ax*[][2]{x} - \Ax*{x}^2}{\delta^2}
+Var(Y)	& = Var\left( \frac{1- v^{T_x}}{\delta} \right) =  \frac{\Ax*[][2]{x} - \Ax*{x}^2}{\delta^2} \\
 \end{align*}
 
 \paragraph{Rente temporaire $n$ années} Ce contrat de rentes prévoit payer une rente à l'assuré s'il est en vie, au maximum $n$ années.
@@ -191,6 +191,27 @@ Y & = \begin{cases}
 Var(Y)	& = \frac{\Ax*[][2]{x:\angln} - \Ax*{x:\angln}^2}{\delta^2} \\	
  \end{align*}
 
+\paragraph{Rente viagère différée $m$ années} C'est un contrat de rente viagère, qui débute dans $m$ années (si $(x)$ est en vie).
+\begin{align*}
+Y & = \begin{cases}
+0											& T_x	 < 	 m	\\
+v^m \ax*{\angl{T_x - m}}	& T_x 	\geq m	\\
+\end{cases} = \overline{Y}_x - \overline{Y}_{x:\angl{m}} \\
+\ax*[m|]{x}	& = \int_{m}^{\infty} \ax*{t-m} \px[t]{x} \mu_{x+t} dt \\
+	& = \Ex[m]{x} \ax*{x+m} \\
+	& = \ax*{x} - \ax*{x:\angl{m}} \\
+Var(Y)	& = 		
+\end{align*}
+
+\paragraph{Rente garantie (certaine) $n$ années} Le contrat prévoit une rente minimale de $n$ années, pouvant se prolonger jusqu'au décès de l'assuré.
+\begin{align*}
+Y & = \begin{cases}
+\ax*{\angln}	& = T_x < n \\
+\ax*{\angl{T_x}}	& = T_x \geq n \\
+\end{cases} = \overline{Y}_{x:\angln} + \prescript{}{n|}{Y}_x \\
+\ax*{\joint{x:\angln}}	& =\ax*{\angln} \cdot \qx[n]{x} + \int_{n}^{\infty} \ax*{\angl{t}} \px[t]{x} \mu_{x+t} dt \\
+	& = \ax*{\angln} + \ax*[n|]{x} \\
+\end{align*}
 
 
 \end{multicols*}
