@@ -1,0 +1,82 @@
+% Template entête TP
+% Université Laval
+
+% ATTENTION : la référence à ce document (\input) doit être fait après \begin{document} et l'appel aux fonctions \author, \title et \date dans le préambule.
+
+% Copier-coller ce script dans le même dossier que le fichier .tex principal, puis insérer la commande suivante à l'endroit où l'on veut voir apparaître la page titre : 
+% \input{pagetitre_UL}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+\begin{titlepage}
+\centering \large
+
+% ----- COÉQUIPIER 1 -----
+\@author
+\par
+$(111 \ 126 \ 819)$
+\vspace{0.5cm}
+%-----
+
+% ----- COÉQUIPIER 2 -----
+% Nom et prénom
+% \par
+% $(000 \ 000 \ 000)$
+% \vspace{0.5cm}
+%-----
+
+% ----- COÉQUIPIER 3 -----
+% Nom et prénom
+% \par
+% $(000 \ 000 \ 000)$
+% \vspace{0.5cm}
+%-----
+
+% ----- COÉQUIPIER 4 -----
+% Nom et prénom
+% \par
+% $(000 \ 000 \ 000)$
+% \vspace{0.5cm}
+%-----
+
+%------------------------------
+\vfill
+
+
+% ----- NOM DU COURS -----
+{
+\scshape
+Introduction à l'actuariat II
+\par
+ACT-2001
+}
+%------------------------------
+\vfill
+
+
+% ----- TITRE DU TRAVAIL -----
+{
+\bfseries \Large
+\@title
+}
+%------------------------------
+\vfill
+
+
+% ----- NOM DU PROFESSEUR -----
+Travail présenté à
+\par
+Étienne Marceau
+%------------------------------
+\vfill
+
+% ----- BAS DE PAGE -----
+École d'actuariat
+\par
+Université Laval
+\par 
+\@date
+%------------------------------
+\end{titlepage}
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
