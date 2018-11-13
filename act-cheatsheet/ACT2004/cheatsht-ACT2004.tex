@@ -20,14 +20,14 @@
 
 
 % j'enlève le footnotesize temporairement, sinon je ne vois rien! GCC
-% \footnotesize % Écrire petit (peut être modifié)
+\footnotesize % Écrire petit (peut être modifié)
 \begin{multicols*}{3} % Nombre de colonnes (peut être changé plus tard.)
 \section*{Rappel de Math. financière}
 \paragraph{Annuitées}
 \begin{align*}
 	\actsymb{a}{\angln} &= \frac{1 - v^t}{i} \\
 	\actsymb{a}{\angl{\infty}} &= \frac{1}{i} \\
-	\actsymb{\bar{a}}{\angln} &= \int_0^n v^t dt = \frac{1 - v^t}{\delta}
+	\actsymb{\bar{a}}{\angln} &= \int_0^n v^t dt = \frac{1 - v^n}{\delta}
 \end{align*}
 
 \section{Matière examen 1}
@@ -46,7 +46,7 @@
 
 \item[$\mu_x$ : ] Force de mortalité pour $(x)$
 \[\mu_x = \lim_{t \to 0} \frac{\qx[t]{x}}{t} = \derivee{x} \Big( \ln(S_X(x)\Big) \]
-\[\mu_{x+t} = - \derivee{x} \Big( \ln ( \px[t]{x}) \Big) \]
+\[\mu_{x+t} = - \derivee{t} \Big( \ln ( \px[t]{x}) \Big) \]
 \end{itemize}
 
 \paragraph{Définitions des tables de mortalité}
@@ -74,7 +74,17 @@
 
 
 \paragraph{Hypothèses d'interpolation}
-à terminer plus tard.
+Pour $t \in [0,1]$ et $x \in \entiers$.
+
+\textbf{Distribution uniforme des décès (DUD)}
+\begin{align*}
+\ell_{x+t} = (1-t) \ell_x + t \ell_{x+1}
+\end{align*}
+
+\textbf{Force constante (FC)}
+\begin{align*}
+\ell_{x+t} = \ell_x^{(1-t)} \ell_{x+1}^{(t)}
+\end{align*}
 
 \paragraph{Loi de Moivre}
 \begin{align*}
@@ -102,6 +112,10 @@ Le paiement est soit en continu, soit à la fin de l'année ou à la fin de la $
 \Ax{x}	& = \sum_{k=0}^{\omega - x - 1} v^{k+1} \qx[k|]{x} \\
 	& = \sum_{k=0}^{\omega - x - 1} v^{k+1} \px[k]{x} \qx[]{x+k} \\
 \end{flalign*}
+\begin{align*}
+\Ax{x} = v \qx[]{x} + v p_x \Ax{x+1}
+\end{align*}
+
 
 \paragraph{Assurance-vie temporaire} On verse le capital au décès de l'assuré, s'il survient dans les $n$ prochaines années.
 \begin{flalign*}
@@ -216,6 +230,7 @@ Y & = \begin{cases}
 \ax*{\joint{x:\angln}}	& =\ax*{\angln} \cdot \qx[n]{x} + \int_{n}^{\infty} \ax*{\angl{t}} \px[t]{x} \mu_{x+t} dt \\
 	& = \ax*{\angln} + \ax*[n|]{x} \\
 \end{align*}
+
 
 
 \end{multicols*}
