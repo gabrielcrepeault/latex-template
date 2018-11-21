@@ -26,7 +26,7 @@
 \subsection*{Modèle}
 \begin{align*}
 \esp{Y_i | x_i} 	& = \beta_0 + \beta_1 x_i \\
-Var(Y_i | x_i)	& = \sigma^2 \\
+\variance{Y_i | x_i}	& = \sigma^2 \\
 Y_i | x_i & \overset{\mathbf{H}_4}{\sim} N(\beta_0 + \beta_1 x_i, \sigma^2) \\
 \end{align*}
 
@@ -43,11 +43,11 @@ Y_i | x_i & \overset{\mathbf{H}_4}{\sim} N(\beta_0 + \beta_1 x_i, \sigma^2) \\
 
 \subsection*{Propriété des estimateurs}
 \begin{align*}
-\esp{\hat{\beta}_1} = \beta_1 \quad , Var(\hat{\beta}_1) = \frac{\sigma^2}{S_{XX}} \\
+\esp{\hat{\beta}_1} = \beta_1 \quad , \variance{\hat{\beta}_1} = \frac{\sigma^2}{S_{XX}} \\
 \hat{\beta}_1 \overset{H_4}{\sim} N(\beta_1, \frac{\sigma^2}{S_{XX}}) \\
-\esp{\hat{\beta}_0} = \beta_0 \quad , Var(\hat{\beta}_0) = \sigma^2 \left( \frac{1}{n} + \frac{\bar{x}^2}{S_{XX}} \right) \\
+\esp{\hat{\beta}_0} = \beta_0 \quad , \variance{\hat{\beta}_0} = \sigma^2 \left( \frac{1}{n} + \frac{\bar{x}^2}{S_{XX}} \right) \\
 \hat{\beta}_0 \overset{H_4}{\sim} N \left(\beta_0, \sigma^2 \left( \frac{1}{n}  + \frac{\bar{x}^2}{S_{XX}} \right) \right) \\
-Cov(\hat{\beta}_0, \hat{\beta}_1) = - \frac{\bar{x} \sigma^2}{S_{XX}}
+\mathrm{Cov}(\hat{\beta}_0, \hat{\beta}_1) = - \frac{\bar{x} \sigma^2}{S_{XX}}
 \end{align*}
 
 \subsection*{Tests d'hypothèse sur les paramètres}
@@ -106,7 +106,7 @@ où $h_{ii} = \frac{1}{n} + \frac{(\bar{x} - x_i)^2}{S_{XX}}$.
 
 On peut aussi prouver que
 \begin{align*}
-Cov(\hat{\varepsilon}_i, \hat{\varepsilon}_j) = - \sigma^2 \left( \frac{1}{n} + \frac{(x_i - \bar{x})(x_j - \bar{x})}{S_{XX}} \right)
+\mathrm{Cov}(\hat{\varepsilon}_i, \hat{\varepsilon}_j) = - \sigma^2 \left( \frac{1}{n} + \frac{(x_i - \bar{x})(x_j - \bar{x})}{S_{XX}} \right)
 \end{align*}
 
 \subsection*{Vérification des postulats}
@@ -147,7 +147,7 @@ Les deux derniers graphique doivent être centrés à 0 et d'allure aléatoire.
 \subsection*{Le modèle et ses propriétés}
 \begin{align*}
 \matr{Y}_{n \times 1} & = \matr{X}_{n \times p'} \bm{\beta}_{p' \times 1} + \bm{\varepsilon}_{n \times 1} \\
-\esp{\matr{Y}}	& = \matr{X} \bm{\beta} \quad , Var(\matr{Y}) = \sigma^2 \matr{I}_{n \times n} \\
+\esp{\matr{Y}}	& = \matr{X} \bm{\beta} \quad , \variance{\matr{Y}} = \sigma^2 \matr{I}_{n \times n} \\
 Y & \overset{H_4}{\sim} N_n(\matr{X} \bm{\beta}, \sigma^2 \matr{I}_{n \times n}) \\
 \end{align*}
 
@@ -189,13 +189,13 @@ où $\matr{H = X(X^\top X)^{-1}X^\top}$ est la \textit{hat matrix}.
 
 On a aussi que
 \begin{align*}
-\esp{\hat{\matr{Y}}} & = \matr{X} \bm{\beta} \quad , Var(\hat{\matr{Y}}) = \sigma^2 \matr{H} \\
+\esp{\hat{\matr{Y}}} & = \matr{X} \bm{\beta} \quad , \variance{\hat{\matr{Y}}} = \sigma^2 \matr{H} \\
 \hat{\matr{Y}} & \overset{H_4}{\sim} N_n(\matr{X} \bm{\beta} , \sigma^2 \matr{H}) \\
 \end{align*}
 
 Pour les résidus de la droite de régression, on a
 \begin{align*}
-\esp{\hat{\bm{\varepsilon}}}  \overset{H_1}{=} 0 \quad , Var(\hat{\bm{\varepsilon}}) = \sigma^2(\matr{I}_{n \times n} - \matr{H}) \\
+\esp{\hat{\bm{\varepsilon}}}  \overset{H_1}{=} 0 \quad , \variance{\hat{\bm{\varepsilon}}} = \sigma^2(\matr{I}_{n \times n} - \matr{H}) \\
 \hat{\bm{\varepsilon}} \overset{H_4}{\sim} N_n(0, \sigma^2 (\matr{I}_{n \times n} - \matr{H})) \\
 \end{align*}
 
@@ -281,7 +281,7 @@ VIF_j = \frac{1}{1 - R_j^2}
 avec $R_j^2$ le coefficient de détermination de la régression ayant comme variable réponse le $j$\up{e} variable et les $(j-1)$ autres variables exogènes en \textit{input}.
 \item La variance de $\hat{\beta}_j$ s'exprime en fonction du VIF comme suit:
 \begin{align*}
-	Var(\hat{\beta}_j) = \frac{\sigma^2}{(\matr{X^{*\top} \matr{X^*})_{jj}}} VIF_j
+	\variance{\hat{\beta}_j} = \frac{\sigma^2}{(\matr{X^{*\top} \matr{X^*})_{jj}}} VIF_j
 \end{align*}
 \end{itemize}
 
@@ -417,10 +417,32 @@ F_{obs} < F_{1, n-p'}(1-\alpha)
 \item Après l'ajout d'une variable au modèle, on effectue la méthode d'exclusion pour les variables qui sont actuellement dans le modèle (on remet constamment le modèle en question).
 \end{enumerate}
 
+
+\section{Modèles linéaires généralisés (GLM)}
+\subsection*{Famille exponentielle linéaire}
+\subsubsection*{Définition}
+Une loi de probabilité fait partie de la famille exponentielle linéaire si
+\begin{enumerate}[label=\faAngleRight]
+\item On peut exprimer la fonction de densité (ou masse) de probabilité comme
+\[f(y ; \theta, \phi) =   \exp \left( \frac{y \theta - b(\theta)}{a(\phi)} + c(y ; \phi)    \right)  \] 
+où $\theta$ est le paramètre canonique et $\theta$ est le paramètre de dispersion.
+
+\item la fonction $c$ ne dépend pas du paramètre $\theta$.
+\item Le support e $Y$ ne dépend pas des paramètres $\theta$ ou $\phi$.
+\end{enumerate}
+
+\subsubsection*{Propriétés}
+Soit $\mu = \dot{b}(\theta) = \derivee{\theta} b(\theta)$ et $V(\mu) = \ddot{b}(\theta) = \frac{\partial^2}{\partial \theta^2} b(\theta)$. Alors, si $Y$ fait partie de la famille exponentielle linéaire, on peut exprimer l'espérance et la variance comme
+\begin{align*}
+\esp{Y}	& = \dot{b}(\theta) \\
+\variance{Y}	& = a(\phi) \ddot{b}(\theta) \\
+\end{align*}
+
+
+
+
+
 %\includegraphics[width=3cm]{graphique_residus/lineaire1.png}
-
-
-
 
 % je voulais faire un page récap de l'analyse des résidues mais je suis pas capable de mettre un graph dans le multi col
 % % Analyses des résidus
