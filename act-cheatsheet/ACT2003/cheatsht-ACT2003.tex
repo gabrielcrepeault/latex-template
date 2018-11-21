@@ -13,7 +13,7 @@
 
 
 
-\small
+% \small
 \begin{multicols*}{3} % Nombre de colonnes (peut être changé plus tard.)
 \section{Régression linéaire simple}
 \subsection*{Postulats}
@@ -428,16 +428,33 @@ Une loi de probabilité fait partie de la famille exponentielle linéaire si
 où $\theta$ est le paramètre canonique et $\theta$ est le paramètre de dispersion.
 
 \item la fonction $c$ ne dépend pas du paramètre $\theta$.
-\item Le support e $Y$ ne dépend pas des paramètres $\theta$ ou $\phi$.
+\item Le support de $Y$ ne dépend pas des paramètres $\theta$ ou $\phi$.
 \end{enumerate}
 
 \subsubsection*{Propriétés}
 Soit $\mu = \dot{b}(\theta) = \derivee{\theta} b(\theta)$ et $V(\mu) = \ddot{b}(\theta) = \frac{\partial^2}{\partial \theta^2} b(\theta)$. Alors, si $Y$ fait partie de la famille exponentielle linéaire, on peut exprimer l'espérance et la variance comme
 \begin{align*}
-\esp{Y}	& = \dot{b}(\theta) \\
-\variance{Y}	& = a(\phi) \ddot{b}(\theta) \\
+\esp{Y}	& = \dot{b}(\theta) = \mu \\
+\variance{Y}	& = a(\phi) \ddot{b}(\theta) = a(\phi) V(\mu) \\
 \end{align*}
 
+\subsubsection*{Lemme de la Log-vraisemblance}
+Soit $\ell(\theta, \phi ; Y) = \ln f(y ; \theta, \phi)$ la log-vraisemblance. Alors,
+\[\esp{\derivee{\theta} \ell(\theta, \phi ; Y)} = 0\]
+et
+\[\esp{\left( \derivee{\theta}  \ell(\theta, \phi ; Y \right)^2} = - \esp{\frac{\partial^2}{\partial \theta^2} \ell(\theta, \phi ; Y)}\]
+
+\subsection*{Fonction de lien}
+Soit $\eta = \matr{X} \boldsymbol{\beta}$. La fonction de lien est la transformation qu'on applique à $\eta$ afin de limiter le support de $Y$.
+\begin{description}
+\item[Lien logistique] $\eta = \ln \left( \frac{\mu}{1 - \mu} \right) \leftrightarrow \mu = \frac{e^{\eta}}{1 + e^{\eta}}$
+
+\item[Lien probit] $\eta = \Phi^{-1}(\mu) \leftrightarrow \mu = \Phi(\eta)$
+
+\item[Lien log-log complémentaire] $\eta = \ln ( - \ln (1 - \mu)) \leftrightarrow \mu = 1 - e^{-e^{\eta}}$
+
+\item[Lien canonique] $\eta = \theta$ 
+\end{description}
 
 
 
