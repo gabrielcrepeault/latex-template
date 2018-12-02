@@ -5,13 +5,14 @@
 %% -----------------------------
 \input{cheatsht-preamble.tex}
 
+% On débute la numérotation des chapitres à 2 pour suivre les notes à Marie-Pier.
+\setcounter{section}{1}
+
 
 %% -----------------------------
 %% Début du document
 %% -----------------------------
 \begin{document}
-
-
 
 % \small
 \begin{multicols*}{3} % Nombre de colonnes (peut être changé plus tard.)
@@ -439,7 +440,7 @@ Soit $\mu = \dot{b}(\theta) = \derivee{\theta} b(\theta)$ et $V(\mu) = \ddot{b}(
 \end{align*}
 
 \subsubsection*{Lemme de la Log-vraisemblance}
-Soit $\ell(\theta, \phi ; Y) = \ln f(y ; \theta, \phi)$ la log-vraisemblance. Alors,
+Soit $\ell(\theta, \phi ; Y) = \mathrm{L}(\theta, \phi ; Y)$ la log-vraisemblance. Alors,
 \[\esp{\derivee{\theta} \ell(\theta, \phi ; Y)} = 0\]
 et
 \[\esp{\left( \derivee{\theta}  \ell(\theta, \phi ; Y \right)^2} = - \esp{\frac{\partial^2}{\partial \theta^2} \ell(\theta, \phi ; Y)}\]
@@ -495,10 +496,68 @@ Test d'hypothèse pour tester $H_0 : \beta_j = 0$, $H_1 : \beta_j \neq 0$. On a 
 \[Z = \frac{\beta_j}{\sqrt{\hat{\mathrm{Var}}(\hat{\beta}_j)}} \sim \mathcal{N}(0,1) \]
 On rejète donc $H_0$ si $Z > z_{1 - \frac{\alpha}{2}}$.
 
+\paragraph{Note} On obtient $\hat{\mathrm{Var}}(\hat{\beta}_j)$ sur les éléments de la diagonale de $\{ \mathcal{I}(\hat{\beta} \}^{-1} / n$.
+
 \subsection*{Test du rapport de vraisemblance}
+%% On pourrait peut-être synthétiser mieux cette section ...
+On teste $H_0 : \beta \in \beta_0$ et $H_1 : \beta \in \beta_1$, où $\beta_1$ est le complément de l'espace $\beta_0$, qui est une sélection réduite des variables explicatives disponibles. On teste
+\[\lambda(y) = \frac{\mathrm{L}\left(\hat{\beta}^{(H_0)} \right)}{\mathrm{L}(\hat{\beta})}   \]
+$\lambda(y)$ sera assurément plus petit que 1 (il y a moins de variables explicatives). Mais on veut tester si $\lambda(y)$ est plus petit qu'une certaine valeur critique.
+
+\begin{enumerate}[label=\faAngleRight]
+\item Si \emph{$H_0$ spécifie tous les paramètres du modèle}, on a
+\[-2 \ln \lambda(y) \sim \chi_{p'}^2 \quad , \text{Sous $H_0$}\]
+\item Si \emph{$H_0$ spécifie partiellement les paramètres du modèle}, on a
+\[-2 \ln \lambda(y) \sim \chi_{k_2 - k_1}^2 \quad , \text{Sous $H_0$}\]
+où $k_1$ est le nombre de paramètres non-spécifiés dans $H_0$ et $k_2$ le nombre de paramètres non-spécifiés dans $H_1$.
+\item Avec le TRV, on peut seulement comparer des modèles qui sont liés.
+\end{enumerate}
+
+\subsection*{Adéquation du modèle}
+
+\subsubsection*{Statistiques $\chi^2$ de Pearson}
+On peut valider l'adéquation du modèle avec la statistique $X^2$, où
+\[  X^2 = \sum_{i=1}^{n} \left( \frac{y_i -  \hat{\mu}_i}{\sqrt{V(\hat{\mu}_i)}} \right)^2   \sim \chi_{n-p'}^2 \]
+Avec $X^2 \leq \chi_{n-p', 1 - \frac{\alpha}{2}}^2$ si le modèle est adéquat. Si $\phi$ est inconnu, on peut l'estimer avec $\hat{\phi} = \frac{X^2}{n-p'}$
+
+\subsubsection*{Déviance}
+On a
+\[2(\ell(\tilde{\theta}) - \ell(\hat{\theta}))  \sim \chi_{n-p'}^2 \]
+avec $\bar{\theta}$ est le modèle nul, $\hat{\theta}$ le modèle à l'étude et $\tilde{\theta}$ le modèle complet, où $\hat{\mu}_i = y_i$. Cette expression représente la déviance $D(y ; \hat{\mu})$ : 
+\begin{align*}
+2(\ell(\tilde{\theta}) - \ell(\hat{\theta}))	& = 2 \sum_{i=1}^{n} \frac{w_i}{\phi} (y_i \tilde{\theta} - b(\tilde{\theta}) - y_i \hat{\theta} + b(\hat{\theta})) \\
+&= 2 \sum_{i=1}^{n} \frac{w_i}{\phi} y_i (\tilde{\theta} - \hat{\theta}) - (b(\tilde{\theta} - b(\hat{\theta})) \\
+& = \frac{D(y ; \hat{\mu})}{\phi}
+\end{align*}
+Si $\phi$ est inconnu, on peut l'estimer avec $\hat{\phi} = \frac{D(y ; \hat{\mu})}{n-p'}$
+
+\subsection*{Comparaison de modèles}
+Les critères classiques AIC et BIC peuvent être utilisés pour comparer des modèles. On peut aussi faire une analyse de la déviance
+
+\subsubsection*{Analyse de la déviance}
+On compare le modèle $A$ et le modèle $B$ (où $A$ est une simplification de $B$). Le modèle $A$ sera une bonne simplification de $B$ si
+\[\frac{D(y ; \hat{\mu}_A) - D(y ; \hat{\mu}_B)}{\phi}  \sim \chi_{p_B - p_A}^2  \]
+Il est certain que la déviance va augmenter en diminuant le nombre de paramètres. On veut valider si la déviance augmente \emph{significativement} au point de ne pas pouvoir simplifier $B$. On rejète $H_0$ que $A$ est une bonne simplification de $B$ si la différence est déviance réduite est supérieure à $\chi_{p_B - p_A, 1 - \frac{\alpha}{2}}^2$
+
+
+\subsection*{Analyse des résidus}
+
+\subsubsection*{Résidus de Pearson}
+\begin{align*}
+r_{P_i} = \frac{y_i - \hat{\mu}_i}{\sqrt{V(\hat{\mu})_i}}
+\end{align*}
+
+\subsubsection*{Résidus d'Anscombe}
+À valider si la formule est à savoir
+
+
+\subsubsection*{Résidus de la déviance}
+À valider si la formule est à savoir
 
 
 
+% --- DÉBUT CHAPITRE 6 : MODÉLISATION DE DONNÉES DE COMPTAGE
+\section{Modélisation de données de comptage}
 
 
 
