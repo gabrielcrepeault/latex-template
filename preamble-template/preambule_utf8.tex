@@ -89,9 +89,14 @@ after title = {\large \hfill \faBook}
 \usepackage{cancel}
 \newcommand{\derivee}[1]{\frac{\partial}{\partial #1}}
 \newcommand{\prob}[1]{\Pr \left( #1 \right)}
-\newcommand{\esp}[1]{E \left[ #1 \right]}
+\newcommand{\esp}[1]{\mathrm{E} \left[ #1 \right]}
+\newcommand{\variance}[1]{\mathrm{VaR} \left( #1 \right)}
 \newcommand{\laplace}{\mathcal{L}}
 \newcommand{\indic}[1]{\mathds{1}_{\{ #1 \}}}
+
+% Matricial notation (with simple command \bm{•})
+\usepackage{bm}
+
 
 % To indicate equation number on a specific line in align environment
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}

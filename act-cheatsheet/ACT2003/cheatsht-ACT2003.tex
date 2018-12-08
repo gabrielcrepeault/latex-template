@@ -448,6 +448,7 @@ et
 \subsection*{Fonction de lien}
 Soit $\eta = \matr{X} \boldsymbol{\beta}$. La fonction de lien est la transformation qu'on applique à $\eta$ afin de limiter le support de $Y$.
 \begin{description}
+\item[Lien log] $\eta = \ln \mu \leftrightarrow \mu = e^{\eta}$
 \item[Lien logistique] $\eta = \ln \left( \frac{\mu}{1 - \mu} \right) \leftrightarrow \mu = \frac{e^{\eta}}{1 + e^{\eta}}$
 
 \item[Lien probit] $\eta = \Phi^{-1}(\mu) \leftrightarrow \mu = \Phi(\eta)$
@@ -477,19 +478,19 @@ où $\mathcal{I}(\bm{\beta})_{(p' \times p')}$ est la matrice d'information de F
 \end{enumerate}
 
 \subsubsection*{Algorithme de Newton-Raphson}
-L'objectif est de trouver $\hat{\bm{\beta}}$ qui maximise $\ell(\hat{\bm{\beta}})$, ce qui revient à trouver $\dot{\ell(\hat{\bm{\beta}})} = 0$. On utilise l'approximation de Taylor de premier ordre dans l'algorithme : 
+L'objectif est de trouver $\hat{\bm{\beta}}$ qui maximise $\ell(\hat{\bm{\beta}})$, ce qui revient à trouver $\dot{\ell}(\hat{\bm{\beta}}) = 0$. On utilise l'approximation de Taylor de premier ordre dans l'algorithme : 
 \begin{enumerate}[label = (\arabic*)]
 \item Choisir des valeurs de départ pour le vecteur $\hat{\bm{\beta}}^{H_0}$
 \item Pour $k = 1, 2, ...$
 \begin{enumerate}[label = (2.\arabic*)]
-	\item $\hat{\bm{\beta}}^{(k)} = \hat{\bm{\beta}}^{(k-1)} \mathcal{I} \left \{ \ddot{\ell}(\hat{\bm{\beta}})^{(k-1)} \right \}^{-1} \dot{\ell}(\hat{\bm{\beta}})^{(k-1)}$
+	\item $\hat{\bm{\beta}}^{(k)} = \hat{\bm{\beta}}^{(k-1)} +  \left \{ - \ddot{\ell}(\hat{\bm{\beta}})^{(k-1)} \right \}^{-1} \dot{\ell}(\hat{\bm{\beta}})^{(k-1)}$
 	\item Si $|\dot{\ell}(\hat{\bm{\beta}})^{(k)}| < \varepsilon $, on converge vers les paramètres optimaux pour le modèle et on arrète.
 	\item Répéter les étapes (2.1) et (2.2) jusqu'à une convergence.
 \end{enumerate}
 \end{enumerate}
 
 \subsubsection*{Méthode du score de Fisher}
-Cette méthode est la même que l'algorithme de Newton-Raphson, à l'exception qu'on remplace $\mathcal{I} \left \{ \ddot{\ell}(\hat{\bm{\beta}}) \right \}$ par $\esp{\ddot{\ell}(\hat{\bm{\beta}})}$ à l'étape (2.1)
+Cette méthode est la même que l'algorithme de Newton-Raphson, à l'exception qu'on remplace $\mathcal{I} \left( \hat{\bm{\beta}} \right)$ par $- \esp{\ddot{\ell}(\hat{\bm{\beta}})}$ à l'étape (2.1)
 
 \subsection*{Statistique de Wald}
 Test d'hypothèse pour tester $H_0 : \beta_j = 0$, $H_1 : \beta_j \neq 0$. On a que
@@ -535,6 +536,7 @@ Si $\phi$ est inconnu, on peut l'estimer avec $\hat{\phi} = \frac{D(y ; \hat{\mu
 Les critères classiques AIC et BIC peuvent être utilisés pour comparer des modèles. On peut aussi faire une analyse de la déviance
 
 \subsubsection*{Analyse de la déviance}
+\label{sssec:analyse_deviance}
 On compare le modèle $A$ et le modèle $B$ (où $A$ est une simplification de $B$). Le modèle $A$ sera une bonne simplification de $B$ si
 \[\frac{D(y ; \hat{\mu}_A) - D(y ; \hat{\mu}_B)}{\phi}  \sim \chi_{p_B - p_A}^2  \]
 Il est certain que la déviance va augmenter en diminuant le nombre de paramètres. On veut valider si la déviance augmente \emph{significativement} au point de ne pas pouvoir simplifier $B$. On rejète $H_0$ que $A$ est une bonne simplification de $B$ si la différence est déviance réduite est supérieure à $\chi_{p_B - p_A, 1 - \frac{\alpha}{2}}^2$
@@ -558,6 +560,47 @@ r_{P_i} = \frac{y_i - \hat{\mu}_i}{\sqrt{V(\hat{\mu})_i}}
 
 % --- DÉBUT CHAPITRE 6 : MODÉLISATION DE DONNÉES DE COMPTAGE
 \section{Modélisation de données de comptage}
+
+\subsection*{Terme \emph{offset}}
+On veut souvent modéliser le taux  de réclamation, cela se fait avec un terme \emph{offset} $t_i$ qui représente l'exposition au risque (i.e. le nombre d'années qu'on a assuré la personne) : 
+\begin{align*}
+\ln \left( \frac{\mu_i}{t_i} \right) & = \bm{x}_i \bm{\beta} \\
+\ln (\mu_i) & = \bm{x}_i \bm{\beta} + \ln (t_i) \\
+\mu_i & = t_i e^{\eta_i}
+\end{align*}
+le terme \emph{offset} peut être vu comme une variable explicative additionnelle (où le coefficient est toujours 1)
+
+\subsection*{Notation pour les interactions}
+Lorsqu'on utilise des variables catégoriques qui ont plusieurs niveaux, on peut utiliser une notation abbrégée. Prenons un modèle quelquonque \verb=A * B= avec la variable \verb=A= qui a I = 3 niveaux et \verb=B= qui a J = 2 niveaux. Alors, on aurait
+\begin{align*}
+\ln (\mu_{i,j}) = \alpha + \beta_i^A + \beta_j^B + \gamma_{i,j} \quad i = 1,2,3 \text{ et } j = 1,2
+\end{align*}
+0ù on impose les contraintes telles que $\beta_1^A = \beta_1^B = 0$ et $\gamma_{1,j} = \gamma_{j,1} = 0$. 
+
+\subsection*{Approximation de la Binomiale par une Poisson}
+Si la variable qu'on veut modéliser obéit à une $Bin(m, \pi)$ avec $m$ grand et $\pi$ petit, alors on peut l'approximer avec une loi de Poisson en prenant le modèle
+\[\ln(\mu_i) = \ln(m_i) + \ln(\pi_i) \]
+où $\ln(m_i)$ est un terme \emph{offset}
+
+\subsection*{Tableau de contingence}
+Lorsque toutes les variables sont des catégorielles, on peut créer un tableau de contingence, où on veut modéliser le nombre dans chaque case avec un GLM Poisson. \\
+
+On a 3 modèles dans les tableaux de contingence (illustré avec des modèles simples qui ont les variables explicatives \verb=A=, \verb=B= et \verb=C= avec J,K et L niveaux  : 
+\begin{enumerate}[label=\faAngleRight]
+\item Modèle d'indépendance : $A + B + C$
+
+\item Modèle d'indépendance partielle (celui qu'on veut tester) : 
+\[A + B * C\]
+
+\item Modèle d'indépendance conditionnelle (aussi appelé le \emph{modèle saturé} : 
+\[A * B * C\]
+\end{enumerate}
+On peut alors tester l'indépendance de certaines variables en faisant une \textbf{Analyse de la déviance} (\autoref{sssec:analyse_deviance}).
+
+
+\subsection*{Cote}
+La cote de $A$ est définie par
+\[Cote(A) = \frac{\prob{A}}{\prob{\overline{A}}} = \frac{\prob{A}}{1 - \prob{A}} \]
 
 
 
