@@ -205,6 +205,58 @@ Un processus de dénombrement $\{N(t) ; t \geq 0 \}$ est dit un processus de Poi
 \end{enumerate}
 \end{definition}
 
+\begin{definition}[Définition 2]
+Un processus de dénombrement $\{N(t) ; t \geq 0 \}$ est dit un processus de Poisson avec $\lambda>0$ ssi
+\begin{enumerate}[label=(\arabic*)]
+\item $N(0)=0$
+\item a des accroissements indépendants et stationnaires
+\item $\prob{N(h) = 1} = \lambda h + o(h)$
+\item $\prob{N(h) \geq 2} = o(h)$
+\end{enumerate}
+Avec $o(h)$ une fonction où $f(h) = o(h)$ si $\lim_{n \to \infty} \frac{f(h)}{h} = 0$.
+\end{definition}
+On peut prouver que ces 2 définitions sont équivalents.
+
+\subsection*{Temps séparant 2 évènements successifs}\begin{enumerate}[label=\faAngleRight]
+\item Soit $T_i$ le temps entre le $(i-1)$\up{e} et le $i$\up{e} évènement.
+
+\item Alors, $T_n \sim Exp (\lambda)$.
+
+\item Soit $S_n$ le moment où se produit le $i$\up{e} évènement. On a
+\begin{align*}
+S_n = \sum_{i=1}^{n} T_i
+\end{align*}
+\item On peut facilement prouver que $S_n \sim \Gamma(n, \lambda)$.
+
+\item Si $N(t) \geq n$, alors nécessairement $S_n \leq t$.
+\end{enumerate}
+
+\subsection*{Processus de Poisson avec évènements de type I et II}
+\begin{enumerate}[label=\faAngleRight]
+\item Soit un Processus de Poisson $\{N(t) ; t \geq 0 \}$ où il peut y avoir un évènement de type I avec probabilité $p$ ou un de type II avec probabilité $q$.
+\item Nécessairement, on a
+\begin{align*}
+N(t) = N_1(t) + N_2(t)
+\end{align*}
+Avec $N_1(t)$ et $N_2(t)$ qui sont stochastiquement indépendants.
+
+\item $N_i(t) \sim Pois(\lambda p_i t)$, où $p_i$ est la probabilité que l'évènement de type $i$ se produise.
+\end{enumerate}
+
+
+\subsection*{Distribution conditionnelle des temps d'occurence}
+\begin{itemize}
+\item Pour un processus de Poisson $\{ N(t) ; t \geq 0 \}$, la distribution conditionnelle des temps d'occurence $S_1, ... S_n$ sachant que $N(t) = n$ est définie par
+\begin{align*}
+f_{S_1, ..., S_n | N(t)}(s_1, ..., s_n | n) = \frac{n!}{t^n}
+\end{align*}
+pour $0 < s_1 < ... < s_n$.
+
+\item La distribution de $S_1, ..., S_n | N(t) = n$ a la même distribution que les statistiques d'ordre : 
+\begin{align*}
+U_{(1)}, ..., U_{(n)} \sim U(0,t)
+\end{align*}
+\end{itemize}
 
 \end{multicols*}
 
