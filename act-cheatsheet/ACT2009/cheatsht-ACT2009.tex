@@ -139,15 +139,71 @@ Avec la transformée de Laplace de $m(t)$, $\hat{m}(s)$, on a
 \begin{align*}
 \frac{N(t)}{t} \underset{t \to \infty}{\longrightarrow} \frac{1}{\mu}
 \end{align*}
-i
+avec une probabilité \emph{presque certaine}.
 
+\item \emph{Théorème élémentaire du renouvellement} : avec $t \to \infty$, on a
+\[\frac{m(t)}{t} \underset{t \to \infty}{\longrightarrow} \frac{1}{\mu} \]
+
+\item Lorsque $t \to \infty$, $N(t)$ est aymptotiquement normale, telle que
+%\begin{align*} % version sous forme de \Phi
+%\frac{N(t) - \frac{t}{\esp{T}}}{\sqrt{\frac{t \variance{T}}{\esp{T}^3}}} \sim \mathcal{N} (0,1)
+%\end{align*}
+
+\begin{flalign*} % version 2
+N(t) \sim \mathcal{N} \left( \frac{t}{\esp{T}},  \frac{t \variance{T}}{\esp{T}^3}   \right)
+\end{flalign*}
+\end{enumerate}
+
+\subsection*{Équation de renouvellement}
+De façon générale, si on a une équation intégrale d'une fonction $g(t)$ telle que
+\[g(t) = h(t) + \int_{0}^{t} g(t-x) dF_T(x) \]
+Alors, la seule solution est
+\[g(t) = h(t) + \int_{0}^{t} h(t-x) d m(x) \]
+
+\subsection*{Distribution de $S_{N(t)}$}
+On peut définir la fonction de répartition et l'espérance de $S_{N(t)}$ comme
+\[F_{S_{N(t)}}(x) = \overline{F}_T(t) + \int_{0}^{x} \overline{F}_T(t-y) dm(y)  \]
+et
+\[\esp{S_{N(t)}}  = t F_T(t) - \int_{0}^{t} (t-y)\overline{F}_T(t-y) d m(y) \]
+De plus,
+\[\esp{S_{N(t) + 1}} = \esp{T}(m(t) + 1)\]
+
+\subsection*{Key renewal theorem}
+\[\lim_{t \to \infty} \int_{0}^{t} h(t-x) d m(x) = \frac{1}{\esp{T}} \int_{0}^{\infty} h(x) dx \]
+
+\subsection*{Processus de renouvellement avec délai}
+\begin{enumerate}[label=\faAngleRight]
+\item Soit $\{ T_n : n \in \naturels \}$ des temps entre des renouvellements succesifs qui sont \emph{iid} tel que $F_{T_n}(t) = F_{T_2}(t)$ pour $n \geq 2$ et $F_{T_1(t)} \neq F_{T_2}(t)$. Alors $\{N_d(t) ; t \geq 0 \}$ est dit être un processus de renouvellement avec délai. 
+
+\item La distribution de $N_d(t)$ est
+\[\prob{N_d(t) = n} = F_{T_1} \ast F_{T_2}^{\ast(n-1)}(t) - F_{T_1} \ast F_{T_2}^{\ast (n)}(t)  \]
+
+\item la fonction de renouvellement $m_d(t)$ est donc
+\[m_d(t) = \sum_{n=1}^{\infty} F_{T_1} \ast F_{T_2}^{\ast (n-1)}(t)  \]
+
+\item De plus, $m_d(t)$ satisfait aussi l'équation de renouvellement, telle que
+\[m_d(t) = F_{T_1}(t) + \int_{0}^{t}  m_o(t-x) f_{T_2}(x) dx \]
+où $m_o(t)$ est la fonction de renouvellement d'un processus de renouvellement ordinaire qui débute à $T_2$.
+\end{enumerate}
+
+\subsection*{Processus de renouvellement \emph{stationnaire}}
+\begin{enumerate}[label=\faAngleRight]
+\item Un processus de renouvellement $\{ N_e(t) ; t \geq 0 \}$ est dit stationnaire si
+\[F_{T_1} = F_e(t) = \frac{\int_{0}^{t} \overline{F}_{T_2}(x) dx  }{\esp{T_2}}\]
+
+\item La fonction de renouvellement $m_e(t)$ est définie par
+\[m_e(t) = \esp{N_e(t)} = \frac{t}{\esp{T_2}} \]
+\end{enumerate}
+
+\subsection*{Processus de renouvellement alterné}
+\begin{enumerate}[label=\faAngleRight]
 \item 
 
 \end{enumerate}
 
-\subsection*{Distribution de $S_{N(t)}$}
-On peut définir la fonction de répartition et l'espérance de $S_{N(t)}$ comme
-\[F_{S_{N(t)}} = \overline{F}_T(t) + \int_{0}^{\infty}  \]
+
+
+
 
 
 

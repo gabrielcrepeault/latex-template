@@ -161,8 +161,9 @@ after title = {\large \hfill \faBook}
 \fancyhead[R]{\auteur}
 
 % Footer
+\usepackage{lastpage}
 \fancyfoot{}		% Reset
-\fancyfoot[R]{\thepage}
+\fancyfoot[R]{\thepage\ de \pageref{LastPage}}
 \fancyfoot[L]{\fontsize{8}{8}\selectfont%
 \href{https://github.com/gabrielcrepeault/latex-template}{\faGithub \  gabrielcrepeault/latex-template} \\ (dernière mise à jour : \today)}
 
