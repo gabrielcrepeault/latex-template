@@ -182,7 +182,7 @@ De plus,
 \[m_d(t) = \sum_{n=1}^{\infty} F_{T_1} \ast F_{T_2}^{\ast (n-1)}(t)  \]
 
 \item De plus, $m_d(t)$ satisfait aussi l'équation de renouvellement, telle que
-\[m_d(t) = F_{T_1}(t) + \int_{0}^{t}  m_o(t-x) f_{T_2}(x) dx \]
+\[m_d(t) = F_{T_1}(t) + \int_{0}^{t}  m_o(t-x) f_{T_1}(x) dx \]
 où $m_o(t)$ est la fonction de renouvellement d'un processus de renouvellement ordinaire qui débute à $T_2$.
 \end{itemize}
 
@@ -193,6 +193,10 @@ où $m_o(t)$ est la fonction de renouvellement d'un processus de renouvellement 
 
 \item La fonction de renouvellement $m_e(t)$ est définie par
 \[m_e(t) = \esp{N_e(t)} = \frac{t}{\esp{T_2}} \]
+
+\item La distribution de $N_e(t)$ est définie par
+\[\prob{N_e(t+h) - N_e(t) = n} = \prob{N_e(h) = n}\]
+Car les accroissements sont stationnaires.
 \end{itemize}
 
 \subsection*{Processus de renouvellement alterné}
@@ -241,7 +245,58 @@ f_{S_k | N(t)}(x | n) = f_{S_k}(x) \frac{\prob{N(t-x) = n-k}}{\prob{N(t) = n}}
 où $m(t)$ est la fonction de renouvellement du processus de renouvellement $\{ N(t) ; t \geq 0 \}$.
 \end{itemize}
 
-\section{Mouvements Brownien}
+\section{Mouvement Brownien}
+\subsection*{Définitions}
+\begin{definition}[Définition générale]
+Un processus stochastique $\{ X(t) ; t \geq 0 \}$ est dit être un mouvement Brownien \emph{avec paramètre de variance} $\sigma^2$ si
+\begin{enumerate}[label=(\arabic*)]
+\item $X(0) = 0$ ;
+\item $\{ X(t) ; t \geq 0 \}$  a des accroissements indépendants et stationnaires ;
+\item $\forall t > 0$, $X(t) \sim \mathcal{N}(0, \sigma^2 t)$.
+\end{enumerate}
+\end{definition}
+Note : on appelle aussi $\sigma$ le \emph{paramètre de volatilité} ou \emph{coefficient de diffusion}. Un mouvement Brownien est dit \emph{standard} si $\sigma = 1$.
+
+\subsubsection*{Proposition 1}
+Considérons un mouvement Brownien standard. Alors, $\forall 0 < t_1 < t_2 < ... < t_{n}$, on a
+\begin{align*}
+f_{X_1(t_1), ..., X_n(t_n)}(x_1, ..., x_n) = \frac{e^{-\frac{1}{2} \left(\frac{x_1^2}{t_1} + \frac{(x_2 - x_1)^2}{t_2 - t_1} + ... + \frac{(x_n - x_{n-1})^2}{t_n - t_{n-1}} \right)}}{(2 \pi)^{\frac{n}{2}} (t_1 (t_2 - t_2) ... (t_n - t_{n-1}))^{\frac{1}{2}}}
+\end{align*}
+
+\subsubsection*{Proposition 2}
+Considérons un mouvement Brownien standard. Alors, $\forall 0 < s < t$, $X(s) | X(t)$ obéit à une loi normale, tel que
+\begin{align*}
+\esp{X(s) | X(t) = x}&  = \frac{s}{t} x \\
+\variance{X(s) |X(t) = x} & = \frac{s}{t} \left( t - s \right) \\
+\end{align*}
+
+\subsection*{Temps d'atteinte d'une barrière}
+\begin{itemize}
+\item Soit $T_a$ le le premier moment où le mouvement Brownien standard atteint le niveau $a$. Alors,
+\[\prob{T_a \leq t} = \sqrt{\frac{2}{\pi}} \int_{|a| / \sqrt{t}}^{\infty} e^{- \frac{x^2}{2}} dx   \]
+
+\item On peut trouver la distribution de la valeur maximale que peut prendre $\{ X(s) ; 0 \leq s \leq t \}$, telle que
+\[\prob{\max_{0 \leq s \leq t} X(s) \geq a} =  \sqrt{\frac{2}{\pi}} \int_{a / \sqrt{t}}^{\infty} e^{- \frac{x^2}{2}} dx\]
+\end{itemize}
+
+
+\subsection*{Variations sur le mouvement Brownien}
+\subsubsection*{Mouvement Brownien avec dérive}
+Un mouvement Brownien avec dérive (\emph{drifted}) a exactement la même définition qu'un mouvement Brownien standar, à l'exception que
+\[X(t) \sim \mathcal{N} \left(\mu t, \sigma^2 t \right) \]
+où $\mu$ est le \emph{paramètre de dérive}. Note : on a donc que $X(t) = \mu t + \sigma B(t)$, où $B(t)$ est un mouvement Brownien standard.
+
+\subsubsection*{Mouvement Brownien géométrique}
+\begin{definition}[Définition]
+Soit $\{X(t) ; t \geq 0 \}$ un mouvement Brownien brownien avec dérive $\mu$ et volatilité $\sigma$. Alors, le processus $\{X(t) ; t \geq 0 \}$ défini par
+\[X(t) = e^{Y(t)}\]
+est dit être un mouvement Brownien \emph{géométrique}.
+\end{definition}
+\textbf{Proposition : } Soit $\{X(t) ; t \geq 0 \}$ un mouvement Brownien géométrique avec dérive $\mu$ et volatilité $\sigma$. Alors,
+\[\esp{X(t) | X(u)} = X(s) e^{(t-s) \left(\mu + \frac{\sigma^2}{2} \right)} \]
+pour $ 0 \leq u \leq s \leq t$.
+
+
 
 
 
