@@ -104,21 +104,50 @@ F_{\Lambda | N(t)}(x | n)	& = \frac{\prob{\Lambda \leq x | N(t) = n}}{\prob{N(t)
 \subsection*{Définitions générales}
 \begin{enumerate}[label=\faAngleRight]
 \item $T_n$ : intervalle de temps entre le $(n-1)$\up{e} et le $n$\up{e} renouvellement ;
-\item $S_n = \sum_{i=1}^{n} T_i$ : le temps d'occurence du $n$\up{e} renouvellement. On va souvent noter $S_{N(t)}$, avec $N(t)$ comme temps d'arrêt du processus\footnote{$N(t)$ est le temps d'arrêt dans le sens où on cesse le processus de dénombrement lorsqu'on atteint $N(t)$.}
+\item $S_n = \sum_{i=1}^{n} T_i$ : le temps d'occurence du $n$\up{e} renouvellement. On va souvent noter $S_{N(t)}$, avec $N(t)$ comme temps d'arrêt du processus\footnote{$N(t)$ est le temps d'arrêt dans le sens où on cesse le processus de dénombrement lorsqu'on atteint $N(t)$.} ;
 
+\item $\mu = \esp{T_i}$ : temps moyen d'attente entre 2 renouvellements ;
 \end{enumerate}
 
+\subsection*{Distribution de $N(t)$}
+On définit $N(t)$ comme $N(t) = \max \{ n : S_n \leq t \}$. Alors,
+\begin{align*}
+\prob{N(t) = n} = F_T^{\ast n}(t) - F_T^{\ast(n+1)}(t)
+\end{align*}
+Dans le cas où $T \sim Erlang(m, \lambda)$, alors
+\[\prob{N(t) = n}  = \sum_{k=mn}^{m(n+1) - 1} \frac{(\lambda x)^k e^{-\lambda x}}{k!} \]
+
 \subsection*{Fonction de renouvellement}
+La fonction de renouvellement est le nombre moyen d'occurences dans l'intervalle $[0,t]$  :
+\[m(t) = \esp{N(t)} = \sum_{n=1}^{\infty} F_T^{\ast(n)}(t)  \]
+
+\subsubsection*{Solution de l'équation de renouvellement}
+$m(t)$ satisfait \emph{l'équation de renouvellement}, soit
+\[m(t) = F_T(t) + \int_{0}^{t} m(t-x) f_T(x) dx  \]
+
+\subsubsection*{Relation biunivoque entre $m(t)$ et $F_T$}
+Avec la transformée de Laplace de $m(t)$, $\hat{m}(s)$, on a
+\begin{align*}
+\hat{m}(s) &  = \frac{\hat{f}_T(s)}{s} + \hat{m}(s) \hat{f}_T(s) \\
+& = \frac{\hat{f}(s)}{s\left(1 - \hat{f}(s)    \right)}
+\end{align*}
 
 
 \subsection*{Théorèmes limites}
 \begin{enumerate}[label=(\arabic*)]
 \item On a que $N(\infty) = \infty$ avec probabilité 1. De plus,
 \begin{align*}
-\frac{N(t)}{t} \leftarrow \frac{1}{\mu}
+\frac{N(t)}{t} \underset{t \to \infty}{\longrightarrow} \frac{1}{\mu}
 \end{align*}
+i
+
+\item 
 
 \end{enumerate}
+
+\subsection*{Distribution de $S_{N(t)}$}
+On peut définir la fonction de répartition et l'espérance de $S_{N(t)}$ comme
+\[F_{S_{N(t)}} = \overline{F}_T(t) + \int_{0}^{\infty}  \]
 
 
 
