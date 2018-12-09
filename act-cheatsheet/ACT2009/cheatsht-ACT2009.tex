@@ -3,11 +3,15 @@
 %% -----------------------------
 %% Préambule
 %% -----------------------------
-\input{cheatsht-preamble.tex}
 
-% Couleur de la page
-%\pagecolor{gray!10!white}
-
+\def\cours{Processus stochastique}
+\def\sigle{ACT-2009}
+\def\session{Automne 2018}
+\def\auteur{Gabriel Crepeault-Cauchon / Nicholas Langevin}
+\def\BackgroundColor{white}
+\def\SectionColor{blue!80!white}
+\def\SubSectionColor{blue!30!black}
+\input{../../preamble-template/cheatsht-preamble.tex}
 
 %% -----------------------------
 %% Début du document
@@ -295,6 +299,24 @@ est dit être un mouvement Brownien \emph{géométrique}.
 \textbf{Proposition : } Soit $\{X(t) ; t \geq 0 \}$ un mouvement Brownien géométrique avec dérive $\mu$ et volatilité $\sigma$. Alors,
 \[\esp{X(t) | X(u)} = X(s) e^{(t-s) \left(\mu + \frac{\sigma^2}{2} \right)} \]
 pour $ 0 \leq u \leq s \leq t$.
+
+\subsubsection*{Pont Brownien}
+\begin{definition}[Processus Gaussien]
+Un processus stochastique $\{X(t) ; t \geq 0 \}$ est dit être un processus Gaussien si, $\forall 0 < t_1 < t_2 < ... < t_n$, $X(t_1), ..., X(t_n)$ a une distribution normale multivariée.
+\end{definition}
+
+\begin{definition}[Définition alternative d'un mouvement Brownien standard]
+Un processus $\{X(t) ; t \geq 0 \}$ est un mouvement Brownien standard ssi
+\begin{enumerate}[label=(\arabic*)]
+\item $\{X(t) ; t \geq 0 \}$ est un processus Gaussien ;
+\item $\forall t > 0$, $\esp{X(t)} = 0$, avec $X(0) = 0$ ;
+\item $\forall 0 \leq s \leq t$, on a $\covar{X(s), X(t)} = s$.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[Définition d'un pont Brownien]
+Soit $\{X(t) ; t \geq 0 \}$ un mouvement Brownien standard. Alors, le processus conditionnel $\{X(t) ; 0 \leq t \leq 1 | X(1) = 0 \}$ est dit être un \emph{pont} Brownien.
+\end{definition}
 
 
 
