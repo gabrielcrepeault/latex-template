@@ -21,7 +21,7 @@
 \def\cours{Processus stochastique}
 \def\sigle{ACT-2009}
 \def\session{Automne 2018}
-\def\auteur{Gabriel Crépeault-Cauchon}
+\def\auteur{Gabriel Crépeault-Cauchon / Nicholas Langevin}
 \def\BackgroundColor{gray!20!white}
 \def\SectionColor{blue!80!white}
 \def\SubSectionColor{blue!30!black}
@@ -65,7 +65,8 @@
 \usepackage{cancel}
 \newcommand{\derivee}[1]{\frac{\partial}{\partial #1}}
 \newcommand{\prob}[1]{\Pr \left( #1 \right)}
-\newcommand{\esp}[1]{E \left[ #1 \right]}
+\newcommand{\esp}[1]{\mathrm{E} \left[ #1 \right]}
+\newcommand{\variance}[1]{\mathrm{Var} \left( #1 \right)}
 \newcommand{\laplace}{\mathcal{L}}
 
 % To indicate equation number on a specific line in align environment
@@ -160,8 +161,9 @@ after title = {\large \hfill \faBook}
 \fancyhead[R]{\auteur}
 
 % Footer
+\usepackage{lastpage}
 \fancyfoot{}		% Reset
-\fancyfoot[R]{\thepage}
+\fancyfoot[R]{\thepage\ de \pageref{LastPage}}
 \fancyfoot[L]{\fontsize{8}{8}\selectfont%
 \href{https://github.com/gabrielcrepeault/latex-template}{\faGithub \  gabrielcrepeault/latex-template} \\ (dernière mise à jour : \today)}
 
