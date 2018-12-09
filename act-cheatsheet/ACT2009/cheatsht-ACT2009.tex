@@ -264,7 +264,7 @@ Note : on appelle aussi $\sigma$ le \emph{paramètre de volatilité} ou \emph{co
 \subsubsection*{Proposition 1}
 Considérons un mouvement Brownien standard. Alors, $\forall 0 < t_1 < t_2 < ... < t_{n}$, on a
 \begin{align*}
-f_{X_1(t_1), ..., X_n(t_n)}(x_1, ..., x_n) = \frac{e^{-\frac{1}{2} \left(\frac{x_1^2}{t_1} + \frac{(x_2 - x_1)^2}{t_2 - t_1} + ... + \frac{(x_n - x_{n-1})^2}{t_n - t_{n-1}} \right)}}{(2 \pi)^{\frac{n}{2}} (t_1 (t_2 - t_2) ... (t_n - t_{n-1}))^{\frac{1}{2}}}
+f_{X_1(t_1), ..., X_n(t_n)}(x_1, ..., x_n) = \frac{e^{-\frac{1}{2} \left(\frac{x_1^2}{t_1} + \frac{(x_2 - x_1)^2}{t_2 - t_1} + ... + \frac{(x_n - x_{n-1})^2}{t_n - t_{n-1}} \right)}}{(2 \pi)^{\frac{n}{2}} (t_1 (t_2 - t_2) ... (t_n - t_{n-1}))^{\frac{1}{2}}} 
 \end{align*}
 
 \subsubsection*{Proposition 2}
@@ -315,8 +315,48 @@ Un processus $\{X(t) ; t \geq 0 \}$ est un mouvement Brownien standard ssi
 \end{definition}
 
 \begin{definition}[Définition d'un pont Brownien]
-Soit $\{X(t) ; t \geq 0 \}$ un mouvement Brownien standard. Alors, le processus conditionnel $\{X(t) ; 0 \leq t \leq 1 | X(1) = 0 \}$ est dit être un \emph{pont} Brownien.
+Soit $\{X(t) ; t \geq 0 \}$ un mouvement Brownien standard. Alors, le processus conditionnel $\{X(t) ; 0 \leq t \leq 1 | X(1) = 0 \}$ est dit être un \emph{pont} Brownien.  De plus, on a
+\begin{align*}
+\esp{X(t) | X(1) = 0} & = 0 \\
+\shortintertext{Et, pour $s < t < 1$,} \\
+\covar{X(s), X(t) | X(1) = 0} & = s(1-t). \\
+\end{align*}
 \end{definition}
+Une autre condition pour déterminer si le processus $\{ Z(t) ; t \geq 0 \}$ est un point Brownien est de vérifier que l'équation suivante est respectée
+\[Z(t) = X(t) - t X(1) \]
+
+\subsection*{Mouvement Brownien intégré}
+\begin{definition}[Définition de l'Intégrale d'Îto]
+Soit $\{X(t) ; t \geq 0 \}$ un mouvement Brownien standard et une fonction $f$ est une dérivée continue. Alors, nous définissons \emph{l'intégrale stochastique d'Îto} comme \\
+$\int_{a}^{b} f(t) d X(t) = f(b) X(b) - f(a) X(a) - \int_{a}^{b} X(t) d f(t)$
+\end{definition}
+
+\begin{definition}[Définition du mouvement Brownien intégré]
+Si $\{X(t) ; t \geq 0 \}$ un mouvement Brownien standard, alors le processus Soit $\{Z(t) ; t \geq 0 \}$ défini par (en utilisant \emph{l'intégrale d'Îto)}
+\[Z(t) = \int_{0}^{t} X(s) ds = t X(t) - \int_{0}^{t} v d X(v) \]
+\end{definition}
+
+
+\subsubsection*{Proposition 2}
+L'espérancet et la variance de $\int_{a}^{b} f(t) d X(t) $ sont respectivement
+\begin{align*}
+\esp{\int_{a}^{b} f(t) d X(t) } & = 0 \\
+\variance{\int_{a}^{b} f(t) d X(t)  } & =  \int_{a}^{b} f(t)^2 dt \\
+\end{align*}
+
+
+\subsubsection*{Proposition 3}
+La mouvement Brownien intégré (tout comme le mouvement Brownien standard) obéit à une loi Normale. En combinant avec les hypothèses de la proposition 2, on a
+\begin{align*}
+\int_{a}^{b} f(t) d X(t) \sim \mathcal{N} \left( 0 , \int_{a}^{b} f(t)^2 dt \right)
+\end{align*}
+et
+\begin{align*}
+\int_{a}^{b} X(t) d f(t) \sim \mathcal{N} \left( 0, a\left(f(b) - f(a)\right)^2 + \int_{a}^{b} \left( f(b) - f(t) \right)^2 dt \right)
+\end{align*}
+
+
+
 
 
 
