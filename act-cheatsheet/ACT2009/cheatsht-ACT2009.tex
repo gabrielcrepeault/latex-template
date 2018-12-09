@@ -217,8 +217,35 @@ où $m_o(t)$ est la fonction de renouvellement d'un processus de renouvellement 
 
 \item \textbf{Proposition 2 : } Avec les mêmes hypothèses qu'à la proposition 1, on a
 \[\lim_{t \to \infty} p_1(t) = \frac{\esp{T_1}}{\esp{T_1} + \esp{T_1'}} = 1 - \lim_{t \to \infty} p_2(t) \]
-
 \end{itemize}
+
+\subsection*{Application : somme de renouvellements avec réclamations escomptées}
+\begin{itemize}
+\item On considère le processus des réclamations escomptées à $t=0$, soit $\{ Z(t) ; t \geq 0 \}$, défini par
+\[Z(t) = \sum_{k=1}^{N(t)} e^{-\delta S_k} X_k  \]
+où
+\begin{itemize}
+	\item $\{N(t) ; t \geq 0 \}$ un processus de renouvellement ordinaire ;
+	\item $S_k$ est le moment où se produit la $k$\up{e} réclamation ;
+	\item La suite $\{ X_n ; n \in \entiers \}$ de v.a. \emph{iid} et indépendantes de $N(t)$ représentant les montants de réclamations ;
+	\item $\delta$ est la force d'intérêt appliquée pour actualiser les réclamations.
+\end{itemize}
+
+\item Dans un processus de renouvellement ordinaire, on a, pour $k = 1, 2, ..., n$,
+\begin{align*}
+f_{S_k | N(t)}(x | n) = f_{S_k}(x) \frac{\prob{N(t-x) = n-k}}{\prob{N(t) = n}}
+\end{align*}
+
+\item On peut calculer le premier moment du processus des réclamations escomptées $\{ Z(t) ; t \geq 0 \}$ : 
+\[\esp{Z(t)} = \esp{X} \int_{0}^{t} e^{-\delta x} d m(x) \]
+où $m(t)$ est la fonction de renouvellement du processus de renouvellement $\{ N(t) ; t \geq 0 \}$.
+\end{itemize}
+
+\section{Mouvements Brownien}
+
+
+
+
 
 
 
