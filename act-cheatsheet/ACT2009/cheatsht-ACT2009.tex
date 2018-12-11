@@ -39,7 +39,7 @@
 
 \item La variance d'une fonction conditionnelle :
 \begin{align*}
-Var(g(X_1) | X_2) = \esp{g(X_1)^2 |X_2} - \esp{g(X_1) | X_2}^2
+\mathrm{Var} (g(X_1) | X_2) = \esp{g(X_1)^2 |X_2} - \esp{g(X_1) | X_2}^2
 \end{align*}
 
 \item L'espérance conditionnelle : 
@@ -50,7 +50,7 @@ Var(g(X_1) | X_2) = \esp{g(X_1)^2 |X_2} - \esp{g(X_1) | X_2}^2
 
 \item La variance conditionnelle : 
 \begin{align*}
-Var(X_1) = \esp{Var(X_1 | X_2)} + Var\left( \esp{X_1 | X_2} \right)
+\mathrm{Var} (X_1) = \esp{\mathrm{Var} (X_1 | X_2)} + \mathrm{Var} \left( \esp{X_1 | X_2} \right)
 \end{align*}
 \end{enumerate}
 
@@ -60,9 +60,13 @@ Lorsqu'il y a 3 v.a., l'espérance devient
 	& = \sum_{x_3 = 0}^{\infty} \esp{X_1 | X_2, X_3} \prob{X_3 = x_3 | X_2 = x_2} \\
 	& = \int_{-\infty}^{\infty} \esp{X_1 | X_2, X_3} f_{X_3| X_2}(x_3 | x_2) dx_3
 \end{align*}
-Et la variance conditionnelle devient
+La variance conditionnelle devient
 \begin{align*}
-Var(X_1) = \esp{Var(X_1 | X_2, X_3)}  + Var \left( \esp{X_1 | X_2, X_3} \right)
+Var(X_1) = \esp{Var(X_1 | X_2, X_3)}  + \mathrm{Var} \left( \esp{X_1 | X_2, X_3} \right)
+\end{align*}
+De plus,
+\begin{align*}
+\covar{X, Y} = \esp{\covar{X, Y | Z}} + \covar{\esp{X | Z}, \esp{Y | Z}}
 \end{align*}
 
 \subsection*{Poisson composée}
@@ -80,7 +84,7 @@ Var(X_1) = \esp{Var(X_1 | X_2, X_3)}  + Var \left( \esp{X_1 | X_2, X_3} \right)
 
 \subsection*{Mesures de risque}
 \begin{enumerate}[label=\faAngleRight]
-\item Value-At-Risk (VaR) : représente le quantile au niveau $\kappa$ de $X$.
+\item Value-At-Risk ($VaR$) : représente le quantile au niveau $\kappa$ de $X$.
 \begin{align*}
 VaR_\kappa(X) = F_X^{-1}(\kappa) = \inf \{ x \geq 0 : F_X(x) \geq \kappa \}
 \end{align*}
@@ -178,6 +182,7 @@ d(i) = P.G.C.D\{n \in \naturels ~ | ~ p_{ii}^{(n)} > 0 \}
 \begin{align*}
 \mu_{ii} = \sum_{n=1}^{\infty} n f_{ii}^{(n)}
 \end{align*}
+avec $\pi_i = \frac{1}{\mu_{ii}}$
 
 \item \textbf{État récurrent positif} : si, à partir de l'état $i$, le temps de retour moyen $\mu_{ii}$ à l'état $i$ est fini, alors l'état $i$ est récurrent positif.
 
@@ -219,7 +224,12 @@ Un processus de dénombrement $\{N(t) ; t \geq 0 \}$ est dit un processus de Poi
 \end{enumerate}
 Avec $o(h)$ une fonction où $f(h) = o(h)$ si $\lim_{n \to \infty} \frac{f(h)}{h} = 0$.
 \end{definition}
-On peut prouver que ces 2 définitions sont équivalents.
+On peut prouver que ces 2 définitions sont équivalentes.
+
+\subsubsection*{Rappels sur la loi de Poisson}
+La fonction génératrice des moments de $X \sim Pois(\lambda)$ est
+\[ M_X(t) = \esp{e^{tX}}  = e^{-\lambda(e^{t} -1)} \]
+
 
 \subsection*{Temps séparant 2 évènements successifs}\begin{enumerate}[label=\faAngleRight]
 \item Soit $T_i$ le temps entre le $(i-1)$\up{e} et le $i$\up{e} évènement.
@@ -286,7 +296,6 @@ Si $S_n$ désigne le temps d'occurence du $n$\up{e} évènement, alors
 \subsubsection*{Proposition 3}
 Si $T_n = S_{n} - S_{n-1}$, alors on a, pour $n \geq 2$,
 \[f_{T_n}(t) = \frac{1}{(n-2)!} \int_{0}^{\infty} \lambda(s) \lambda(t+s) m(s)^{n-2} e^{-m(t+s)} ds \]
-
 \subsection*{Processus de Poisson composé}
 \begin{definition}[Définition]
 Un processus stochastique $\{ N(t) ; t \geq 0  \}$ est dit être un processus de Poisson composé s'il peut être représenté comme suit : 
@@ -297,7 +306,7 @@ où $\{ N(t) ; t \geq 0  \}$ est un Processus de Poisson avec paramètre $\lambd
 \subsubsection*{Proposition 1}
 Soit $\{ X(t) ; t \geq 0 \}$ un processus de Poisson composé avec paramètre $\lambda > 0$ et supposons que $\prob{Y_i = \alpha_j} = p_j$, $\sum p_j = 1$. Alors,
 \[X(t) = \sum_j \alpha_j N_j(t) \]
-où $N_j(t)$ est le nombre de fois que se produit l'évènement $\alpha_j$ dans l'intervalle de temps $[0,t]$, et $\{N(t) ; t \geq 0  \}$ forme une suite de v.a. indépentantes telles que $N_j(t) \sim Pois(\lambda p_j t$. \\
+où $N_j(t)$ est le nombre de fois que se produit l'évènement $\alpha_j$ dans l'intervalle de temps $[0,t]$, et $\{N(t) ; t \geq 0  \}$ forme une suite de v.a. indépentantes telles que $N_j(t) \sim Pois(\lambda p_j t)$. \\
 Lorsque $t \to \infty$, alors $X(t)$ est asymptotiquement normal, i.e.
 \[X(t) \sim \mathcal{N}\left( \lambda t \esp{Y}, \lambda t \esp{Y^2} \right)\]
 
@@ -313,7 +322,8 @@ Un processus de dénombrement avec un taux aléatoire $\Lambda > 0$ est un proce
 \subsubsection*{Rappel sur la loi Gamma}
 La fonction de répartition de la loi Gamma, lorsque $\alpha \in \entiers$, est définie par
 \[F_X(x) = 1 - \sum_{k=1}^{\alpha-1} \frac{(\lambda x)^k e^{-\lambda x}}{k!}\]
-
+De plus, on a $\Gamma(\alpha) = (\alpha-1)!$ et $\Gamma(\alpha) = (\alpha - 1) \Gamma(\alpha - 1)$. Aussi, la transformée de Laplace pour $X \sim \Gamma(\alpha, \theta)$ est
+\[\laplace_X(s) = \esp{e^{-s X}}  = \left( \frac{\lambda}{\lambda + s} \right)^{\alpha} \]
 
 \subsubsection*{Remarques importantes}
 \begin{enumerate}[label=(\arabic*)]
@@ -377,12 +387,12 @@ Avec la transformée de Laplace de $m(t)$, $\hat{m}(s)$, on a
 \begin{enumerate}[label=(\arabic*)]
 \item On a que $N(\infty) = \infty$ avec probabilité 1. De plus,
 \begin{align*}
-\frac{N(t)}{t} \underset{t \to \infty}{\longrightarrow} \frac{1}{\mu}
+\frac{N(t)}{t} \underset{t \to \infty}{\longrightarrow} \frac{1}{\esp{T}}
 \end{align*}
 avec une probabilité \emph{presque certaine}.
 
 \item \emph{Théorème élémentaire du renouvellement} : avec $t \to \infty$, on a
-\[\frac{m(t)}{t} \underset{t \to \infty}{\longrightarrow} \frac{1}{\mu} \]
+\[\frac{m(t)}{t} \underset{t \to \infty}{\longrightarrow} \frac{1}{\esp{T}} \]
 
 \item Lorsque $t \to \infty$, $N(t)$ est aymptotiquement normale, telle que
 %\begin{align*} % version sous forme de \Phi
@@ -405,7 +415,7 @@ On peut définir la fonction de répartition et l'espérance de $S_{N(t)}$ comme
 \[F_{S_{N(t)}}(x) = \overline{F}_T(t) + \int_{0}^{x} \overline{F}_T(t-y) dm(y)  \]
 et
 \[\esp{S_{N(t)}}  = t F_T(t) - \int_{0}^{t} (t-y)\overline{F}_T(t-y) d m(y) \]
-De plus,
+De plus, selon l'équation de Wald\footnote{l'équation de Wald se base sur le concept que $S_n = \sum_{i=1}^{N(t)} T_i$, très semblable au modèle fréquence-sévérité.},
 \[\esp{S_{N(t) + 1}} = \esp{T}(m(t) + 1)\]
 
 \subsection*{Key renewal theorem}
@@ -503,6 +513,8 @@ Considérons un mouvement Brownien standard. Alors, $\forall 0 < t_1 < t_2 < ...
 f_{X_1(t_1), ..., X_n(t_n)}(x_1, ..., x_n) = \frac{e^{-\frac{1}{2} \left(\frac{x_1^2}{t_1} + \frac{(x_2 - x_1)^2}{t_2 - t_1} + ... + \frac{(x_n - x_{n-1})^2}{t_n - t_{n-1}} \right)}}{(2 \pi)^{\frac{n}{2}} (t_1 (t_2 - t_2) ... (t_n - t_{n-1}))^{\frac{1}{2}}} 
 \end{align*}
 
+\vfill{3cm}
+
 \subsubsection*{Proposition 2}
 Considérons un mouvement Brownien standard. Alors, $\forall 0 < s < t$, $X(s) | X(t)$ obéit à une loi normale, tel que
 \begin{align*}
@@ -524,7 +536,8 @@ Considérons un mouvement Brownien standard. Alors, $\forall 0 < s < t$, $X(s) |
 \subsubsection*{Mouvement Brownien avec dérive}
 Un mouvement Brownien avec dérive (\emph{drifted}) a exactement la même définition qu'un mouvement Brownien standar, à l'exception que
 \[X(t) \sim \mathcal{N} \left(\mu t, \sigma^2 t \right) \]
-où $\mu$ est le \emph{paramètre de dérive}. Note : on a donc que $X(t) = \mu t + \sigma B(t)$, où $B(t)$ est un mouvement Brownien standard.
+où $\mu$ est le \emph{paramètre de dérive}.\\
+ Note : on a donc que $X(t) = \mu t + \sigma B(t)$, où $B(t)$ est un mouvement Brownien standard.
 
 \subsubsection*{Mouvement Brownien géométrique}
 \begin{definition}[Définition]
@@ -558,7 +571,7 @@ Soit $\{X(t) ; t \geq 0 \}$ un mouvement Brownien standard. Alors, le processus 
 \covar{X(s), X(t) | X(1) = 0} & = s(1-t). \\
 \end{align*}
 \end{definition}
-Une autre condition pour déterminer si le processus $\{ Z(t) ; t \geq 0 \}$ est un point Brownien est de vérifier que l'équation suivante est respectée
+Une autre condition pour déterminer si le processus $\{ Z(t) ; t \geq 0 \}$ est un point Brownien est de vérifier que l'équation suivante est respectée : 
 \[Z(t) = X(t) - t X(1) \]
 
 \subsection*{Mouvement Brownien intégré}
@@ -569,12 +582,12 @@ $\int_{a}^{b} f(t) d X(t) = f(b) X(b) - f(a) X(a) - \int_{a}^{b} X(t) d f(t)$
 
 \begin{definition}[Définition du mouvement Brownien intégré]
 Si $\{X(t) ; t \geq 0 \}$ un mouvement Brownien standard, alors le processus Soit $\{Z(t) ; t \geq 0 \}$ défini par (en utilisant \emph{l'intégrale d'Îto)}
-\[Z(t) = \int_{0}^{t} X(s) ds = t X(t) - \int_{0}^{t} v d X(v) \]
+\[Z(t) = \int_{0}^{t} X(s) ds = t X(t) - \int_{0}^{t} v \cdot  d X(v) \]
 \end{definition}
 
 
 \subsubsection*{Proposition 2}
-L'espérancet et la variance de $\int_{a}^{b} f(t) d X(t) $ sont respectivement
+L'espérance et la variance de $\int_{a}^{b} f(t) d X(t) $ sont respectivement
 \begin{align*}
 \esp{\int_{a}^{b} f(t) d X(t) } & = 0 \\
 \variance{\int_{a}^{b} f(t) d X(t)  } & =  \int_{a}^{b} f(t)^2 dt \\
