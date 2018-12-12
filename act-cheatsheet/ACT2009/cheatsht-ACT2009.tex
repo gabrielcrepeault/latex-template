@@ -451,19 +451,19 @@ Car les accroissements sont stationnaires.
 
 \subsection*{Processus de renouvellement alterné}
 \begin{itemize}
-\item Soit la suite $\{ (T_n, T_n') ; n \in \naturels \}$ des vecteurs \emph{iid} où les composantes $(T_n, T_n')$ peuvent être dépendante. $T_n$ représente un intervalle de temps dans lequel le processus (de renouvellement) est \emph{on} et $T_n'$ un intervalle de temps où le processus est \emph{off}.
+\item Soit la suite $\{ (T_n, T_n') ; n \in \naturels \}$ des vecteurs \emph{iid} où les composantes $(T_n, T_n')$ peuvent être dépendantes. $T_n$ représente un intervalle de temps dans lequel le processus (de renouvellement) est \emph{on} et $T_n'$ un intervalle de temps où le processus est \emph{off}.
 
 \item On peut donc définir 2 processus  (\emph{on} et \emph{off}) :  
 \begin{itemize}
 	\item $\{ N_1(t) ; t \geq 0 \}$ est un processus de renouvellement \emph{avec délai} généré par la suite des temps $\{ T_1, T_n' + T_{n+1} ; n \in \entiers \}$, et sa fonction de renouvellement est
 	\begin{align*}
-	m_1(t) & = \sum_{n=1}^{\infty} F_{T_1} \ast F_{T_2 + T_1}
+	m_1(t) & = \sum_{n=1}^{\infty} F_{T_1} \ast F_{T_2 + T_1'}
 	^{\ast(n-1)}(t) \\
 	& = \sum_{n=1}^{\infty} F_{T_1}^{\ast(n)}(t) \ast F_{T_1'}^{\ast(n-1)}(t) \\
 	\end{align*}
 	\item 	$\{ N_2(t) ; t \geq 0 \}$ est un processus de renouvellement \emph{ordinaire} généré par la suite des temps $\{ T_n + T_n'; n \in \entiers \}$, et sa fonction de renouvellement est
 	\begin{align*}
-	m_2(t) &= \sum_{n=1}^{\infty} F_{T_1  T_1'}^{\ast(n)}(t) = \sum_{n=1}^{\infty} F_{T_1}^{\ast(n)} \ast F_{T_1'}^{\ast(n)}(t) \\
+	m_2(t) &= \sum_{n=1}^{\infty} F_{T_1 +  T_1'}^{\ast(n)}(t) = \sum_{n=1}^{\infty} F_{T_1}^{\ast(n)} \ast F_{T_1'}^{\ast(n)}(t) \\
 	\end{align*}
 \end{itemize}
 \item \textbf{Proposition 1 : } Supposons que $T_n$ est indépendant de $T_n'$, $\forall n \in \naturels$ et soit $p_i(t)$ la probabilité que le processus de renouvellement alterné soit dans l'état $i$ au temps $t$, $i=1,2$. Alors,
