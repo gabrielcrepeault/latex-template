@@ -497,7 +497,7 @@ Test d'hypothèse pour tester $H_0 : \beta_j = 0$, $H_1 : \beta_j \neq 0$. On a 
 \[Z = \frac{\beta_j}{\sqrt{\hat{\mathrm{Var}}(\hat{\beta}_j)}} \sim \mathcal{N}(0,1) \]
 On rejète donc $H_0$ si $Z > z_{1 - \frac{\alpha}{2}}$.
 
-\paragraph{Note} On obtient $\hat{\mathrm{Var}}(\hat{\beta}_j)$ sur les éléments de la diagonale de $\{ \mathcal{I}(\hat{\beta} \}^{-1} / n$.
+\paragraph{Note} On obtient $\hat{\mathrm{Var}}(\hat{\beta}_j)$ sur les éléments de la diagonale de $\{ \mathcal{I}(\hat{\beta}) \}^{-1} / n$.
 
 \subsection*{Test du rapport de vraisemblance}
 %% On pourrait peut-être synthétiser mieux cette section ...
@@ -511,7 +511,7 @@ $\lambda(y)$ sera assurément plus petit que 1 (il y a moins de variables explic
 \item Si \emph{$H_0$ spécifie partiellement les paramètres du modèle}, on a
 \[-2 \ln \lambda(y) \sim \chi_{k_2 - k_1}^2 \quad , \text{Sous $H_0$}\]
 où $k_1$ est le nombre de paramètres non-spécifiés dans $H_0$ et $k_2$ le nombre de paramètres non-spécifiés dans $H_1$.
-\item Avec le TRV, on peut seulement comparer des modèles qui sont liés.
+\item Avec le TRV, on peut seulement comparer des modèles qui sont liés ($\hat{\beta}^{(H_0)}$ doit être un sous-ensemble de $\hat{\beta}$).
 \end{enumerate}
 
 \subsection*{Adéquation du modèle}
@@ -601,6 +601,42 @@ On peut alors tester l'indépendance de certaines variables en faisant une \text
 \subsection*{Cote}
 La cote de $A$ est définie par
 \[Cote(A) = \frac{\prob{A}}{\prob{\overline{A}}} = \frac{\prob{A}}{1 - \prob{A}} \]
+
+
+
+\section{Modélisation de données binomiales}
+
+
+
+\subsection{Cas Bernouilli}
+
+\subsubsection*{Tableau de mauvaise classification}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+  & \multicolumn{2}{c|}{Prédiction $\hat{Y}_i$} \\ \hline
+Vrai $Y_i$ & 0 & 1 \\ 
+  \hline
+0 & a & b \\ 
+  1 & c & d \\ 
+   \hline
+\end{tabular}
+\end{center}
+En forçant $\hat{Y}_i$ tel que
+\begin{align*}
+\hat{Y}_i = 
+\begin{cases}
+0	& , \hat{\pi}_i < \tau \\
+1	& , \hat{\pi}_i \geq \tau \\
+\end{cases}
+\end{align*}
+On peut calculer la statistique de \textbf{sensitivité} (i.e. le taux de bonne classificiation des vrais 1) et de \textbf{spécificité} (i.e. le taux de bonne classification des vrais 0) : 
+\begin{align*}
+\text{Sensitivité}	& = \alpha(\tau) = \frac{d}{c+d} \\
+\text{Spécificité}	& = \beta(\tau) = \frac{a}{a+b} \\
+\end{align*}
+
+
 
 
 
