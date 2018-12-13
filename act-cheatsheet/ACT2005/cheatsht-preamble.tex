@@ -64,7 +64,8 @@
 \usepackage{cancel}
 \newcommand{\derivee}[1]{\frac{\partial}{\partial #1}}
 \newcommand{\prob}[1]{\Pr \left( #1 \right)}
-\newcommand{\esp}[1]{E \left[ #1 \right]}
+\newcommand{\esp}[1]{\mathrm{E} \left[ #1 \right]}
+\newcommand{\variance}[1]{\mathrm{Var} \left( #1 \right)}
 \newcommand{\laplace}{\mathcal{L}}
 
 % To indicate equation number on a specific line in align environment
@@ -73,6 +74,9 @@
 % Actuarial notation package
 \usepackage{actuarialsymbol}
 \usepackage{actuarialangle}
+
+%% package pour notation matricielle
+\usepackage{bm}
 
 
 
@@ -86,7 +90,7 @@
 
 %% Définition boite pour définition
 \DeclareTColorBox{definition}{ o }% #1 parameter
-{colframe=blue!60!green,colback=blue!5!white, % color of the box
+{colframe=red!80!white ,colback=red!5!white, % color of the box
 breakable, pad at break*=0mm, % to split the box
 title = {#1},
 after title = {\large \hfill \faBook}
