@@ -90,6 +90,19 @@ F_n(x) &=
 %    \widehat{Var}[\hat{S}(y_j)] &= [\hat{S}(y_j)]^2 \sum_{i=1}^j \frac{s_i}{r_i(r_i - s_i)}\: \textbf{(Aprox. GreenWood)}
 %\end{align*}
 
+
+\section{Fonction génératrice cumulante}
+Soit la fonction génératrice des moments $M_X(t)$, telle que
+\[M_X(t) = \esp{e^{tX}}\]
+Alors, la fonction génératrice cumulante $K_X(t)$ est définie comme
+\[K(t) = \derivee{t} \ln M_X(t)\]
+De plus, la fonction génératrice cumulante a les propriétés suivantes : 
+\begin{align*}
+K'(t) \eval_{t = 0} & =   \esp{X} \\
+K''(t) \eval_{t=0} & = \variance{X} \\
+\end{align*}
+
+
 \section{Frequentist estimation}
 \subsection*{Méthode des moments}
 On résoud $p$ équations à $p$ inconnus, telles que
@@ -209,7 +222,6 @@ L'idée est de remplacer les différentes distributions dans l'\autoref{eq:dist_
 \hat{\theta}_{BAYES} = \esp{\Theta | X}
 \end{equation}
 
-\newpage
  \section{Rappel de probabilité}
  \subsection*{Certaines lois à savoir}
  \begin{tabular}{|a| * {4}{C|}}
@@ -222,7 +234,7 @@ L'idée est de remplacer les différentes distributions dans l'\autoref{eq:dist_
  \end{tabular}
  
  \subsection*{Rappels d'algèbre linéaire}
-\subsubsection{Matrice transposée} la matrice transposée est définie par $\bm{A}^\top$, telle que
+\subsubsection*{Matrice transposée} la matrice transposée est définie par $\bm{A}^\top$, telle que
 \begin{align*}
 \bm{A}^{\top} & = 
 \begin{bmatrix}
@@ -231,7 +243,7 @@ a	& -c \\
 \end{bmatrix}
 \end{align*}
 
-\subsubsection{Déterminant d'une matrice} On peut calculer le déterminant $\det(\bm{A})$ de la matrice $\bm{A}$ tel que
+\subsubsection*{Déterminant d'une matrice} On peut calculer le déterminant $\det(\bm{A})$ de la matrice $\bm{A}$ tel que
 \begin{align*}
 \det(\bm{A})	  = 
 \begin{vmatrix}
@@ -241,7 +253,7 @@ c	& d \\
 = ad - bc
 \end{align*}
 
-\subsubsection{Inverse d'une matrice} L'équivalent de l'opération $\frac{1}{\bm{A}}$ en algèbre linéaire est de calculer la matrice inverse de $\bm{A}^{-1}$, telle que
+\subsubsection*{Inverse d'une matrice} L'équivalent de l'opération $\frac{1}{\bm{A}}$ en algèbre linéaire est de calculer la matrice inverse de $\bm{A}^{-1}$, telle que
 \begin{align*}
 \bm{A}^{-1}	& = \frac{1}{\det(\bm{A})}
 \begin{bmatrix}
