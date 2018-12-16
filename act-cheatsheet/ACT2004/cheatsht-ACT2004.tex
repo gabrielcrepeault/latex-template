@@ -23,15 +23,22 @@
 \footnotesize % Écrire petit (peut être modifié)
 \begin{multicols*}{3} % Nombre de colonnes (peut être changé plus tard.)
 \section*{Rappel de Math. financière}
-\paragraph{Annuitées}
+\subsection*{Facteurs d'actualisation}
 \begin{align*}
-	\actsymb{a}{\angln} &= \frac{1 - v^t}{i} \\
-	\actsymb{a}{\angl{\infty}} &= \frac{1}{i} \\
-	\actsymb{\bar{a}}{\angln} &= \int_0^n v^t dt = \frac{1 - v^n}{\delta}
+	\ax{\angln}&= \frac{1 - v^t}{i} \\
+	\ax{\angl{\infty}} &= \frac{1}{i} \\
+	\ax*{\angln} &= \int_0^n v^t dt = \frac{1 - v^n}{\delta}
 \end{align*}
 
+\subsection*{Facteur d'accumulation}
+\begin{align*}
+\sx{\angln} &= \frac{(1+i)^{n} - 1}{i} \\
+\sx**{\angln} &= \frac{(1+i)^{n} - 1}{d} \\
+\end{align*}
+
+
 \section{Survie et mortalité}
-\paragraph{Définitions de base}
+\subsection{Définitions de base}
 \begin{itemize}
 \item[$X$ : ] Âge au décès d'un nouveau-né
 \item[$T_x$ : ] Durée de vie résiduelle d'un individu d'âge $x$.
@@ -49,7 +56,7 @@
 \[\mu_{x+t} = - \derivee{t} \Big( \ln ( \px[t]{x}) \Big) \]
 \end{itemize}
 
-\paragraph{Définitions des tables de mortalité}
+\subsection{Tables de mortalité}
 \begin{itemize}
 \item[$\ell_0$ : ] Nombre d'individus initial dans une cohorte.
 \item[$\ell_x$ : ] Nombre d'invidu de la cohorte ayant survécu jusqu'à l'âge $x$.
@@ -68,12 +75,12 @@
 \[\Dx[x]{x} = \mathscr{L}_x - \mathscr{L}_{x+n}\]
 \[\dx[n]{x} = \esp{\Dx[n]{x}} = \ell_{x} - \ell_{x+n} \]
 \end{itemize}
-\paragraph{Espérance de vie résiduelle}
+\subsection{Espérance de vie résiduelle}
 \[\eringx{x} = \esp{T_x} =  \int_{0}^{\omega - x} t \px[t]{x} \mu_{x+t} dt= \int_{0}^{\omega - x} \px[t]{x} dt \]
 \[\eringx{x:\angln} = \left( \int_{0}^{n} t \px[t]{x} \mu_{x+t} dt   \right) + n \cdot \px[n]{x} = \int_{0}^{n} \px[t]{x} dt \]
 
 
-\paragraph{Hypothèses d'interpolation}
+\subsection{Hypothèses d'interpolation}
 Pour $t \in [0,1]$ et $x \in \entiers$.
 
 \textbf{Distribution uniforme des décès (DUD)}
@@ -232,12 +239,52 @@ Y & = \begin{cases}
 \end{align*}
 
 \section{Primes nivelées}
-\subsection{hello}
+\subsection{Notation et définitions}
 On définit $L$ comme la perte à l'émission d'un contrat pour l'assureur. Dans ce chapitre, le paiement de la PUN s'étalle sur une période de temps, et est conditionnel  à la survie de l'assuré. Dans le cas d'une assurance-vie,
 \[L = Z - Y\]
 où $Z$ est la valeur présente actuarielle est prestations à payer et $Y$ la valeur présente actuarielle des primes à recevoir. De même, pour les rentes,
 \[L = Y_1 - Y_2\]
-où $Y_1$ représente la valeur présente actuarielle des prestations de rente à payer et $Y_2$ la valeur présente actuarielle des primes à recevoir.
+où $Y_1$ représente la valeur présente actuarielle des prestations de rente à payer et $Y_2$ la valeur présente actuarielle des primes à recevoir. \\
+
+On définit la prime $\pi$ selon 3 principes. 
+
+\subsection{Principe d'équivalence (PE)}
+Sous le principe d'équivalence, $\pi^{PE}$ est la solution de
+\begin{align*}
+\esp{L}	& = 0 \\
+\esp{Z} - \esp{Y}	& = 0 \\
+\esp{Z} & = \esp{Y} \\
+\end{align*}
+
+
+\subsection{Principe de la perte maximale probable (PPMP)}
+Sous le Principe de la perte maximale probable, $\pi^{PPMP}$ est la solution de
+\begin{align*}
+\prob{L < \lambda} \geq \alpha
+\end{align*}
+Pour résoudre, on va plutôt exprimer $\prob{L < \lambda} \leftrightarrow \px[t^*]{x}$ pour solutionner $\pi^{PPMP}$.
+
+
+\subsection{Principe du portefeuille (PP)}
+Similaire au PPMP, en terme de \emph{portefeuille} : $\pi^{PP}$ est la solution de
+\begin{align*}
+\prob{\frac{L_1 + ... + L_n}{n} < \lambda} \geq \alpha
+\end{align*}
+On passe par le Théorème central limite (TCL) pour évaluer cette expression. Ainsi,
+\begin{gather*}
+\prob{\frac{L_1 + ...  + L_n}{n} <\lambda}  \geq \alpha \\
+\prob{\frac{L_1 + ... + L_n - \esp{L_1 + ... + L_n}}{\sqrt{\variance{L_1 + ... + L_n}}} < \frac{n \lambda - \esp{L_1 + ... + L_n}}{\sqrt{n \variance{L}}}  }  \geq \alpha \\
+\shortintertext{Puisque les pertes à l'émission sont \emph{iid,}} \\
+\prob{Z < \frac{n \lambda - n \esp{L}}{\sqrt{n \variance{L}}}}  \geq \alpha \\
+\shortintertext{Par le TCL,} \\
+\Phi \left( \frac{n \lambda - n \esp{L}}{\sqrt{n \variance{L}}} \right)  \geq \alpha \\
+\end{gather*}
+Où $Z \sim N(0,1)$ et $\Phi$ la fonction de répartition de $Z$.
+
+\subsection{Retour de primes}
+
+
+
 
 
 
