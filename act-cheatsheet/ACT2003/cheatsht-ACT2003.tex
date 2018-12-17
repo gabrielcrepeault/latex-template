@@ -432,12 +432,13 @@ Et on trouve que
 
 \subsection*{Régression Lasso (\emph{Least Absolute Shrinkage and Selection Operator})}
 \begin{itemize}
-\item Très similaire à la régression Ridge, sauf qu'on utilise la norme $\ell_1$ pour appliquer une contrainte à l'équation à optimiser : 
+\item Très similaire à la régression Ridge, sauf qu'on utilise la norme $\ell_1$ pour appliquer une contrainte à l'équation à minimiser : 
 $\ell_1 = \sum_{j=1}^{p} | \beta_j | $
 
+\item L'équation à minimiser est donc
+\[S^{Lasso}(\bm{\beta})  = \sum_{i=1}^{n} \left( Y_i - \beta_0 - \sum_{j=1}^{p} \beta_j x_{ij} \right)^2 + \lambda \sum_{j=1}^{p} | \beta_j | \]
 
-
-
+\item La différence avec Ridge est que les paramètres peuvent être égaux à zéro \textbf{(il y a donc une sélection des variables)}.
 \end{itemize}
 
 
@@ -615,7 +616,7 @@ On a 3 modèles dans les tableaux de contingence (illustré avec des modèles si
 \item Modèle d'indépendance partielle (celui qu'on veut tester) : 
 \[A + B * C\]
 
-\item Modèle d'indépendance conditionnelle (aussi appelé le \emph{modèle saturé} : 
+\item Modèle d'indépendance conditionnelle (aussi appelé le \emph{modèle saturé}\footnote{Ce modèle est celui qui prédit le mieux, mais n'est d'aucune utilité car il a autant de paramètres qu'on a d'observations. On essaie donc de voir si le modèle d'indépendance partielle est une bonne simplification.} : 
 \[A * B * C\]
 \end{enumerate}
 On peut alors tester l'indépendance de certaines variables en faisant une \textbf{Analyse de la déviance} (\autoref{sssec:analyse_deviance}).
@@ -623,7 +624,7 @@ On peut alors tester l'indépendance de certaines variables en faisant une \text
 
 \subsection*{Cote}
 La cote de $A$ est définie par
-\[Cote(A) = \frac{\prob{A}}{\prob{\overline{A}}} = \frac{\prob{A}}{1 - \prob{A}} \]
+\[\mathrm{Cote}(A) = \frac{\prob{A}}{\prob{\overline{A}}} = \frac{\prob{A}}{1 - \prob{A}} \]
 
 
 

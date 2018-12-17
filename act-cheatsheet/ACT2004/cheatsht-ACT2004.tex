@@ -268,11 +268,11 @@ Pour résoudre, on va plutôt exprimer $\prob{L < \lambda} \leftrightarrow \px[t
 \subsection{Principe du portefeuille (PP)}
 Similaire au PPMP, en terme de \emph{portefeuille} : $\pi^{PP}$ est la solution de
 \begin{align*}
-\prob{\frac{L_1 + ... + L_n}{n} < \lambda} \geq \alpha
+\prob{\frac{L_1 + ... + L_n}{n} < \lambda} &  \geq \alpha \\
+\prob{L_1 + ... + L_n < n \lambda} & \geq \alpha \\
 \end{align*}
 On passe par le Théorème central limite (TCL) pour évaluer cette expression. Ainsi,
 \begin{gather*}
-\prob{\frac{L_1 + ...  + L_n}{n} <\lambda}  \geq \alpha \\
 \prob{\frac{L_1 + ... + L_n - \esp{L_1 + ... + L_n}}{\sqrt{\variance{L_1 + ... + L_n}}} < \frac{n \lambda - \esp{L_1 + ... + L_n}}{\sqrt{n \variance{L}}}  }  \geq \alpha \\
 \shortintertext{Puisque les pertes à l'émission sont \emph{iid,}} \\
 \prob{Z < \frac{n \lambda - n \esp{L}}{\sqrt{n \variance{L}}}}  \geq \alpha \\
