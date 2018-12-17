@@ -91,6 +91,25 @@ Pour $t \in [0,1]$ et $x \in \entiers$.
 \begin{align*}
 \ell_{x+t} = \ell_x^{(1-t)} \ell_{x+1}^{(t)}
 \end{align*}
+% Tableau repris de Nicholas Langevin dans l'ancienne feuille de formules
+\textbf{Tableau résumé}
+\[
+\begin{array}{|l|c|c|c|} 
+                        \hline
+                        & \text{DUD} & \text{FC} \\
+                        \hline 
+                        \actsymb[t]{q}{x} & t \cdot q_x                 & 1 - p_x^{t}   \\
+                        \hline
+                        \actsymb[t]{p}{x} & 1 - t \cdot q_x             & p_x^{t}   \\
+                        \hline
+                        \dx[1]{x}         & t \cdot \dx[n]{x}           & \lx{x} (1 - p_x^{t})  \\
+                        \hline
+                        f_{t_x}(t)        & q_x                         & -p_x^t  \ln(p_x)   \\
+                        \hline
+                        \mu_{x+t}         & \frac{q_x}{1 - t \cdot q_x} & - \ln(p_x)   \\
+                        \hline
+\end{array}
+\]
 
 \subsection{Lois de mortalité}
 \subsubsection*{DeMoivre}
