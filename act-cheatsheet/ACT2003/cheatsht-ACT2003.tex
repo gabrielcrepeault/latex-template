@@ -418,6 +418,29 @@ F_{obs} < F_{1, n-p'}(1-\alpha)
 \item Après l'ajout d'une variable au modèle, on effectue la méthode d'exclusion pour les variables qui sont actuellement dans le modèle (on remet constamment le modèle en question).
 \end{enumerate}
 
+\subsection*{Régression Ridge}
+\begin{itemize}
+\item Les coefficients de la régularisation sont réduits (\emph{shrinked}) car on applique une pénalité sur leur taille totale avec la norme $\ell_2 = \sqrt{\sum_{i=1}^{p} \beta_j^2}$
+\item On veut minimiser l'équation suivante : 
+\[R^{Ridge}(\beta) = \sum_{i=1}^{n} \left( Y_i - \beta_0 - \sum_{j=1}^{p} \beta_j x^{ij} \right)^2 + \lambda \sum_{j=1}^{p} \beta_j^2  \]
+Et on trouve que
+\[\hat{\bm{\beta}}^{Ridge} = \left( \matr{X}^\top Y + \lambda \matr{I}_{p \times p} \right)^{-1}  \matr{X}^\top \matr{Y}  \]
+\item Cette méthode est très utile \textbf{Lorsqu'il y a beaucoup de variables explicatives}. On choisit la valeur optimale pour le coefficient de régularisation $\lambda$ avec une validation croisée.
+\item Si la valeur de $\lambda$ augmente, le modèle perd en flexibilité et donc la variance des estimateurs diminue. Par contre, le biais augmente.
+\item Le modèle de régression Ridge est plus difficile à interpréter, car plusieurs coefficients des paramètres peuvent être près de 0.
+\end{itemize}
+
+\subsection*{Régression Lasso (\emph{Least Absolute Shrinkage and Selection Operator})}
+\begin{itemize}
+\item Très similaire à la régression Ridge, sauf qu'on utilise la norme $\ell_1$ pour appliquer une contrainte à l'équation à optimiser : 
+$\ell_1 = \sum_{j=1}^{p} | \beta_j | $
+
+
+
+
+\end{itemize}
+
+
 
 \section{Modèles linéaires généralisés (GLM)}
 \subsection*{Famille exponentielle linéaire}

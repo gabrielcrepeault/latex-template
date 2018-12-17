@@ -95,17 +95,17 @@ Pour $t \in [0,1]$ et $x \in \entiers$.
 \subsection{Lois de mortalité}
 \subsubsection*{DeMoivre}
 \begin{align*}
-	X &\sim Uni(0, \omega) \\
+	X &\sim \mathrm{Unif}(0, \omega) \\
 	S_X(x) &= 1 - \frac{x}{\omega},\: 0 < x < \omega \\
-	T_x &\sim Uni(0, \omega - x) \\
+	T_x &\sim \mathrm{Unif}(0, \omega - x) \\
 	S_{T_x}(t) &= 1 - \frac{t}{\omega - x},\: 0 < t < \omega - x
 \end{align*}
 
 \subsubsection*{Loi Exponentielle}
 \begin{align*}
-	x &\sim Exp(\mu) \\
+	x &\sim \mathrm{Exp}(\mu) \\
 	S_x(x) &= e^{-\mu x},\: x \geq 0 \\
-	T_x &\sim Exp(\mu) \\
+	T_x &\sim \mathrm{Exp}(\mu) \\
 	S_{T_x}(t) &= e^{-\mu t},\: t \geq 0
 \end{align*}
 
