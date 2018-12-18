@@ -627,8 +627,26 @@ La cote de $A$ est définie par
 \[\mathrm{Cote}(A) = \frac{\prob{A}}{\prob{\overline{A}}} = \frac{\prob{A}}{1 - \prob{A}} \]
 
 
+\subsection*{Sousdispersion et susdispersion}
+Avec le modèle Poisson, on suppose que $\esp{Y_i |x_i} = \variance{Y_i | x_i}$. Toutefois, les données peuvent être \textbf{sous-dispersées} si
+\[  \esp{Y_i |x_i} > \variance{Y_i | x_i} \]
+On détecte aussi la sous-dispersion si $D(y ; \hat{\mu}) / dl < 0.6$ ou $X^2 < 0.6$. On peut régler les problèmes de sous-dispersion en utilisant une distribution binomiale. Les données peuvent être \textbf{surdispersées} si
+\[ \esp{Y_i |x_i} < \variance{Y_i | x_i}  \]
+On le détecte lorsque $D(y ; \hat{\mu}) / dl > 1.7$ ou $X^2 > 1.7$
+
+\subsection*{Binomiale négative}
+Lorsque les données sont surdispersées, on peut utiliser la distribution binomiale négative dans notre modélisation. Soit $Y | Z = z \sim Pois(\mu z)$ et $Z \sim \Gamma(\theta_z, \theta_z)$, alors $\esp{Y} = \mu$ et $\variance{Y} = \mu + \frac{\mu^2}{\theta_z}$ et on a que $Y \sim BinNég(\mu, \theta_z)$ telle que
+\[f_Y(y) = \frac{\Gamma(\theta_z + y)}{\Gamma(\theta_z) y!} \left( \frac{\mu}{\mu + \theta_z} \right)^{y} \left( \frac{\theta_z}{\mu + \theta_z} \right)^{\theta_z}  \]
+Lorsque $\theta_z \to \infty$, on retombe sur le modèle Poisson. On peut faire un TRV pour valider si le modèle Poisson est une bonne simplification du modèle binomiale négative : 
+\[ \prob{ 2(\ell^{Pois}(\bm{\hat{\beta}} - \ell^{NB}(\bm{\hat{\beta}}) > x} = \frac{1}{2} \prob{\chi_{(1)}^2 > x} \] 
+
+\subsection*{Modèle Poisson gonflée à zéro}
+Lorsqu'on a une masse de probabilité à zéro plus importante à 0, on peut utiliser la loi de Poisson \emph{gonflée à zéro}, en modélisant à la fois la probabilité $\pi_i$ que la fréquence soit égale à zéro (avec un modèle binomial logistique) et $\lambda_i$ la fréquence avec un modèle Poisson avec fonction de lien log.
+
 
 \section{Modélisation de données binomiales}
+
+
 
 
 
@@ -641,8 +659,8 @@ La cote de $A$ est définie par
   & \multicolumn{2}{c|}{Prédiction $\hat{Y}_i$} \\ \hline
 Vrai $Y_i$ & 0 & 1 \\ 
   \hline
-0 & a & b \\ 
-  1 & c & d \\ 
+0 & $a$ & $b$ \\ 
+  1 & $c$ & $d$ \\ 
    \hline
 \end{tabular}
 \end{center}
