@@ -20,8 +20,8 @@
 \subsection*{Postulats}
 \begin{enumerate}[label=$\mathbf{H}_{\arabic*}$]
 \item Linéarité : $\esp{\varepsilon_i} = 0$
-\item Homoscédasticité : $Var(\varepsilon_i)= \sigma^2$
-\item Indépendance : $Cov(\varepsilon_i, \varepsilon_j) = 0$
+\item Homoscédasticité : $\variance{\varepsilon_i}= \sigma^2$
+\item Indépendance : $\covar{\varepsilon_i, \varepsilon_j} = 0$
 \item Normalité : $\varepsilon_i \sim \mathcal{N} (0, \sigma^2)$
 \end{enumerate}
 \subsection*{Modèle}
@@ -489,7 +489,7 @@ Soit $\eta = \matr{X} \boldsymbol{\beta}$. La fonction de lien est la transforma
 \item L'EMV est cohérent, i.e.
 \[\hat{\bm{\beta}} \underset{n \to \infty}{\longrightarrow} \bm{\beta} \]
 
-\item L'estimateur a une normalité asymptotique, i.e.
+\item L'estimateur a une normalité asymptotique, i.e. lorsque $n \to \infty$,
 \[  \hat{\bm{\beta}} \sim \mathcal{N} \left( \bm{\beta}, \frac{\mathcal{I}(\bm{\beta})^{-1}}{n} \right)    \]
 où $\mathcal{I}(\bm{\beta})_{(p' \times p')}$ est la matrice d'information de Fisher : 
 \begin{align*}
@@ -515,6 +515,37 @@ L'objectif est de trouver $\hat{\bm{\beta}}$ qui maximise $\ell(\hat{\bm{\beta}}
 
 \subsubsection*{Méthode du score de Fisher}
 Cette méthode est la même que l'algorithme de Newton-Raphson, à l'exception qu'on remplace $\mathcal{I} \left( \hat{\bm{\beta}} \right)$ par $- \esp{\ddot{\ell}(\hat{\bm{\beta}})}$ à l'étape (2.1)
+
+\subsubsection*{Construction d'IC sur les paramètres}
+\begin{itemize}
+\item Lorsqu'on prédit des données, on peut aussi créer un I.C de confiance pour le prédicteur linéaire $\eta_i$. Par les propriétés du maximum de vraisemblance, quand $n \to \infty$, on a que $\hat{\bm{\beta}}$ est asymptotiquement normal. Alors, puisque $\eta$ est une combinaison linéaire de v.a. \emph{approximativement} normales, alors
+\[\eta_i \approx \mathcal{N} \left( \eta_i,  \widehat{\mathrm{Var}}(\hat{\eta_i})   \right) \]
+
+\item Et on a que (dans le cas simple où le modèle est $\beta_0 + \beta_1 x_{i1}$),
+\begin{align*}
+\variance{\hat{\eta}_i}	& = \variance{\hat{\beta}_0 + \hat{\beta}_1 x_{i1}} \\
+& = \variance{\hat{\beta}_0} + x_{i1}^2 \variance{\hat{\beta}_1}  \\
+& + 2 x _{i1}  \covar{\hat{\beta}_0, \hat{\beta}_1}
+\end{align*}
+
+\item Dans le cas multivarié, on a
+\begin{align*}
+\variance{\hat{\eta}_i}	 & = \matr{X}^{\top} \mathcal{I}(\hat{\bm{\beta}})^{-1} \matr{X}
+\end{align*}
+
+\item L'intervalle de confiance  pour $\eta_i$ est
+\[\hat{\eta}_i  \pm z_{1- \alpha/2} \sqrt{\widehat{\mathrm{Var}}(\hat{\eta_i})} \]
+
+\item Un intervalle de confiance (non-centré) pour $\mu_i$, en utilisant la fonction de lien inverse $g^{-1}(\eta)$ serait
+\[ \mu_i \in \left [ g\left( \hat{\eta}_i^{(L)}\right),  g\left( \hat{\eta}_i^{(U)} \right)      \right]   \]
+
+\item En utilisant la méthode Delta, on obtient un I.C qui est centré, en utilisant le même I.C mais avec $\widehat{\mathrm{Var}}(\hat{\eta}_i)$ calculé avec
+\begin{align*}
+\variance{\hat{\mu}_i}	& = \left( \derivee{\eta_i} g^{-1}(\eta_i) \eval_{\eta_i = \hat{\eta}_I} \right)^2 \variance{\hat{\eta}_i}
+\end{align*}
+\end{itemize}
+
+
 
 \subsection*{Statistique de Wald}
 Test d'hypothèse pour tester $H_0 : \beta_j = 0$, $H_1 : \beta_j \neq 0$. On a que
@@ -572,13 +603,11 @@ Il est certain que la déviance va augmenter en diminuant le nombre de paramètr
 \begin{align*}
 r_{P_i} = \frac{y_i - \hat{\mu}_i}{\sqrt{V(\hat{\mu})_i}}
 \end{align*}
-
-\subsubsection*{Résidus d'Anscombe}
-À valider si la formule est à savoir
+Aussi,  les résidus d'Anscombe et les résidus de la déviance.
 
 
-\subsubsection*{Résidus de la déviance}
-À valider si la formule est à savoir
+
+
 
 
 
@@ -635,10 +664,10 @@ On détecte aussi la sous-dispersion si $D(y ; \hat{\mu}) / dl < 0.6$ ou $X^2 < 
 On le détecte lorsque $D(y ; \hat{\mu}) / dl > 1.7$ ou $X^2 > 1.7$
 
 \subsection*{Binomiale négative}
-Lorsque les données sont surdispersées, on peut utiliser la distribution binomiale négative dans notre modélisation. Soit $Y | Z = z \sim Pois(\mu z)$ et $Z \sim \Gamma(\theta_z, \theta_z)$, alors $\esp{Y} = \mu$ et $\variance{Y} = \mu + \frac{\mu^2}{\theta_z}$ et on a que $Y \sim BinNég(\mu, \theta_z)$ telle que
+Lorsque les données sont surdispersées, on peut utiliser la distribution binomiale négative dans notre modélisation. Soit $Y | Z = z \sim Pois(\mu z)$ et $Z \sim \Gamma(\theta_z, \theta_z)$, alors $\esp{Y} = \mu$ et $\variance{Y} = \mu + \frac{\mu^2}{\theta_z}$ et on a que $Y \sim BinNeg(\mu, \theta_z)$ telle que
 \[f_Y(y) = \frac{\Gamma(\theta_z + y)}{\Gamma(\theta_z) y!} \left( \frac{\mu}{\mu + \theta_z} \right)^{y} \left( \frac{\theta_z}{\mu + \theta_z} \right)^{\theta_z}  \]
 Lorsque $\theta_z \to \infty$, on retombe sur le modèle Poisson. On peut faire un TRV pour valider si le modèle Poisson est une bonne simplification du modèle binomiale négative : 
-\[ \prob{ 2(\ell^{Pois}(\bm{\hat{\beta}} - \ell^{NB}(\bm{\hat{\beta}}) > x} = \frac{1}{2} \prob{\chi_{(1)}^2 > x} \] 
+\[ \prob{ 2\Big(\ell^{Pois}(\bm{\hat{\beta}}) - \ell^{NB}(\bm{\hat{\beta}}) \Big) > x} = \frac{1}{2} \prob{\chi_{(1)}^2 > x} \] 
 
 \subsection*{Modèle Poisson gonflée à zéro}
 Lorsqu'on a une masse de probabilité à zéro plus importante à 0, on peut utiliser la loi de Poisson \emph{gonflée à zéro}, en modélisant à la fois la probabilité $\pi_i$ que la fréquence soit égale à zéro (avec un modèle binomial logistique) et $\lambda_i$ la fréquence avec un modèle Poisson avec fonction de lien log.
