@@ -537,9 +537,11 @@ Cette méthode est la même que l'algorithme de Newton-Raphson, à l'exception q
 \[\hat{\eta}_i  \pm z_{1- \alpha/2} \sqrt{\widehat{\mathrm{Var}}(\hat{\eta_i})} \]
 
 \item Un intervalle de confiance (non-centré) pour $\mu_i$, en utilisant la fonction de lien inverse $g^{-1}(\eta)$ serait
-\[ \mu_i \in \left [ g\left( \hat{\eta}_i^{(L)}\right),  g\left( \hat{\eta}_i^{(U)} \right)      \right]   \]
+\[ \mu_i \in \left [ g^{-1} \left( \hat{\eta}_i^{(L)}\right),  g^{-1} \left( \hat{\eta}_i^{(U)} \right)      \right]   \]
 
-\item En utilisant la méthode Delta, on obtient un I.C qui est centré, en utilisant le même I.C mais avec $\widehat{\mathrm{Var}}(\hat{\eta}_i)$ calculé avec
+\item En utilisant la méthode Delta, on obtient un I.C qui est centré pour $\mu_i$, on a
+\[\mu_i \in z_{1 - \frac{\alpha}{2}} \sqrt{\widehat{\mathrm{Var}}(\hat{\mu}_i)}  \]
+où
 \begin{align*}
 \variance{\hat{\mu}_i}	& = \left( \derivee{\eta_i} g^{-1}(\eta_i) \eval_{\eta_i = \hat{\eta}_I} \right)^2 \variance{\hat{\eta}_i}
 \end{align*}
@@ -549,10 +551,10 @@ Cette méthode est la même que l'algorithme de Newton-Raphson, à l'exception q
 
 \subsection*{Statistique de Wald}
 Test d'hypothèse pour tester $H_0 : \beta_j = 0$, $H_1 : \beta_j \neq 0$. On a que
-\[Z = \frac{\beta_j}{\sqrt{\hat{\mathrm{Var}}(\hat{\beta}_j)}} \sim \mathcal{N}(0,1) \]
+\[Z = \frac{\beta_j}{\sqrt{\widehat{\mathrm{Var}}(\hat{\beta}_j)}} \sim \mathcal{N}(0,1) \]
 On rejète donc $H_0$ si $Z > z_{1 - \frac{\alpha}{2}}$.
 
-\paragraph{Note} On obtient $\hat{\mathrm{Var}}(\hat{\beta}_j)$ sur les éléments de la diagonale de $\{ \mathcal{I}(\hat{\beta}) \}^{-1} / n$.
+\paragraph{Note} On obtient $\widehat{\mathrm{Var}}(\hat{\beta}_j)$ sur les éléments de la diagonale de $\{ \mathcal{I}(\hat{\beta}) \}^{-1} / n$.
 
 \subsection*{Test du rapport de vraisemblance}
 %% On pourrait peut-être synthétiser mieux cette section ...
