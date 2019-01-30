@@ -65,18 +65,21 @@
 \begin{itemize}[align=left,leftmargin=*]
     \item $\text{Coût initial} = 0$
 \end{itemize}
-\begin{tikzpicture}
+\begin{tikzpicture} % --- CONTRAT FORWARD  ---
     \hspace{-6mm} % Dépend de la grosseur du label de l'axe des y. 
     \begin{axis}[
         height=6.5cm,
         width=7cm,
         axis x line=middle,
         axis y line=left,
+        % coordonnées en x
         xlabel={$S_T$},
         xtick={1},
         xticklabels={$F_{0,T}$},
+        % Coordonées en y
         ytick={1, 0, -1},
         yticklabels={$F_{0,T}$, 0,$-F_{0,T}$},
+        % Légende
         title={Contrat Forward},
         legend entries={Gain(long),Gain(short)},
         legend style={at={(0,0.96)},anchor=north west},
@@ -88,6 +91,7 @@
         \addplot[mark=none, draw=ShortColor, line width=1.5pt] coordinates { (0,1) (1,0) (2,-1) };
     \end{axis}
 \end{tikzpicture}
+
 \subsection*{Option Call}
 \begin{tikzpicture}
     \hspace{-4mm}
@@ -98,10 +102,10 @@
         axis y line=left,
         xlabel={$S_T$},
         xtick={1},
-        xticklabels={k},
+        xticklabels={$K$},
         ytick={0, -0.75},
         yticklabels={0,$-P_{T}$},
-        title={Option Call (long)},
+        title={Option Call (\emph{long})},
         legend entries={Gain,Profil},
         legend style={at={(0,0.96)},anchor=north west},
         xmin = 0,
@@ -112,6 +116,33 @@
         \addplot[mark=none, draw=LongColor, line width=1.5pt] coordinates { (0,-0.75) (1,-0.75) (2,1.25) };
     \end{axis}
 \end{tikzpicture}
+
+\begin{tikzpicture}
+    \hspace{-4mm}
+    \begin{axis}[
+        height=6.5cm,
+        width=7cm,
+        axis x line=middle,
+        axis y line=left,
+        xlabel={$S_T$},
+        xtick={1},
+        xticklabels={$K$},
+        ytick={0, -0.75},
+        yticklabels={0,$-P_{T}$},
+        title={Option Call (\emph{short})},
+        legend entries={Gain,Profil},
+        legend style={at={(0,0.96)},anchor=north west},
+        xmin = 0,
+        xmax = 2,
+        ymin = -2,
+        ymax = 2]
+        \addplot[mark=none, draw=LongColor, line width=1.5pt, densely dashed] coordinates { (0,0) (1,0) (2,2) };
+        \addplot[mark=none, draw=LongColor, line width=1.5pt] coordinates { (0,-0.75) (1,-0.75) (2,1.25) };
+    \end{axis}
+\end{tikzpicture}
+
+
+
 
 \end{multicols*}
 %% -----------------------------
