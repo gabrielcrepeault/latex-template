@@ -92,17 +92,21 @@
         xlabel={$S_T$},
         xtick={1},
         xticklabels={$K$},
-        ytick={1.5,0.75,  0, -0.75},
-        yticklabels={$K$ , $K - P_T$,0,$-P_{T}$},
-        title={Option Put (\emph{short})},
+        ytick={1.5,1,  0.5,0, -0.5, -1,  -1.5},
+        yticklabels={$K$ , $K - P_T$, $P_T$,0,$-P_{T}$,$-K + P_T$, $-K$},
+        title={Put},
         legend entries={Gain,Profit},
-        legend style={at={(0.7,0.2)},anchor=north west},
+        legend style={at={(0.65,0.25)},anchor=north west},
         xmin = 0,
         xmax = 2,
         ymin = -2,
         ymax = 2]
+        % payoff sur position short
         \addplot[mark=none, draw=LongColor, line width=1.5pt, densely dashed] coordinates { (0,1.5) (1,0) (2,0) };
-        \addplot[mark=none, draw=LongColor, line width=1.5pt] coordinates { (0,0.75) (1,-0.75) (2,-0.75) };
+        % profit sur position long
+        \addplot[mark=none, draw=LongColor, line width=1.5pt] coordinates { (0,1) (1,-0.5) (2,-0.5) };
+        % payoff sur position long
+        \addplot[mark=none, draw=LongColor, line width=1.5pt, densely dashed] coordinates { (0, -1) (1,0) (2,0) };
     \end{axis}
 \end{tikzpicture}
 
