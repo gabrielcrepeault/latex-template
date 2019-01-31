@@ -8,6 +8,7 @@
 \usepackage{pifont}
 \usepackage{tikz}
 \usepackage{pgfplots}
+\usepackage{array}
 \definecolor{LongColor}{HTML}{E61D3B}
 \definecolor{ShortColor}{HTML}{2C97D8}
 \def\cours{Gestion du risque financier II}
@@ -56,15 +57,21 @@
     \item $\mathbf{F_{0,T}}$: Prix à $T$ prédéterminé à $0$ du sous-jacent. $F_{0,T}=S_0(1+r_f)^T$.
     \item $\mathbf{P_0}$: Coût Initial (\emph{premium}). % Notation inventer pour la feuille -> rentre mieux dans les graphiques que: (prime)*(1+r_f)^t
     \item $\mathbf{P_T}$: Coût Initial (\emph{premium}) accumuler à $T$ au taux sans risque. $P_T = P_0(1+r_f)^T$.
-    \item \textbf{Gain}: Valeur à l'échéance.
-    \item \textbf{Profil}: Gain - $P_T$.
+    \item \textbf{Payoff}: Valeur à l'échéance.
+    \item \textbf{Profil}: Payoff - $P_T$.
     \item {\color{LongColor} \ding{117}} est la couleur d'une position longue.
     \item {\color{ShortColor} \ding{117}} est la couleut d'une position courte.
 \end{itemize}
 \subsection*{Contrat Forward}
-\begin{itemize}[align=left,leftmargin=*]
-    \item $\text{Coût initial} = 0$
-\end{itemize}
+\begin{tabular}{>{\faAngleRight\hspace*{2mm}}lcc}
+    \textbf{Position:}& Long & Short \\
+    \textbf{Payoff:}& $S_T - F_{0,T}$ & $F_{0,T} - S_T$ \\
+    \textbf{Profit:}& $S_T - F_{0,T}$ & $F_{0,T} - S_T$ \\
+    \textbf{Max. Loss:}& $F_{0,T}$ & $\infty$ \\
+    \textbf{Max. Profit:}& $\infty$ & $F_{0,T}$ \\
+\end{tabular}  
+
+
 \begin{tikzpicture} % --- CONTRAT FORWARD  ---
     \hspace{-6mm} % Dépend de la grosseur du label de l'axe des y. 
     \begin{axis}[
@@ -81,7 +88,7 @@
         yticklabels={$F_{0,T}$, 0,$-F_{0,T}$},
         % Légende
         title={Contrat Forward},
-        legend entries={Gain(long),Gain(short)},
+        legend entries={Profil(long),Profil(short)},
         legend style={at={(0,0.96)},anchor=north west},
         xmin = 0,
         xmax = 2,
@@ -93,6 +100,20 @@
 \end{tikzpicture}
 
 \subsection*{Option Call}
+\begin{tabular}{>{\faAngleRight\hspace*{2mm}}lc}
+    % \hline
+    \textbf{Position:}& Long  \\
+    \textbf{Coût Initial:} & $-C(K,T)$  \\
+    \textbf{Payoff:}& $\max[0,S_T - K]$  \\
+    \textbf{Max. Loss:}& $P_T$  \\
+    \textbf{Max. Profit:}& $\infty$  \\
+    \hline \hline
+    \textbf{Position:}& Short  \\
+    \textbf{Coût Initial:} & $C(K,T)$  \\
+    \textbf{Payoff:}& $-\max[0,S_T - K]$  \\
+    \textbf{Max. Loss:}& $\infty$  \\
+    \textbf{Max. Profit:}& $P_T$  
+\end{tabular}
 \begin{tikzpicture}
     \hspace{-4mm}
     \begin{axis}[
@@ -105,8 +126,8 @@
         xticklabels={$K$},
         ytick={0, -0.75},
         yticklabels={0,$-P_{T}$},
-        title={Option Call (\emph{long})},
-        legend entries={Gain,Profil},
+        title={Option Call},
+        legend entries={Payoff,Profil},
         legend style={at={(0,0.96)},anchor=north west},
         xmin = 0,
         xmax = 2,
@@ -114,9 +135,12 @@
         ymax = 2]
         \addplot[mark=none, draw=LongColor, line width=1.5pt, densely dashed] coordinates { (0,0) (1,0) (2,2) };
         \addplot[mark=none, draw=LongColor, line width=1.5pt] coordinates { (0,-0.75) (1,-0.75) (2,1.25) };
+        \addplot[mark=none, draw=ShortColor, line width=1.5pt, densely dashed] coordinates { (0,0) (1,0) (2,-2) };
+        \addplot[mark=none, draw=ShortColor, line width=1.5pt] coordinates { (0,0.75) (1,0.75) (2,-1.25) };
     \end{axis}
 \end{tikzpicture}
 
+\subsection*{Option Put}
 \begin{tikzpicture}
     \hspace{-4mm}
     \begin{axis}[
