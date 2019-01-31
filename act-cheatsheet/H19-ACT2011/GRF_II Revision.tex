@@ -18,7 +18,7 @@
 \def\BackgroundColor{white}
 \def\SectionColor{black!30!black}
 \def\SubSectionColor{black!30!black}
-\input{cheatsht-preamble.tex}
+\input{preamble/cheatsht-preamble.tex}
 \title{GRF-II \\ Document d'étude}
 \author{Nicholas Langevin}
 %% -----------------------------
@@ -26,22 +26,7 @@
 %% -----------------------------
 \begin{document}
 
-\maketitle 
-\vspace{50px}
-\begin{center}
-\begin{minipage}[c]{7.5cm}
-    \begin{itemize}
-        \LARGE
-        \item[\color{black}\ding{235}] Les produits dérivés 
-        \item[\color{black}  \ding{235}] Forwards et autres options
-        % \item[\color{purple} \ding{235}] Life Contingencies
-        % \item[\color{orange} \ding{235}] Simulation
-        % \item[\color{red}    \ding{235}] Statistics
-        % \item[\color{blue}   \ding{235}] Extended Linear Model
-        % \item[\color{green}  \ding{235}] Time Series      
-    \end{itemize}
-\end{minipage}
-\end{center}
+\input{preamble/page-couverture}
 \newpage
 
 \small
@@ -71,33 +56,8 @@
     \textbf{Max. Profit:}& $\infty$ & $F_{0,T}$ \\
 \end{tabular}  
 
-
-\begin{tikzpicture} % --- CONTRAT FORWARD  ---
-    \hspace{-6mm} % Dépend de la grosseur du label de l'axe des y. 
-    \begin{axis}[
-        height=6.5cm,
-        width=7cm,
-        axis x line=middle,
-        axis y line=left,
-        % coordonnées en x
-        xlabel={$S_T$},
-        xtick={1},
-        xticklabels={$F_{0,T}$},
-        % Coordonées en y
-        ytick={1, 0, -1},
-        yticklabels={$F_{0,T}$, 0,$-F_{0,T}$},
-        % Légende
-        title={Contrat Forward},
-        legend entries={Profil(long),Profil(short)},
-        legend style={at={(0,0.96)},anchor=north west},
-        xmin = 0,
-        xmax = 2,
-        ymin = -2,
-        ymax = 2]
-        \addplot[mark=none, draw=LongColor, line width=1.5pt] coordinates { (0,-1) (1,0) (2,1) };
-        \addplot[mark=none, draw=ShortColor, line width=1.5pt] coordinates { (0,1) (1,0) (2,-1) };
-    \end{axis}
-\end{tikzpicture}
+% Contrat Forward
+\input{tikz/forward_graph.tex}
 
 \subsection*{Option Call}
 \begin{tabular}{>{\faAngleRight\hspace*{2mm}}lc}
@@ -114,6 +74,14 @@
     \textbf{Max. Loss:}& $\infty$  \\
     \textbf{Max. Profit:}& $P_T$  
 \end{tabular}
+
+% Graphique Call option
+\input{tikz/call_graph.tex}
+
+\subsection*{Option Put}
+
+% Graphique Put option
+\input{tikz/put_graph.tex}
 \begin{tikzpicture}
     \hspace{-4mm}
     \begin{axis}[
@@ -124,23 +92,28 @@
         xlabel={$S_T$},
         xtick={1},
         xticklabels={$K$},
-        ytick={0, -0.75},
-        yticklabels={0,$-P_{T}$},
-        title={Option Call},
-        legend entries={Payoff,Profil},
-        legend style={at={(0,0.96)},anchor=north west},
+        ytick={1.5,0.75,  0, -0.75},
+        yticklabels={$K$ , $K - P_T$,0,$-P_{T}$},
+        title={Option Put (\emph{short})},
+        legend entries={Gain,Profit},
+        legend style={at={(0.7,0.2)},anchor=north west},
         xmin = 0,
         xmax = 2,
         ymin = -2,
         ymax = 2]
-        \addplot[mark=none, draw=LongColor, line width=1.5pt, densely dashed] coordinates { (0,0) (1,0) (2,2) };
-        \addplot[mark=none, draw=LongColor, line width=1.5pt] coordinates { (0,-0.75) (1,-0.75) (2,1.25) };
-        \addplot[mark=none, draw=ShortColor, line width=1.5pt, densely dashed] coordinates { (0,0) (1,0) (2,-2) };
-        \addplot[mark=none, draw=ShortColor, line width=1.5pt] coordinates { (0,0.75) (1,0.75) (2,-1.25) };
+        \addplot[mark=none, draw=LongColor, line width=1.5pt, densely dashed] coordinates { (0,1.5) (1,0) (2,0) };
+        \addplot[mark=none, draw=LongColor, line width=1.5pt] coordinates { (0,0.75) (1,-0.75) (2,-0.75) };
     \end{axis}
 \end{tikzpicture}
 
-\subsection*{Option Put}
+\section*{Stratégies de couverture de base}
+
+\subsection*{Floor}
+\begin{itemize}
+\item \emph{long stock}
+\item \emph{short put} (i.e. on achète une option de vente)
+\end{itemize}
+
 \begin{tikzpicture}
     \hspace{-4mm}
     \begin{axis}[
@@ -149,12 +122,12 @@
         axis x line=middle,
         axis y line=left,
         xlabel={$S_T$},
-        xtick={1},
-        xticklabels={$K$},
+        xtick={2, 1.5},
+        xticklabels={$K$, $K - P_T$},
         ytick={0, -0.75},
         yticklabels={0,$-P_{T}$},
         title={Option Call (\emph{short})},
-        legend entries={Gain,Profil},
+        legend entries={Gain,Profit},
         legend style={at={(0,0.96)},anchor=north west},
         xmin = 0,
         xmax = 2,
@@ -164,7 +137,6 @@
         \addplot[mark=none, draw=LongColor, line width=1.5pt] coordinates { (0,-0.75) (1,-0.75) (2,1.25) };
     \end{axis}
 \end{tikzpicture}
-
 
 
 
