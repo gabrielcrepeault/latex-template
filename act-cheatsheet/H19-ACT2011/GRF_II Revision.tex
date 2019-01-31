@@ -102,9 +102,9 @@
         ymin = -2,
         ymax = 2]
         % payoff sur position short
-        \addplot[mark=none, draw=LongColor, line width=1.5pt, densely dashed] coordinates { (0,1.5) (1,0) (2,0) };
-        % profit sur position long
-        \addplot[mark=none, draw=LongColor, line width=1.5pt] coordinates { (0,1) (1,-0.5) (2,-0.5) };
+        \addplot[mark=none, draw=ShortColor, line width=1.5pt, densely dashed] coordinates { (0,1.5) (1,0) (2,0) };
+        % profit sur position short
+        \addplot[mark=none, draw=ShortColor, line width=1.5pt] coordinates { (0,1) (1,-0.5) (2,-0.5) };
         % payoff sur position long
         \addplot[mark=none, draw=LongColor, line width=1.5pt, densely dashed] coordinates { (0, -1) (1,0) (2,0) };
     \end{axis}
