@@ -1,0 +1,62 @@
+% --------------------------------------------------------------------------------
+% Définition des styles pour faire des graphiques Tikz pour les options
+% Gabriel Crépeault-Cauchon
+% 02/02/2019
+% --------------------------------------------------------------------------------
+\documentclass[12pt]{report}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.12}
+
+
+\tikzset{
+	short payoff/.style={
+		blue, thick, dashed
+	}
+}
+\tikzset{
+	short profit/.style={
+		blue, thick
+	}
+}
+
+\tikzset{ % Déclaration des fonctions
+	option/.style={
+		declare function={
+			% Purchased call    			
+    			Call(\x)=  {
+    				(\x <= 10) * 0 + 
+    							(\x > 10) * (\x - 10)
+    			};
+    			Payoff_Put(\x)={
+    				(\x <= 10) * (10 - \x) +
+    				(\x > 10) * 0
+    			};
+  		}
+	}
+}
+
+\begin{document}
+hello
+\begin{tikzpicture}[option]
+\begin{axis}[
+  domain=0:30,
+  axis lines=middle,
+  legend style={
+    draw=none,
+    legend columns=-1,
+    at={(0.5,1)},
+    anchor=south,
+    outer sep=1em,
+    node font=\small,
+  },
+]
+  \addplot[short payoff] {Call(x)};
+   \addlegendentry{Payoff};
+   
+  \addplot[short profit] {Payoff_Put(x+1)};
+   \addlegendentry{Profit};
+ 
+
+\end{axis}
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.8}
+
+\pgfmathdeclarefunction{call}{1}{
+	\pgfmathparse{and(#1 <= 3) * (#1) +
+								and(#1 > 3) * (3)}
+}
+
+\begin{document}
+\begin{tikzpicture}[
+  declare function={
+    func(\x)= (\x < -pi/2) * (0)   +
+              and(\x >= -pi/2, \x < pi/2) * (pi/2-abs(\x))     +
+              (\x >= pi/2) * (0)
+   ;
+  }
+]
+\begin{axis}[
+  axis x line=middle, axis y line=middle,
+  ymin=-5, ymax=5, ytick={-5,...,5}, ylabel=$y$,
+  xmin=-5, xmax=5, xtick={-5,...,5}, xlabel=$x$,
+  domain=-pi:pi,samples=101, % added
+]
+
+\addplot [blue,thick] {call(x)};
+\end{axis}
+\end{tikzpicture} 
+\end{document}
