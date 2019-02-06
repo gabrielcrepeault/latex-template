@@ -15,24 +15,43 @@
 \begin{multicols*}{3} % Permet d'écrire dans plusieurs colonnes l'entièreté du document
 % -------------------------------------------------------------
 \section{Rappel de Math-vie 1}
-\hl{Mettre formule des assurances et rentes importantes}
 \subsection*{Modèles de survie}
-\begin{description}
-\item[$T_x$] durée de vie de $(x)$
-\end{description}
-
-
+\begin{itemize}
+\item $T_x$ : durée de vie de $(x)$
+\item $K_x =  \lfloor T_x \rfloor$
+\item $\px[t]{x}[] = \prob{T_x > t} = e^{- \int_{0}^{t} \mu_{x+s} ds}$
+\item $\qx[t]{x}[] = 1 - \px[t]{x}[] = \prob{T_x \leq t}$
+\item $\px[t + u]{x}[] = \px[t]{x}[] \cdot \px[u]{x+t}[]$
+\item $\qx[t|u]{x}[] = \px[t]{x}[] \cdot \qx[u]{x+t}[]$
+\end{itemize}
 
 \subsection*{Contrat d'assurance}
+\paragraph{Assurance entière}
+\[\Ax{x} = \sum_{k=0}^{\infty} b_k v^{k+1} \qx[k|]{x}[]\]
+\paragraph{Assurance dotation pure (\emph{pure endowment)}}
+\[\Ax{\endowxn} = \Ax{\termxn} + \Ax{\pureendowxn}\]
+où $\Ax{\pureendowxn} = \Ex[n]{x} = v^n \px[n]{x}[]$
+
+\paragraph{Assurance temporaire $n$ année}
+\[\Ax{\termxn} = \Ax{x} - \Ax[n|]{x} \]
+où $\Ax[n|]{x}  = \Ex[n]{x} \Ax{x+n}$ (i.e. une assurance différée)
+
+\paragraph{Assurance payable $m$ fois l'an}
+\[\Ax{x}[(m)] = \sum_{k=0}^{\infty} v^{\frac{(k+1)}{m}} \qx[\frac{k}{m} | \frac{1}{m}]{x}[] \]
+
 
 \subsection*{Contrat de rente}
+\paragraph{Rente entière}
+\[\ax**{x} = \sum_{k=0}^{\infty} v^{k} \px[k]{x}[]  \]
 \[\ax**{x} = \frac{1 - \Ax{x:\angln}}{d} \leftrightarrow \Ax{\endowxn} =1 - d \ax{x}\]
 
 
 
 
 \subsection*{Principe d'équivalence}
-
+$\pi$, lorsque calculée sous le principe d'équivalence, est la solution de
+\[\esp{Z} = \esp{Y}\]
+où $Z$ est la valeur présente des prestations futures et $Y$ la valeur présente des primes futures à recevoir.
 
 \section{Calcul de réserve}
 \paragraph{Perte prospective}
@@ -43,12 +62,13 @@
 \end{align*}
 
 \paragraph{Réserve au temps $t$}
-\begin{align*}
-\actsymb[t]{V}{} = \esp{\actsymb[t]{L}{}}
-\end{align*}
+Selon la méthode prospective,
+\[\actsymb[t]{V}{} = \esp{\actsymb[t]{L}{}} = \esp{Z} - \esp{Y}\]
+Selon la méthode rétrospective,
+\[\actsymb[t]{V}{} = \frac{\text{VPA}_{@t}(\text{$\pi$ reçues avant $h$}) - \text{VPA}_{@t}(\text{Prest. à payer avant $h$})}{g}\]
 
-
-
+\paragraph{Relation récursive pour les réserves (discrètes, sans frais)}
+\[\actsymb[h+1]{V}{} = \frac{(\actsymb[h]{V}{} + \pi_h)(1+i) - b_{h+1} \qx[]{x+h}[]}{\px[]{x+h}[]}\]
 
 
 
