@@ -29,6 +29,17 @@
 \item $\qx[t|u]{x}[] = \px[t]{x}[] \cdot \qx[u]{x+t}[]$
 \end{itemize}
 
+\subsection*{Loi de mortalité}
+\paragraph{Force constante}
+$\mu_x = \mu$, $\px[t]{x}[] = e^{-\mu t}$
+
+\paragraph{Uniforme (DeMoivre)}
+\begin{itemize}
+\item  $\mu_u = \frac{1}{\omega - x}$, avec $0 \leq x \leq \omega$
+\item $\px[t]{x}[] = \frac{\omega - x - t}{\omega - x}$
+\end{itemize}
+
+
 \subsection*{Contrat d'assurance}
 \paragraph{Assurance entière}
 Cas discret : 
@@ -93,6 +104,8 @@ où $G_h$ est la prime à recevoir à $t=h$, $e_h$ les frais relié à la collec
  
  \paragraph{Approximation classique pour les réserves à durées fractionnaires}
  \[\actsymb[h+s]{V}{} = (\actsymb[h]{V}{} + G_h - e_h)(1-s) + (\actsymb[h+1]{V}{})(s) \]
+
+
 
 
 
