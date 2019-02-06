@@ -12,7 +12,7 @@
 \begin{document}
 % j'enlève le footnotesize temporairement, sinon je ne vois rien! GCC
 % \footnotesize % Écrire petit (peut être modifié)
-\begin{multicols*}{3} % Permet d'écrire dans plusieurs colonnes l'entièreté du document
+\begin{multicols*}{2} % Permet d'écrire dans plusieurs colonnes l'entièreté du document
 % -------------------------------------------------------------
 \section{Rappels généraux}
 \subsection*{Mathématiques financières}
@@ -38,6 +38,13 @@ $\mu_x = \mu$, $\px[t]{x}[] = e^{-\mu t}$
 \item  $\mu_u = \frac{1}{\omega - x}$, avec $0 \leq x \leq \omega$
 \item $\px[t]{x}[] = \frac{\omega - x - t}{\omega - x}$
 \end{itemize}
+
+\subsection*{DUD}
+\begin{itemize}
+\item $\qx[]{x+h}[] = h \qx[]{x}[]$
+\item $\Ax*{x} = \frac{i}{\delta} \Ax{x}$
+\end{itemize}
+
 
 
 \subsection*{Contrat d'assurance}
@@ -75,6 +82,13 @@ $\pi$, lorsque calculée sous le principe d'équivalence, est la solution de
 \[\esp{Z} = \esp{Y}\]
 où $Z$ est la valeur présente des prestations futures et $Y$ la valeur présente des primes futures à recevoir.
 
+\subsection*{Formule de Woolhouse}
+\[\ax**{x}[(m)] \approx \ax**{x} - \frac{m-1}{2m} - \frac{m^2 -1}{12m^2} (\delta + \mu_x)  \]
+\[\ax**{\endowxn}[(m)] \approx  \ax**{\endowxn} - \frac{m-1}{2m}(1  -v^n \px[n]{x}[]) - \frac{m^2 -1}{12m^2} \Big( \delta + \mu_x - v^n \px[n]{x}[](\delta + \mu_{x+n}) \Big)  \]
+\[\ax*{\endowxn} = \lim_{m \to \infty}  \ax**{\endowxn}[(m)] \approx  \ax**{\endowxn} - \frac{1}{2} (1  -v^n \px[n]{x}[]) - \frac{1}{12} \Big( \delta + \mu_x - v^n \px[n]{x}[](\delta + \mu_{x+n}) \Big)  \]
+
+
+
 \section{Calcul de réserve}
 \paragraph{Perte prospective}
 \begin{align*}
@@ -106,6 +120,13 @@ où $G_h$ est la prime à recevoir à $t=h$, $e_h$ les frais relié à la collec
  \[\actsymb[h+s]{V}{} = (\actsymb[h]{V}{} + G_h - e_h)(1-s) + (\actsymb[h+1]{V}{})(s) \]
 
 
+
+\subsection*{Profit de l'assureur}
+\paragraph{Profit de l'assureur en changeant les 3 composantes}
+\begin{flalign*}
+\actsymb[k+1]{V}{}^A - \actsymb[k+1]{V}{}^E	& = N_k (\actsymb[k]{V}{} + G - e_k')(1+i') - (b_{k+1} + E_{k+1}' - \actsymb[k+1]{V}{}) N_k \qx[]{x+k}[] \\
+& - \left[N_k(\actsymb[k]{V}{} + G = e_k)(1+i) - (b_{k+1} + E_{k+1} - \actsymb[k+1]{V}{}) N_k \qx[]{x+k}[] \right]
+\end{flalign*}
 
 
 
