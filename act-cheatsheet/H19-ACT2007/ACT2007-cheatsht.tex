@@ -14,14 +14,38 @@
 % \footnotesize % Écrire petit (peut être modifié)
 \begin{multicols*}{3} % Permet d'écrire dans plusieurs colonnes l'entièreté du document
 % -------------------------------------------------------------
-\section{Première section}
+\section{Rappel de Math-vie 1}
+\hl{Mettre formule des assurances et rentes importantes}
+\subsection*{Modèles de survie}
+\begin{description}
+\item[$T_x$] durée de vie de $(x)$
+\end{description}
 
-\subsection*{2e section}
-avec * pour ne pas avoir de numérotation pour les sous-section
 
-\begin{definition}[hello]
-bonjour
-\end{definition}
+
+\subsection*{Contrat d'assurance}
+
+\subsection*{Contrat de rente}
+\[\ax**{x} = \frac{1 - \Ax{x:\angln}}{d} \leftrightarrow \Ax{\endowxn} =1 - d \ax{x}\]
+
+
+
+
+\subsection*{Principe d'équivalence}
+
+
+\section{Calcul de réserve}
+\paragraph{Perte prospective}
+\begin{align*}
+\actsymb[t]{L}{} & = \{ \actsymb[t]{L}{} | T_x > t \} \\
+& = VP_{@t}(\text{Prest.}) - VP_{@t}(\text{Primes}) \\
+& = Z - Y
+\end{align*}
+
+\paragraph{Réserve au temps $t$}
+\begin{align*}
+\actsymb[t]{V}{} = \esp{\actsymb[t]{L}{}}
+\end{align*}
 
 
 
