@@ -14,7 +14,11 @@
 % \footnotesize % Écrire petit (peut être modifié)
 \begin{multicols*}{3} % Permet d'écrire dans plusieurs colonnes l'entièreté du document
 % -------------------------------------------------------------
-\section{Rappel de Math-vie 1}
+\section{Rappels généraux}
+\subsection*{Mathématiques financières}
+\[v = \frac{1}{1+i} = 1 - d = e^{-\delta t}\]
+\[ \ax{\angln} = \frac{1 - v^n}{i}, \ax**{\angln} = \frac{1 - v^n}{d}, \ax*{\angln} = \frac{1 - v^n}{\delta}  \]
+
 \subsection*{Modèles de survie}
 \begin{itemize}
 \item $T_x$ : durée de vie de $(x)$
@@ -27,7 +31,11 @@
 
 \subsection*{Contrat d'assurance}
 \paragraph{Assurance entière}
+Cas discret : 
 \[\Ax{x} = \sum_{k=0}^{\infty} b_k v^{k+1} \qx[k|]{x}[]\]
+Cas continu : 
+\[\Ax*{x} = \int_{0}^{\infty} v^t \px[t]{x}[] \mu_{x+t} dt  \]
+
 \paragraph{Assurance dotation pure (\emph{pure endowment)}}
 \[\Ax{\endowxn} = \Ax{\termxn} + \Ax{\pureendowxn}\]
 où $\Ax{\pureendowxn} = \Ex[n]{x} = v^n \px[n]{x}[]$
@@ -41,9 +49,12 @@ où $\Ax[n|]{x}  = \Ex[n]{x} \Ax{x+n}$ (i.e. une assurance différée)
 
 
 \subsection*{Contrat de rente}
-\paragraph{Rente entière}
+\paragraph{Rente entière} Cas discret : 
 \[\ax**{x} = \sum_{k=0}^{\infty} v^{k} \px[k]{x}[]  \]
-\[\ax**{x} = \frac{1 - \Ax{x:\angln}}{d} \leftrightarrow \Ax{\endowxn} =1 - d \ax{x}\]
+
+Cas continu : 
+\[\ax*{x} = \int_{0}^{\infty}  v^t \px[t]{x}[] dt \]
+\[\ax**{\endowxn} = \frac{1 - \Ax{x:\angln}}{d} \leftrightarrow \Ax{\endowxn} =1 - d \ax**{\endowxn}\]
 
 
 
@@ -67,8 +78,22 @@ Selon la méthode prospective,
 Selon la méthode rétrospective,
 \[\actsymb[t]{V}{} = \frac{\text{VPA}_{@t}(\text{$\pi$ reçues avant $h$}) - \text{VPA}_{@t}(\text{Prest. à payer avant $h$})}{g}\]
 
-\paragraph{Relation récursive pour les réserves (discrètes, sans frais)}
-\[\actsymb[h+1]{V}{} = \frac{(\actsymb[h]{V}{} + \pi_h)(1+i) - b_{h+1} \qx[]{x+h}[]}{\px[]{x+h}[]}\]
+\paragraph{Relation récursive pour les réserves (discrètes)}
+Formule générale\footnote{Si les frais ne sont pas applicables pour le problème, simplement poser $G_h = E_h = 0$.} : 
+\[\actsymb[h+1]{V}{} = \frac{(\actsymb[h]{V}{} + G_h - e_h)(1+i) - (b_{h+1} - E_{h+1}) \qx[]{x+h}[]}{\px[]{x+h}[]}\]
+où $G_h$ est la prime à recevoir à $t=h$, $e_h$ les frais relié à la collecte de la prime et $E_h$ les frais reliés aux paiement de la prestation.
+
+\paragraph{Formules alternatives pour Contrat d'assurance-vie entière (si $\pi^{PE}$)}
+\begin{align*}
+\actsymb[h]{V}{} & = M \Ax{x+h} - \pi \ax**{x+h} \\
+& = M \left( 1 - \frac{\ax**{x+h}}{\ax**{x}} \right) \\
+& = M \left( \frac{\Ax{x+h} - \Ax{x}}{1 - \Ax{x}} \right)
+\end{align*}
+ Remarque : ces formules fonctionnent aussi dans le cas d'un contrat d'assurance-vie entière continu.l
+ 
+ \paragraph{Approximation classique pour les réserves à durées fractionnaires}
+ \[\actsymb[h+s]{V}{} = (\actsymb[h]{V}{} + G_h - e_h)(1-s) + (\actsymb[h+1]{V}{})(s) \]
+
 
 
 
