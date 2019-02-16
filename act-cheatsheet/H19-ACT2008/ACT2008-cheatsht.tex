@@ -14,15 +14,138 @@
 % \footnotesize % Écrire petit (peut être modifié)
 \begin{multicols*}{3} % Permet d'écrire dans plusieurs colonnes l'entièreté du document
 % -------------------------------------------------------------
-\section{Première section}
+\section{Introduction et perspective historique}
+Section plus qualitative, à compléter plus tard (sous forme de checklist)
 
-\subsection*{2e section}
-avec * pour ne pas avoir de numérotation pour les sous-section
 
-\begin{definition}[hello]
-bonjour
+
+
+\section{Crédibilité de stabilité}
+\subsection*{Définition de la crédibilité totale}
+\begin{definition}[Crédibilité complète]
+Une crédibilité complète d'ordre $(k,p)$ est attribuée à l'expérience $S$ d'un contrat si les paramètres de la distribution de $S$ sont tels que la relation
+\[\prob{(1-k)\esp{S} \leq S \leq (1+k) \esp{S}} \geq p \]
+est vérifiée. Par le théorème Central Limite, on peut démontrer que ça revient à respecter l'inégalité suivante : 
+\begin{equation}
+\esp{S} \geq \left( \frac{\Phi^{-1}\left(\frac{p+1}{2} \right)}{k} \right) \sqrt{\variance{S}}
+\end{equation}
 \end{definition}
 
+\subsection*{Nombre de sinistres dans une période}
+Soit $S = X_1 + ... + X_N$, avec $N \sim Pois(\lambda)$ et $X$ qui a une fonction de répartition $F_X$. On cherche le nombre moyen de sinistres $\lambda$ qui donne une plein crédibilité à l'espérience $S$. On peut démontrer que
+\begin{equation}
+\lambda \geq \left( \frac{\Phi^{-1}\left(\frac{p+1}{2} \right)}{k} \right)^2 \cdot \left(1 + \frac{\variance{X}}{\esp{X}^2} \right)
+\end{equation}
+\paragraph{Note} si $X$ est une v.a. dégénérée (i.e. $\prob{X = m} = 1$ pour un $m$ fixé), alors $\variance{X} = 0$ et $\lambda \geq 1082,41$.
+
+\subsection*{Nombre d'années d'expérience $n$}
+Soit la v.a. $W = \frac{S_1 + ... + S_n}{n}$. On a donc $\esp{W} = \esp{S}$ et $\variance{W} = \frac{\variance{S}}{n}$. On cherche le nombre d'années d'expérience $n$ nécessaire pour attribuer une pleine crédibilité au contrat. On peut démontrer que
+\begin{equation}
+n \geq \left( \frac{\Phi^{-1}\left(\frac{p+1}{2} \right)}{k} \right)^2 \cdot \frac{\variance{S}}{\esp{S}^2}
+\end{equation}
+
+\subsection*{Nombre d'employés / unité d'exposition}
+Soit $S \sim Bin(n, \theta)$ qui représente le nombre de sinistres pour un groupe de $n$ employés. On cherche le nombre minimal $n$ d'employés nécessaires dans un groupe pour attribuer une pleine crédibilité au contrat. On peut démontrer que
+\begin{equation}
+n \geq \left( \frac{\Phi^{-1}\left(\frac{p+1}{2} \right)}{k} \right)^2 \cdot \frac{1 - \theta}{\theta}
+\end{equation}
+
+\subsection*{Définition crédibilité partielle}
+\begin{definition}[Crédibilité partielle]
+La crédibilité partielle permet de pondérer l'expérience $S$ d'un contrat et la prime collective $m$ par un facteur de crédibilité $z$, avec $0 < z < 1$, afin d'obtenir une prime linéaire de la forme
+\[\pi = z S + (1-z) m\]
+\end{definition}
+\begin{itemize}
+\item Plusieurs formules ont été proposés, on retient celle de Whitney : 
+\begin{equation}
+z = \frac{n}{n+K}
+\end{equation}
+\item Dans l'approche de crédibilité de stabilité, on met de côté le concept de précision pour éviter d'avoir des primes qui fluctuent beaucoup d'une année à l'autre.
+\item \textbf{Complément de crédibilité} : en pratique, le complément de crédibilité ($1-z$) n'est pas donné entièrement à la prime collective $m$. Il peut y avoir une proportion reliée à autre chose.
+\end{itemize}
+
+\section{Tarification Bayésienne}
+\subsection*{Modèle d'hétérogénéité}
+\begin{description}
+\item[$\Theta_i$] niveau de risque du contrat $i$
+\item[$U(\Theta)$] fonction de répartition de $\Theta$ (fonction de \emph{structure})
+\item[$u(\theta)$] fonction de densité/masse de probabilité de $\Theta$
+\end{description}
+\paragraph{Hypothèses}
+\begin{enumerate}
+\item Les observations du contrat $i$ sont \emph{conditionnellement indépendantes}\footnote{Concept de contagion apparente} et $\emph{iid}$ avec fonction de répartition $F_{X|\Theta}$
+\item Les variables $\Theta_1, ..., \Theta_I$ sont \emph{iid} avec fonction de répartition $U(\Theta)$
+\item Les $I$ contrats du portefeuille sont indépendants
+\end{enumerate}
+
+\subsection*{Définition des 3 types de primes}
+\begin{definition}[Prime de risque]
+Si on connait le niveau de risque du contrat $i$, alors la meilleure prévision est la \textbf{prime de risque} : 
+\begin{equation}
+\mu(\theta_i) = \esp{S_{it} | \Theta_i = \theta_i} = \int_{0}^{\infty} x f(x | \theta_i) dx
+\end{equation}
+La prime de risque $\mu(\theta_i)$ serait l'idéal, sauf qu'on ne connait pas le niveau de risque du contrat.
+\end{definition}
+
+\begin{definition}[Prime collective]
+Il s'agit d'une moyenne pondérée de toutes les primes de risque possible pour un contrat donné : 
+\begin{equation}
+m = \esp{\mu(\Theta_i)} = \int_{-\infty}^{\infty} \mu(\theta) u(\theta) d\theta
+\end{equation}
+Cette prime est globalement adéquate, mais pas équitable (ou optimale).
+\end{definition}
+
+\begin{definition}[Prime Bayésienne]
+La meilleure approximation de la prime de risque $\mu(\theta_i)$ est une fonction $g*(x_1, ..., x_n)$ qui minimise l'erreur quadratique. On peut prouver que cette fonction est la prime Bayésienne telle que
+\begin{align*}
+B_{i, n+1} & = \esp{\mu(\Theta_i) | S_{i1} = x_{i1}, ..., S_{in} =x_{in}} \\
+& = \int_{-\inf}^{\infty} \mu(\theta) u(\theta | x_{i1}, ..., x_{in}) d \theta \numberthis
+\end{align*}
+\end{definition}
+\begin{itemize}
+\item Comme $m$, la prime Bayésienne est aussi une prime pondérée des primes de risque.
+\item  La différence ici est qu'on utilise la \emph{distribution a postériori} de $\Theta_i$, i.e. la distribution révisée après avoir observé l'espérience $S_{i1}, ..., S_{in}$ : 
+\begin{align*}
+u(\theta_i | x_{i1}, ..., x_{in}) & = \frac{f(x_{i1}, ..., x_{in} | \theta_i) u(\theta_i)}{\int_{-\infty}^{\infty} f(x_{i1}, ..., x_{in} | \theta_i) u(\theta_i) d \theta_i} \\
+& = \frac{\prod_{t=1}^{n}f(x_{it} | \theta_i) u(\theta_i)}{\int_{-\infty}^{\infty} \prod_{t=1}^{n}f(x_{it} | \theta_i) u(\theta_i) d \theta_i} \\
+&  \propto u(\theta_i) \prod_{t=1}^{n} f(x_{it} | \theta_i)
+\end{align*}
+\end{itemize}
+
+
+\subsection*{Calcul de la prime Bayésienne avec la distribution prédictive}
+En plus de calculer $B_{i, n+1}$ avec les primes de risques, on peut aussi la calculer avec la distribution prédictive $S_{i, n+1} | S_1, ..., S_n$, avec la fonction de densité
+\begin{align*}
+f(x_{n+1} | x_1, ..., x_n) = \int_{-\infty}^{\infty} f(x | \theta) u(\theta | x_1, ..., x_n) d \theta
+\end{align*}
+
+\subsection*{Crédibilité bayésienne linéaire}
+Certaines combinaison de distributions permettent d'obtenir une prime Bayésienne qui peut être exprimée sous la forme
+\[\pi = z \bar{S} + (1-z) m \]
+avec $z \in [0,1]$, qu'on appelle la prime de crédibilité.
+\paragraph{Avantages}
+\begin{itemize}
+\item linéaire, donc facile à justifier/expliquer
+\item lorsque $n \to \infty$, $z \to 1$, ce qui est aussi facile à justifier
+\end{itemize}
+
+Il existe 5 combinaisons de distribution qui résultent en une prime Bayésienne linéaire : 
+\begin{itemize}
+\item $S | \Theta \sim Pois(\Theta)$ et $\Theta \sim \Gamma(\alpha, \lambda)$
+\item $S | \Theta \sim Exp(\Theta)$ et $\Theta \sim \Gamma(\alpha, \lambda)$
+\item $S | \Theta \sim N(\Theta, \sigma_2^2)$ et $\Theta \sim N(\mu, \sigma_1^2)$
+\item $S | \Theta \sim Bern(\Theta)$ et $\Theta \sim Beta(a,b)$
+\item $S | \Theta \sim Géo(\Theta)$ et $\Theta \sim Beta(a,b)$
+\end{itemize}
+
+\subsection*{Modèle de Jewell}
+\begin{itemize}
+\item Si $u(\theta | x_1, ..., x_n)$ appartiennent à la même famille que $u(\theta)$, on dit de $u(\theta)$ et $f(x | \theta)$ qu'elles sont des \emph{conjugées naturelles}
+\item Les loi Poisson, exponentielle, normale, Bernouilli et géométrique appartiennent à la famille exponentielle univariée, i.e. leur fonction de masse/densité peut être écrite sous la forme
+\[f(x | \theta) =  \frac{p(x) e^{-\theta x}}{q(\theta)}   \]
+
+\item Lorsqu'une fonction de vraisemblance $f(x|\theta)$ de la famille exponentielle univariée est combinée avec sa conjugée naturelle, alors la prime Bayésienne est toujours une prime de crédibilité exacte.
+\end{itemize}
 
 
 
