@@ -1,24 +1,30 @@
 % !TEX encoding = UTF-8 Unicode
 % LaTeX Preamble
 % Author : Gabriel Crépeault-Cauchon
-% Last update : 15/10/2018
+% Last update : 17/02/2019
 
 % HOW-TO : copy-paste this file in the same directory as your .tex file, and add in your preamble the next command right after you have specified your documentclass : 
 % \input{preambule_utf8.tex}
-% ---------------------------------------------
-% ---------------------------------------------
-%% BEGINNING OF PREAMBLE
+
+% Additionnal precision :
+%		- 	Some of the packages in this preamble are essential for your document to compile, some are not.
+%		- 	The new macros developped in this preamble are not in the basic config file of TexMaker. You can find
+%			at the following url a version of the config file which includes autocomplete for my customized macros.
+
+% ------------------------------------------------------------------------------------------
+%		BEGINNING OF PREAMBLE
+% ------------------------------------------------------------------------------------------
 % Encoding packages
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{babel}
+\usepackage{babel}	% Combine with \documentclass[12pt, french]{•}
 \usepackage{lmodern}
 
 % HYPERREF (URL's and Link options)
 \usepackage{hyperref}
 \hypersetup{colorlinks = true, urlcolor = blue, linkcolor = black}
 
-% POLICY (choose one of them)
+% POLICY (choose one of them, put all other in comment)
 %	\usepackage{concrete}
 %	\usepackage{mathpazo}
 %	\usepackage{frcursive} %% permet d'écrire en lettres attachées
@@ -40,7 +46,7 @@
 \newcounter{ex}[section]
 \DeclareTColorBox{exemple}{ o }% #1 parameter
 {colframe=green!20!black,colback=green!5!white, % color of the box
-breakable, pad at break*=0mm, % to split the box
+breakable, pad at break*=0mm, % to split the box (end of page)
 before title = {\textbf{Exemple \stepcounter{ex} \arabic{chapter}.\arabic{section}.\arabic{ex} }},
 IfValueTF = {#1}{title= {#1}}{title= \hphantom},
 after title = {\large \hfill \faWrench}
@@ -113,6 +119,6 @@ after title = {\large \hfill \faBook}
 \usepackage[tikz]{bclogo}
 \usepackage{fontawesome}
 
-%% END OF PREAMBLE
-% ---------------------------------------------
-% ---------------------------------------------
+% ------------------------------------------------------------------------------------------
+%		END OF PREAMBLE
+% ------------------------------------------------------------------------------------------
