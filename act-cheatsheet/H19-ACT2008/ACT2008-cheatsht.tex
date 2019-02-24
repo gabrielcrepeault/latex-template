@@ -147,12 +147,69 @@ Il existe 5 combinaisons de distribution qui résultent en une prime Bayésienne
 \item Lorsqu'une fonction de vraisemblance $f(x|\theta)$ de la famille exponentielle univariée est combinée avec sa conjugée naturelle, alors la prime Bayésienne est toujours une prime de crédibilité exacte.
 \end{itemize}
 
+\section{Modèle de crédibilité de \\ Bühlmann}
+\subsection*{Notation et relation de covariance}
+\begin{itemize}
+    \item La prime collective. \[ m = \esp{\mu(\Theta_i)} \]
+    \item La variance intra (\emph{within}) ou la variabilité moyenne du portefeuille. \[ s^2 = \esp{\sigma^2(\Theta_i)} \]
+    \item La variance inter (\emph{between}) ou la variabilité entre les moyennes des contrat, ce qui représente l'homogénéité du portefeuille. \[ a = \variance{\mu(\Theta_i)} \]
+\end{itemize}
+\paragraph*{Covariance}
+Soit $X,Y$ et $\Theta$ des variables aléatoires dont la densité conjointe existe. \[ \covar{X,Y} = \covar{\esp{X|\Theta_i}, \esp{Y|\Theta_i}} + \esp{\covar{X,Y|\Theta_i}} \]
 
+\paragraph*{Application}
+\begin{align*}
+    \covar{S_t,S_u} &= a + \delta_{tu}s^2\quad t,u = 1,...,n  \\
+    \covar{\mu(\Theta_i),S_t} &= a
+\end{align*} \\
+où $\delta_{iu}$ est le delta de Kronecker 
+\[ 
+\delta_{iu} = 
+\left\{
+\begin{array}{lc}
+    1, & t = u \\
+    0. & t \neq u
+\end{array}
+\right. 
+\]
 
+\subsection*{Modèle de prévision}
+\begin{itemize}
+    \item[(B1)] Les contrats $(\Theta_i, \mathbf{S}_i), i = 1,...,I$ sont indépendants, les variables aléatoire $\Theta_1,...,\Theta_I$ sont identiquement distribuées et les variances aléatoire $S_{it}$ ont une variance finie.
+    \item[(B2)] Les variables aléatoires $S_{it}$, sont telles que 
+    \begin{align*}
+        \esp{S_{it}|\Theta_i} &= \mu(\Theta_i)\quad i = 1,...,I \\
+        \covar{S_{it},S_{iu}|\Theta_i} &= \delta_{tu}\sigma^2(\Theta_i)\quad t,u = 1,...,n
+    \end{align*}    
+\end{itemize}
+\begin{definition}[Prime de crédibilité]
+    Pour un portefeuille sous les hypothèses (\emph{B1}) et (\emph{B2}), la meilleur approximation non homogène de la prime de risque $\mu(\Theta_i)$ est
+    \[ \pi_{i,n+1}^B = z\bar{S}_i + (1 - z)m \]
+    où
+    \begin{align*}
+        \bar{S}_i &= \frac{1}{n} \sum_{t=1}^n S_{it} \\
+        z &= \frac{n}{n+K},\quad K = \frac{s^2}{a}
+    \end{align*}
+\end{definition}
 
+\subsection*{Approche paramétrique}
+L'approche paramétrique permet de retrouver la prime de crédibilité bayésienne. Puisque les distributions de ($S_t|\Theta = \theta$) et de ($\Theta$) sont connues, il est possible d'évaluer directement $m, s^2$ et $a$.
 
+\subsection*{Approche non paramétrique}
+Avec l'approche non paramétrique, nous délaissons l'approche bayésienne pure pour l'approche \textbf{bayésienne empirique}.
+\begin{itemize}
+    \item Estimation de la prime collective. \[ \hat{m} = \bar{S} =  \frac{1}{I} \sum_{i=1}^I \bar{S}_i \]
+    \item Estimation de la variance intra. \[ \hat{s}^2 = \frac{1}{I} \sum_{i=1}^I \hat{\sigma}_{i,(n-1)}^2 \]
+    \item Estimation de la variance inter. \[ \hat{a} = \frac{1}{I-1} \sum_{i=1}^I (\bar{S}_i - \hat{m})^2 - \frac{1}{n} \hat{s}^2 \]
+\end{itemize}
+Il est important de savoir que les estimateurs $\hat{m}, \hat{s}^2$ et $\hat{a}$ sont tous des estimateurs sans biais, mais $\hat{K}$ et donc $\hat{z}$ ne sont pas nécéssairement sans biais.
 
-
+\subsection{Interprétation des résultats}
+\begin{enumerate}
+    \item Plus le nombre d'années est grand ($n\to\infty$), plus l'expérience d'un contrat représente exactement son niveau de risque.
+    \item Plus $s^2$ est petit ($s^2\to 0$), plus l'expérience est globalement stable dans le temps. Les moyennes individuelle $\bar{S}_i$ représente alors bien les niveaux de risque des contrats, ce qui réduit l'utilité de la prime collective.
+    \item Plus $a$ est grand ($a\to\infty$), plus le portefeuille est hétérogène. Les moyennes individuelle $\bar{S}_i$ sont de meilleur approximation des primes de risque que la prime collective.
+\end{enumerate}
 
 
 
