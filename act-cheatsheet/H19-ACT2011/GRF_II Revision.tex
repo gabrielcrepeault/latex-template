@@ -6,16 +6,7 @@
 \usepackage{xcolor}
 \usepackage{bbding}
 \usepackage{pifont}
-% Je met en commentaire, sinon beaucoup trop long à compile
 \usepackage{tikz}
-%\usepackage{pgfplots}
-%\usepackage{array}
-\definecolor{LongColor}{HTML}{E61D3B}
-\definecolor{ShortColor}{HTML}{2C97D8}
-\def\cours{Gestion du risque financier II}
-\def\sigle{ACT-2011}
-\def\session{Hiver 2018}
-\def\auteur{Nicholas Langevin}
 \def\BackgroundColor{white}
 \def\SectionColor{teal!90!black}
 \def\SubSectionColor{teal!45!black}
@@ -93,6 +84,7 @@ Pour chaque stratégie qu'on voit dans le cours, on peut calculer
 \item[Profit] $= Payoff - \text{AV}(Premium)\footnote{AV veut dire \textit{accumulated value}.}$
 \end{description}
 
+\paragraph{Quelques définitions}
 \begin{description}
 \item[$r_f$] taux sans risque. Parfois exprimé comme une force d'intérêt $r$ continue.
 \item[$S$] Sous-jacent (peut être une action, une devise, ...)
@@ -332,25 +324,103 @@ K_2 - K_3			& , S_T > K_3 \\
 \end{itemize}
 
 % --- Chapitre 5 ---
+% J'ai rassemblé une partie de la matière du chap.5 dans le chapitre 9, étant donné qu'on répétait de l'information.
 \setcounter{section}{4}
 \section{Forwards et Futures}
+\subsection*{Forward avec dividendes}
+\paragraph{Définition de base}
+\[C(K,T) - P(K,T) = S_0 - K(1+r_f)^{T}\]
+
+\paragraph{Action qui verse des dividendes}
+\begin{align*}
+C(K,T) - P(K,T) 		& = S - \text{PV}(Div) - K(1 + r_f)^{T} \\
+& = S_0 e^{-\delta T} - K e^{-rT}
+\end{align*}
+où $\delta$ est un taux de versement des dividendes continu. \\
+
+De plus, on a
+\begin{align*}
+F_{0,T} & = F_{0,T}^{P} (1 + r_f)^{T} \\
+& = (S_0 - \text{PV}(div))(1+r_f)^{T} \\
+& = S_0 - \sum_{i=1}^{T} d_i (1+r_f)^{T-i} \\
+& = S_0 e^{(r-\delta)T}
+\end{align*}
+
+\paragraph{Forward synthétique avec dividendes}
+On suppose le réinvestissement des dividendes.
+\begin{align*}
+\text{Forward}_{\text{avec div.}} & = e^{-\delta T} Stock - (e^{-\delta T} \cdot S_0) Bond \\
+Premium		& = - e^{-\delta T} S_0 + e^{-\delta T} S_0 = 0 \\
+Payoff			& = S_T - S_0 e^{(r-\delta) T}
+\end{align*}
+
+\paragraph{Cash-and-carry}
+Stratégie qui consiste  à créer un Forward synthétique et vendre un Forward (profit nul).
 
 
+\subsection*{Calcul avec prime de risque et nuance}
+\begin{itemize}
+\item Certains sous-jacent ont une composante de risque non-négligeable. Or, on ne peut pas dire que $F_{0,T} = \esp{S_T}$. Toutefois,
+\[F_{0,T} = \esp{S_T} e^{-(\alpha - r) T}\]
+\end{itemize}
+où $\alpha$ est la prime de risque 	qu'on enlève pour obtenir le prix du Forward, tel que
+\[\alpha = \underbrace{r}_{\text{Taux sans risque}} + \underbrace{(\alpha - r)}_{\text{Prime de risque}}\]
 
+\subsection*{Forward de devise}
+\paragraph{Put-Call parity avec les devises}
+\begin{description}
+\item[DD] Devise locale
+\item[DÉ] Device étrangère
+\item[$x_0$] Taux de change $\frac{DD}{DÉ}$ actuel ($t=0$)
+\item[$r_D$] Taux sans risque \underline{local}
+\item[$r_{É}$] Taux sans risque étranger
+\end{description}
+Le prix Forward prépayé pour une unité de DÉ à $t =0$ (payé en DD) est
+\[F_{0,T}^{P}  = x_0 (1 + r_{É})^{-T} \]
+Et le prix Forward (à $t = T$) pour une unité de DÉ est
+\begin{align*}
+F_{0,T} & = F_{0,T}^{P}(1+r_D)^{T} \\
+& = x_0 \left(  \frac{1+r_D}{1+r_{É}}   \right)^{T}\\
+&  = x_0 e^{(r_D - r_{É})T}
+\end{align*}
+
+\paragraph{Forward synthétique de devise}
+\begin{itemize}
+\item Emprunt de $x_0(1+r_{É})^{-T}$ DD au taux $r_D$
+\item Convertir les DD en DÉ
+\item Dépôt de $(1+r_{É})^{-T}$ de 0 à $T$.
+\end{itemize}
+Le payoff sera $x_t - x_0 \left(  \frac{1+r_D}{1+r_{É}}   \right)^{T}$.
+
+
+\subsection*{Future}
+Essentiellement la même chose qu'un Forward, à quelques différences près : 
+\begin{itemize}
+\item Surveillé et contrôlé par des instances officielles (aucun \textit{Over-the-counter})
+\item S'applique sur certains types d'actifs définis seulement ;
+\item liquise et efficient
+\item nécessite un dépôt initial des 2 parties (le risque de défaut est minimisé)
+\item Transaction continues (règlement avec l'intermédiaire de façon quotidienne)
+\item Variation extrêmes dans les prix de Future sont limités (possibilité du \textit{circuit Breaker})
+\end{itemize}
+
+\paragraph{Fonctionnement}
+\begin{enumerate}
+\item L'intermédaire demande un dépôt initial (\textit{initial margin}), \textbf{souvent un \% de la valeur notionnelle}.
+\item Ce dépôt est accumulé à un taux de rendement $i$ fixé par l'intermédiaire.
+\item À chaque période de règlement, on calcule la marge en fonction du prix du Future : \\
+$\text{Marge}_t = \text{Marge}_{t-1} + \text{Variation totale}_{[t-1, t]}$
+\item Si $\text{Marge}_t  < \text{Maintenance margin}$\footnote{Cette marge est souvent exprimée en \% de la marge initiale.}, on doit \textbf{ajouter des fonds à la marge pour revenir à la marge initiale.}
+\end{enumerate}
 
 
 
 % --- Chapitre 9 ---
 \setcounter{section}{8}
 \section{Put-Call Parity}
-définition de base : 
-\[C(K,T) - P(K,T) = F_{0,T} - K(1+r_f)^{T}\]
-dans le cas où l'action verse des dividendes : 
 \begin{align*}
-C(K,T) - P(K,T) 		& = S_0 - \text{PV}(Div) - K(1 + r_f)^{T} \\
-& = S_0 e^{-\delta T} - K e^{-rT}
+Call - Put = Stock - Bond
 \end{align*}
-Dans le cas où le sous-jacent en question est une devise étrangère (DÉ) qu'on achète avec notre devise locale (DD) : 
 
 
 
