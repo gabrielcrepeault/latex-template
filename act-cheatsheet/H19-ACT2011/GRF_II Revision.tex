@@ -22,7 +22,7 @@
 \newpage
 
 \small
-\begin{multicols*}{3} % Nombre de colonnes (peut être changé plus tard.)
+\begin{multicols*}{2} % Nombre de colonnes (peut être changé plus tard.)
 
 \section{Introduction aux produits dérivés}
 \paragraph{Produits dérivés} Contrat entre 2 parties qui fixe les flux financiers futurs fondé sur ceux de \underline{l'actif sous-jacent} $S$.
@@ -131,7 +131,7 @@ On peut créer un Forward synthétique 2 de façon (en combinant d'autres transa
 
 
 \section{Stratégie de couverture}
-\subsection*{$Floor$}
+\subsection*{Floor}
 On achète $S$ en se protégant contre une baisse trop importante du sous-jacent (\textbf{position longue})
 \[Floor = Stock + Put(K,T)\]
 \[Premium = S_0 + P(K,T) > 0\]
@@ -422,9 +422,106 @@ $\text{Marge}_t = \text{Marge}_{t-1} + \text{Variation totale}_{[t-1, t]}$
 Call - Put = Stock - Bond
 \end{align*}
 
+\subsection*{Put-Call Parity avec devises}
+\begin{description}
+\item[$Call(x_0, K, T)$ : ] Option d'achat qui permet d'acheter 1 unité de DÉ pour K unité de DD à l'échéance $t = T$.
+\item[$Put(x_0, K, T)$ : ] Option de vente qui permet d'acheter 1 unité de DÉ pour K unité de DD à l'échéance $t = T$.
+\end{description}
+Alors, on peut réécrire l'équation Put-Call Parity : 
+\begin{align*}
+Call(x_0, K,T) - Put(x_0, K, T) = x_0(1+r_{É})^{-T} - K(1+r_D)^{-T}
+\end{align*}
+
+
+\subsection*{Parité généralisée et option d'échange}
+\begin{description}
+\item[$Call(S_t, Q_t, T - t)$ : ] Option d'achat qui permet d'acheter le sous-jacent $S$ au prix du sous-jacent $Q$ au temps $t = T$.
+\item[$Put(S_t, Q_t, T - t)$ : ] Option de vente qui permet de vendre le sous-jacent $S$ au prix du sous-jacent $Q$ au temps $t = T$.
+\end{description}
+On peut généraliser l'équation Put-Call Parity : 
+\begin{align*}
+C(S_t, Q_t, T - t) - P(S_t, Q_t, T-t) = F_{t,T}^{P}(S) - F_{t,T}^{P}(Q)
+\end{align*}
+
+\subsection*{Options sur devise}
+\begin{align*}
+Call_{DD}(x_0, K, T) & = K \cdot Put_{DD}\left( \frac{1}{x_0}, \frac{1}{K}, T \right) \\
+& = K \cdot x_0 \cdot Put_{DÉ} \left( \frac{1}{x_0}, \frac{1}{K}, T \right) \\
+\end{align*}
+
+
+\subsection*{Comparaison de différentes options}
+\paragraph{Option américaine vs européenne}
+\begin{align*}
+C_{amer}(K,T) & \geq C_{euro}(K,T) \\
+P_{amer}(K,T) & \geq P_{euro}(K,T) \\
+\end{align*}
+
+\paragraph{Option d'achat américaine}
+Bien qu'on puisse exercer l'option américaine au moment qu'on veut, il \underline{peut} être optimal d'exercer avant l'échéance si
+\begin{align*}
+PV(div) > K (1 - (1+r_f)^{-(T-t)})
+\end{align*}
+ou si
+\begin{align*}
+PV(div) > P(K, T-t) + K(1 - (1+r_f)^{-(T-t)})
+\end{align*}
+
+\paragraph{Option de vente américaine}
+Le moment optimal pour exercer le Put serait tout juste \textbf{après la date ex-dividende}.
 
 
 
+\paragraph{Date d'expiration}
+\begin{align*}
+C(K, T_1) & \leq C(K, T_2) \\ 
+P(K, T_1) & \leq P(K, T_2)
+\end{align*}
+
+
+\paragraph{Prix d'exercice}
+Les différentes conditions énumérées ci-bas doivent être respectées : 
+\begin{tabbing}
+\hspace{5cm}\=\kill
+ $C(K,T) \geq S_0 - K$ \>  $ P(K,T) \geq K - S_0$ \\ 
+  $C(K_1, T) > C(K_2, T)$ \> $P(K_1, T) < P(K_2, T)$ \\
+ $C(K_1, T) - C(K_2, T) \leq K_2 - K_1$ \> $P(K_2, T) - P(K_1, T) \leq K_2 - K_1$ \\
+ $\frac{C(K_1, T) - C(K_2, T)}{K_2 - K_1} \geq \frac{C(K_2, T) - C(K_3, T)}{K_3 - K_2}$ \>  $\frac{P(K_1, T) - P(K_2, T)}{K_2 - K_1} \geq \frac{P(K_2, T) - P(K_3, T)}{K_3 - K_2}$ \\
+\end{tabbing}
+Si le prix d'exercice est \textit{Constant en valeur actualisé}\footnote{i.e. $K_t = K(1+r_f)^{T}$.}, alors, avec $t < T$
+\begin{align*}
+C(K_t, t) & \leq C(K_T, T) \\
+P(K_t, t) & \leq P(K_T, T) \\
+\end{align*}
+
+% --- Chapitre 10 ---
+\section{Introduction au modèle binomial d'évaluation des options}
+\subsection*{Probabilité neutre au risque}
+\begin{itemize}
+\item $U = uS$ est la valeur supérieure que peut prendre le sous-jacent $S$
+\item $D = dS$ est la valeur inférieure que peut prendre le sous-jacent $S$
+\item $p$ est la probabilité (Bernouilli) que le sous-jacent prenne la valeur $U$.
+\item $C_u$, $C_d$, $P_u$ et $P_d$ sont les payoff d'un call (ou put) selon la valeur du sous-jacent après $h$ périodes.
+\item $r$ et $\delta$ sont respectivement la force d'intérêt sans risque et le taux de dividende continu.
+\end{itemize}
+ 
+\begin{align*}
+p = \frac{e^{(r-\delta)h} - d}{u-d}
+\end{align*}
+
+\subsection*{Portefeuille réplicatif d'une option}
+On peut reproduire une option (Call ou Put) avec la stratégie suivante  :
+\[C = \Delta S + B\]
+où $B$ et $\Delta S$ changent de signe selon si c'est un Call ou un Put. On peut obtenir la prime initiale (\textit{Premium}) et les composantes du portefeuille réplicatif avec
+\begin{align*}
+\Delta = \frac{C_u - C_d}{U - D} =  \frac{C_u - C_d}{S(u -d)}
+\end{align*}
+\begin{align*}
+B = e^{-rh} \left( \frac{U \cdot C_d - D \cdot C_u}{U - D} \right) = e^{-rh} \left( \frac{u C_d - d C_u}{u-d} \right)
+\end{align*}
+\begin{align*}
+\text{Premium} = \Delta S + B
+\end{align*}
 
 
 \end{multicols*}
