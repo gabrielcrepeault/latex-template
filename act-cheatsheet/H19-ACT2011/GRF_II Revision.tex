@@ -72,8 +72,8 @@
 
 \paragraph{Type de risques}
 \begin{description}
-\item[Risque de défaut] \hl{à préciser}
-\item[Risque de rareté] \hl{à préciser}
+\item[Risque de défaut] Risque de ne pas être payé. Ce risque peut être réduit avec un dépôt initial en garantie ou une marge de sécurité.
+\item[Risque de rareté] Si il est difficile de trouver un acheteur et un vendeur pour le sous-jacent (pas beaucoup de transactions signifie beaucoup de négociations et de variation dans les prix)
 \end{description}
 
 \section{Introduction aux Forwards et aux options}
@@ -86,14 +86,14 @@ Pour chaque stratégie qu'on voit dans le cours, on peut calculer
 
 \paragraph{Quelques définitions}
 \begin{description}
-\item[$r_f$] taux sans risque. Parfois exprimé comme une force d'intérêt $r$ continue.
+\item[$r_f$] taux d'intérêt sans risque. Parfois exprimé comme une force d'intérêt $r$ continue.
 \item[$S$] Sous-jacent (peut être une action, une devise, ...)
 \item[$S_0$] valeur actuelle du sous-jacent $S$.
 \item[$S_T$] valeur du sous-jacent $S$ au temps $t = T$.
 \item[$F_{0,T}$] Prix \textit{forward} du sous-jacent au temps $T$, qu'on définit comme
 \[F_{0,T} = S_0 (1 + r_f)^{T}\]
 \item[$F_{0,T}^{P}$] Prix d'un forward prépayé, i.e. on débourse $F_{0,T}^{P}$ à $t=0$ et on reçoit le sous-jacent à $t  = T$, alors
-\[F_{0,T}^{P} = F_{0,T} (1 + r_f)^{T}\]
+\[F_{0,T}^{P} = F_{0,T} (1 + r_f)^{-T}\]
 illustration graphique : 
 \input{tikz/forward}
 \end{description}
@@ -127,7 +127,7 @@ K - S_T			& , S_T \leq K \\
 On peut créer un Forward synthétique 2 de façon (en combinant d'autres transactions) : 
 \[Forward = Stock - Bond \]
 \[Forward = Call(K,T) - Put(K,T) \]
-
+Ces deux égalités définissent la \emph{Put-Call Parity} vu un peu plus loin.
 
 
 \section{Stratégie de couverture}
@@ -158,7 +158,7 @@ On vend à découvert $S$ en se protégant contre une hausse trop importante du 
 \subsection*{Bull Spread}
 Combinaison de 2 Call (ou 2 Put) pour spéculer sur un marché haussier. Avec $K_1 < K_2$, on a
 \paragraph{Avec option d'achat}
-\[Bull (Call) = Call(K_1, T) - Call(K_2, T) \]
+\[Bull Spread (Call) = Call(K_1, T) - Call(K_2, T) \]
 
 \[Premium = C(K_1, T) - Call(K_2, T) > 0 \]
 \[Payoff = 
@@ -169,7 +169,7 @@ K_2 -K_1		& , S_T > K_2 \\
 \end{cases}
 \]
 \paragraph{Avec option de vente}
-\[Bull(Put) = Put(K_1, T) - Put(K_2,T) \]
+\[Bull Spread(Put) = Put(K_1, T) - Put(K_2,T) \]
 \[Premium = P(K_1,T) - P(K_2, T) < 0\]
 \[Payoff = 
 \begin{cases}
@@ -376,10 +376,10 @@ où $\alpha$ est la prime de risque 	qu'on enlève pour obtenir le prix du Forwa
 \item[$r_{É}$] Taux sans risque étranger
 \end{description}
 Le prix Forward prépayé pour une unité de DÉ à $t =0$ (payé en DD) est
-\[F_{0,T}^{P}  = x_0 (1 + r_{É})^{-T} \]
+\[F_{0,T}^{P}  = x_0 \left(1 + r_{É} \right)^{-T} \]
 Et le prix Forward (à $t = T$) pour une unité de DÉ est
 \begin{align*}
-F_{0,T} & = F_{0,T}^{P}(1+r_D)^{T} \\
+F_{0,T} & = F_{0,T}^{P} \left(1+r_D \right)^{T} \\
 & = x_0 \left(  \frac{1+r_D}{1+r_{É}}   \right)^{T}\\
 &  = x_0 e^{(r_D - r_{É})T}
 \end{align*}
@@ -388,7 +388,7 @@ F_{0,T} & = F_{0,T}^{P}(1+r_D)^{T} \\
 \begin{itemize}
 \item Emprunt de $x_0(1+r_{É})^{-T}$ DD au taux $r_D$
 \item Convertir les DD en DÉ
-\item Dépôt de $(1+r_{É})^{-T}$ de 0 à $T$.
+\item Dépôt de $(1+r_{É})^{-T}$ DÉ (au taux $r_{É}$) de 0 à $T$.
 \end{itemize}
 Le payoff sera $x_t - x_0 \left(  \frac{1+r_D}{1+r_{É}}   \right)^{T}$.
 
@@ -409,8 +409,9 @@ Essentiellement la même chose qu'un Forward, à quelques différences près :
 \item L'intermédaire demande un dépôt initial (\textit{initial margin}), \textbf{souvent un \% de la valeur notionnelle}.
 \item Ce dépôt est accumulé à un taux de rendement $i$ fixé par l'intermédiaire.
 \item À chaque période de règlement, on calcule la marge en fonction du prix du Future : \\
-$\text{Marge}_t = \text{Marge}_{t-1} + \text{Variation totale}_{[t-1, t]}$
+$\text{Marge}_T = \text{Marge}_{t} \cdot (1+i)^{T-t} + \text{Variation totale}_{[t,T]}$
 \item Si $\text{Marge}_t  < \text{Maintenance margin}$\footnote{Cette marge est souvent exprimée en \% de la marge initiale.}, on doit \textbf{ajouter des fonds à la marge pour revenir à la marge initiale.}
+avec $t < T$
 \end{enumerate}
 
 
@@ -515,7 +516,7 @@ On peut reproduire une option (Call ou Put) avec la stratégie suivante  :
 \[C = \Delta S + B\]
 où $B$ et $\Delta S$ changent de signe selon si c'est un Call ou un Put. On peut obtenir la prime initiale (\textit{Premium}) et les composantes du portefeuille réplicatif avec
 \begin{align*}
-\Delta = \frac{C_u - C_d}{U - D} =  \frac{C_u - C_d}{S(u -d)}
+\Delta = e^{-\delta h} \left( \frac{C_u - C_d}{U - D} \right) =   e^{-\delta h} \left( \frac{C_u - C_d}{S(u -d)} \right)
 \end{align*}
 \begin{align*}
 B = e^{-rh} \left( \frac{U \cdot C_d - D \cdot C_u}{U - D} \right) = e^{-rh} \left( \frac{u C_d - d C_u}{u-d} \right)
