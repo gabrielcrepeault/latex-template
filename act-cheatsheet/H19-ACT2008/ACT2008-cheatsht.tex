@@ -82,6 +82,9 @@ z = \frac{n}{n+K}
 \item \textbf{Complément de crédibilité} : en pratique, le complément de crédibilité ($1-z$) n'est pas donné entièrement à la prime collective $m$. Il peut y avoir une proportion reliée à autre chose.
 \end{itemize}
 
+%% Je force un changement de page pour faciliter la lecture de la cheatsheet
+\newpage
+
 \section{Tarification Bayésienne}
 \subsection*{Modèle d'hétérogénéité}
 \begin{description}
@@ -114,7 +117,7 @@ Cette prime est globalement adéquate, mais pas équitable (ou optimale).
 \end{definition}
 
 \begin{definition}[Prime Bayésienne]
-La meilleure approximation de la prime de risque $\mu(\theta_i)$ est une fonction $g*(x_1, ..., x_n)$ qui minimise l'erreur quadratique. On peut prouver que cette fonction est la prime Bayésienne telle que
+La meilleure approximation de la prime de risque $\mu(\theta_i)$ est une fonction $g^{*}(x_1, ..., x_n)$ qui minimise l'erreur quadratique. On peut prouver que cette fonction est la prime Bayésienne telle que
 \begin{align*}
 B_{i, n+1} & = \esp{\mu(\Theta_i) | S_{i1} = x_{i1}, ..., S_{in} =x_{in}} \\
 & = \int_{-\inf}^{\infty} \mu(\theta) u(\theta | x_{i1}, ..., x_{in}) d \theta \numberthis
@@ -165,12 +168,14 @@ Il existe 5 combinaisons de distribution qui résultent en une prime Bayésienne
 \item Lorsqu'une fonction de vraisemblance $f(x|\theta)$ de la famille exponentielle univariée est combinée avec sa conjugée naturelle, alors la prime Bayésienne est toujours une prime de crédibilité exacte.
 \end{itemize}
 
+% Je force un changement de page (à enlever au besoin)
+\newpage
 \section{Modèle de crédibilité de \\ Bühlmann}
 \subsection*{Notation et relation de covariance}
 \begin{itemize}
     \item La prime collective. \[ m = \esp{\mu(\Theta_i)} \]
-    \item La variance intra (\emph{within}) ou la variabilité moyenne du portefeuille. \[ s^2 = \esp{\sigma^2(\Theta_i)} \]
-    \item La variance inter (\emph{between}) ou la variabilité entre les moyennes des contrat, ce qui représente l'homogénéité du portefeuille. \[ a = \variance{\mu(\Theta_i)} \]
+    \item La variance intra\footnote{Dans la littérature, aussi appelée \emph{expected process variance (EPV).}}  (\emph{within}) ou la variabilité moyenne du portefeuille.\[ s^2 = \esp{\sigma^2(\Theta_i)} \]
+    \item La variance inter\footnote{Dans la littérature, aussi appelée \emph{variance of hypothetical means (VHM).}}  (\emph{between}) ou la variabilité entre les moyennes des contrat, ce qui représente l'homogénéité du portefeuille. \[ a = \variance{\mu(\Theta_i)} \]
 \end{itemize}
 \paragraph*{Covariance}
 Soit $X,Y$ et $\Theta$ des variables aléatoires dont la densité conjointe existe. \[ \covar{X,Y} = \covar{\esp{X|\Theta_i}, \esp{Y|\Theta_i}} + \esp{\covar{X,Y|\Theta_i}} \]
@@ -217,8 +222,8 @@ L'approche paramétrique permet de retrouver la prime de crédibilité bayésien
 Avec l'approche non paramétrique, nous délaissons l'approche bayésienne pure pour l'approche \textbf{bayésienne empirique}.
 \begin{itemize}
     \item Estimation de la prime collective. \[ \hat{m} = \bar{S} =  \frac{1}{I} \sum_{i=1}^I \bar{S}_i \]
-    \item Estimation de la variance intra. \[ \hat{s}^2 = \frac{1}{I} \sum_{i=1}^I \hat{\sigma}_{i,(n-1)}^2 \]
-    \item Estimation de la variance inter. \[ \hat{a} = \frac{1}{I-1} \sum_{i=1}^I (\bar{S}_i - \hat{m})^2 - \frac{1}{n} \hat{s}^2 \]
+    \item Estimation de la variance intra (\emph{within}). \[ \hat{s}^2 = \frac{1}{I} \sum_{i=1}^I \hat{\sigma}_{i,(n-1)}^2 \]
+    \item Estimation de la variance inter (\emph{between}). \[ \hat{a} = \frac{1}{I-1} \sum_{i=1}^I (\bar{S}_i - \hat{m})^2 - \frac{1}{n} \hat{s}^2 \]
 \end{itemize}
 Il est important de savoir que les estimateurs $\hat{m}, \hat{s}^2$ et $\hat{a}$ sont tous des estimateurs sans biais, mais $\hat{K}$ et donc $\hat{z}$ ne sont pas nécéssairement sans biais.
 
