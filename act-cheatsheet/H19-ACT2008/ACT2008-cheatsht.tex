@@ -125,7 +125,7 @@ B_{i, n+1} & = \esp{\mu(\Theta_i) | S_{i1} = x_{i1}, ..., S_{in} =x_{in}} \\
 \end{definition}
 \begin{itemize}
 \item Comme $m$, la prime Bayésienne est aussi une prime pondérée des primes de risque.
-\item  La différence ici est qu'on utilise la \emph{distribution a postériori} de $\Theta_i$, i.e. la distribution révisée après avoir observé l'espérience $S_{i1}, ..., S_{in}$ : 
+\item  La différence ici est qu'on utilise la \emph{distribution a postériori}\footnote{La distribution sous-jacente de la distribution \emph{a posteriori} sera toujours la même que celle de la distribution \emph{a priori} (avec des paramètres révisés).} de $\Theta_i$, i.e. la distribution révisée après avoir observé l'espérience $S_{i1}, ..., S_{in}$ : 
 \begin{align*}
 u(\theta_i | x_{i1}, ..., x_{in}) & = \frac{f(x_{i1}, ..., x_{in} | \theta_i) u(\theta_i)}{\int_{-\infty}^{\infty} f(x_{i1}, ..., x_{in} | \theta_i) u(\theta_i) d \theta_i} \\
 & = \frac{\prod_{t=1}^{n}f(x_{it} | \theta_i) u(\theta_i)}{\int_{-\infty}^{\infty} \prod_{t=1}^{n}f(x_{it} | \theta_i) u(\theta_i) d \theta_i} \\
@@ -142,7 +142,7 @@ f(x_{n+1} | x_1, ..., x_n) = \int_{-\infty}^{\infty} f(x | \theta) u(\theta | x_
 
 \subsection*{Crédibilité bayésienne linéaire}
 Certaines combinaison de distributions permettent d'obtenir une prime Bayésienne qui peut être exprimée sous la forme
-\[\pi = z \bar{S} + (1-z) m \]
+\[\pi = z \bar{S} + (1-z)\cdot  m \]
 avec $z \in [0,1]$, qu'on appelle la prime de crédibilité.
 \paragraph{Avantages}
 \begin{itemize}
@@ -155,8 +155,8 @@ Il existe 5 combinaisons de distribution qui résultent en une prime Bayésienne
 \item $S | \Theta \sim Pois(\Theta)$ et $\Theta \sim \Gamma(\alpha, \lambda)$
 \item $S | \Theta \sim Exp(\Theta)$ et $\Theta \sim \Gamma(\alpha, \lambda)$
 \item $S | \Theta \sim N(\Theta, \sigma_2^2)$ et $\Theta \sim N(\mu, \sigma_1^2)$
-\item $S | \Theta \sim Bern(\Theta)$ et $\Theta \sim Beta(a,b)$
-\item $S | \Theta \sim Géo(\Theta)$ et $\Theta \sim Beta(a,b)$
+\item $S | \Theta \sim Bern(\Theta)$ et $\Theta \sim Bêta(a,b)$
+\item $S | \Theta \sim Geo(\Theta)$ et $\Theta \sim Bêta(a,b)$
 \end{itemize}
 
 \subsection*{Modèle de Jewell}
@@ -177,6 +177,11 @@ Il existe 5 combinaisons de distribution qui résultent en une prime Bayésienne
     \item La variance intra\footnote{Dans la littérature, aussi appelée \emph{expected process variance (EPV).}}  (\emph{within}) ou la variabilité moyenne du portefeuille.\[ s^2 = \esp{\sigma^2(\Theta_i)} \]
     \item La variance inter\footnote{Dans la littérature, aussi appelée \emph{variance of hypothetical means (VHM).}}  (\emph{between}) ou la variabilité entre les moyennes des contrat, ce qui représente l'homogénéité du portefeuille. \[ a = \variance{\mu(\Theta_i)} \]
 \end{itemize}
+
+Par la théorème de la variance totale, on a
+\[\variance{S} = \esp{\sigma^2(\theta)} + \variance{\mu(\theta)} = s^2  +a \]
+
+
 \paragraph*{Covariance}
 Soit $X,Y$ et $\Theta$ des variables aléatoires dont la densité conjointe existe. \[ \covar{X,Y} = \covar{\esp{X|\Theta_i}, \esp{Y|\Theta_i}} + \esp{\covar{X,Y|\Theta_i}} \]
 
