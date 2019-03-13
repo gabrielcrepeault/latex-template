@@ -1,0 +1,37 @@
+\documentclass[10pt, french]{article}
+
+% Fichier préambule contenant la configuration pour la feuille aide-mémoire
+\input{cheatsht-preamble.tex}
+
+\setlength{\abovedisplayskip}{-15pt}
+\setlength{\belowdisplayskip}{0pt}
+\setlength{\abovedisplayshortskip}{0pt}
+\setlength{\belowdisplayshortskip}{0pt}
+
+
+\begin{document}
+% j'enlève le footnotesize temporairement, sinon je ne vois rien! GCC
+% \footnotesize % Écrire petit (peut être modifié)
+\begin{multicols*}{3} % Permet d'écrire dans plusieurs colonnes l'entièreté du document
+% -------------------------------------------------------------
+
+
+\section{Espérance, variance et covariance}
+
+\subsection{Propriété de la covariance}
+On a que
+\begin{align*}
+  \covar{X,Y} & = \esp{XY} - \esp{X} \esp{Y} \\
+  \covar{X,X}  & = \variance{X}
+\end{align*}
+
+
+
+
+
+
+
+% -------------------------------------------------------------
+% Fin de la feuille aide-mémoire
+\end{multicols*}
+\end{document}

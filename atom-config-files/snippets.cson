@@ -1,0 +1,30 @@
+# Last update : 13/03/2019
+
+## Pour LaTeX
+'.text.tex.latex':
+  'rente':
+    'prefix': 'ax'
+    'body': '\ax$1{$2}$3'
+  'assurance':
+    'prefix': 'Ax'
+    'body': '\Ax{$1}$2'
+    # La macro LaTeX est définie dans
+    # le préambule pour les cheatsheet et
+    # mon préambule régulier
+  'Espérance':
+    'prefix': '\espérance'
+    'body': '\esp{$1}$2'
+  'Covariance':
+    'prefix': '\covariance'
+    'body': '\covariance{$1}$2'
+  'Probabilité':
+    'prefix': '\probabilité'
+    'body': '\prob{$1}$2'
+  'Variance':
+    'prefix': '\variance'
+    'body': '\variance{$1}$2'
+
+## Pour R
+
+
+## Pour python
