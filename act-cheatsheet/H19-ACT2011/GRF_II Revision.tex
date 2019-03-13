@@ -94,7 +94,7 @@ Pour chaque stratégie qu'on voit dans le cours, on peut calculer
 \[F_{0,T} = S_0 (1 + r_f)^{T}\]
 \item[$F_{0,T}^{P}$] Prix d'un forward prépayé, i.e. on débourse $F_{0,T}^{P}$ à $t=0$ et on reçoit le sous-jacent à $t  = T$, alors
 \[F_{0,T}^{P} = F_{0,T} (1 + r_f)^{-T}\]
-illustration graphique : 
+illustration graphique :
 \input{tikz/forward}
 \end{description}
 \paragraph{Achat ferme et emprunt} On utilise parfois la lettre $S$ pour désigner dans stratégie l'action de faire un achat ferme (i.e. acheter et se faire livrer le sous-jacent à $t=0$) et $B$ pour désigner un dépôt/emprunt (qu'on exprime comme une obligation zéro-coupon).
@@ -115,7 +115,7 @@ S_T - K		& , S_T > K \\
 \subsection*{$Put(K,T)$}
 Contrat qui \textit{permet} au détenteur de vendre $S$ au prix $K$ à l'échéance $T$. \textbf{position courte dans le sous-jacent}
 \[Premium = P(K,T)\]
-\[Payoff = 
+\[Payoff =
 \begin{cases}
 K - S_T			& , S_T \leq K \\
 0					& , S_T > K \\
@@ -124,7 +124,7 @@ K - S_T			& , S_T \leq K \\
 \input{tikz/put}
 
 \subsection*{Forward synthétique}
-On peut créer un Forward synthétique 2 de façon (en combinant d'autres transactions) : 
+On peut créer un Forward synthétique 2 de façon (en combinant d'autres transactions) :
 \[Forward = Stock - Bond \]
 \[Forward = Call(K,T) - Put(K,T) \]
 Ces deux égalités définissent la \emph{Put-Call Parity} vu un peu plus loin.
@@ -135,7 +135,7 @@ Ces deux égalités définissent la \emph{Put-Call Parity} vu un peu plus loin.
 On achète $S$ en se protégant contre une baisse trop importante du sous-jacent (\textbf{position longue})
 \[Floor = Stock + Put(K,T)\]
 \[Premium = S_0 + P(K,T) > 0\]
-\[Payoff = 
+\[Payoff =
 \begin{cases}
 K					& , S_T \leq K \\
 S_T				& , S_T > K \\
@@ -161,7 +161,7 @@ Combinaison de 2 Call (ou 2 Put) pour spéculer sur un marché haussier. Avec $K
 \[Bull Spread (Call) = Call(K_1, T) - Call(K_2, T) \]
 
 \[Premium = C(K_1, T) - Call(K_2, T) > 0 \]
-\[Payoff = 
+\[Payoff =
 \begin{cases}
 0					& , S_T \leq K_1 \\
 S_T - K_1		& , k_1 < S_T \leq K_2 \\
@@ -171,7 +171,7 @@ K_2 -K_1		& , S_T > K_2 \\
 \paragraph{Avec option de vente}
 \[Bull Spread(Put) = Put(K_1, T) - Put(K_2,T) \]
 \[Premium = P(K_1,T) - P(K_2, T) < 0\]
-\[Payoff = 
+\[Payoff =
 \begin{cases}
 K_1 - K_2 			& , S_T \leq K_1 \\
 K_2 - S_T				& , K_1 < S_T \leq K_2 \\
@@ -189,7 +189,7 @@ Combinaison de 2 Call ou 2 Put pour spéculer sur un marché baissier.
 Bear(Call) & =  - Bull(Call) \\
 & = Call(K_2, T) - Call(K_1, T) \\
 Premium		& = 	 C(K_2,T) - C(K_1,T) < 0 \\
-Profit	& = 
+Profit	& =
 \begin{cases}
 0					& , S_T \leq K_1 \\
 K_1 - S_T 	& , K_1 < S_T \leq K_2 \\
@@ -202,7 +202,7 @@ K_1 - S_T 	& , K_1 < S_T \leq K_2 \\
 Bear(Put) 				& =  - Bull(Put) \\
 								& = Put(K_2, T) - Put(K_1, T) \\
 Premium					& = 	 P(K_2,T) - P(K_1,T) > 0 \\
-Profit						& = 
+Profit						& =
 \begin{cases}
 K_2 - K_1					& , S_T \leq K_1 \\
 K_2 - S_T 				& , K_1 < S_T \leq K_2 \\
@@ -237,7 +237,7 @@ La prime initiale du Collar peut être soit positive ou négative (dépendant du
 \begin{align*}
 Collar				& = Put(K_1, T) - Call(K_2, T) \\
 Premium			& = P(K_1, T) - C(K_2,T) \\
-Payoff				& = 
+Payoff				& =
 \begin{cases}
 K_1 - S_T			& , S_T \leq K_1 \\
 0						& , K_1 < S_T \leq K_2 \\
@@ -256,7 +256,7 @@ K_2 - S_T			& , S_T > K_2 \\
 BullSpread				& = Collar + Stock \\
 								& = Put(K_1, T) - Call(K_2, T) + Stock \\
 Premium					& = P(K_1, T) - C(K_2,T) + S_0 > 0  \\
-Payoff						& = 
+Payoff						& =
 \begin{cases}
 K_1 					& , S_T \leq K_1 \\
 S_T					& , K_1 < S_T \leq K_2 \\
@@ -280,11 +280,11 @@ S_T - K				& , S_T > K \\
 \input{tikz/straddle}
 
 \subsection*{Strangle}
-Même genre de stratégie que le strangle, on spécule sur la volatilité du sous-jacent à l'extérieur de l'intervalle $[K_1, K_2]$ : 
+Même genre de stratégie que le strangle, on spécule sur la volatilité du sous-jacent à l'extérieur de l'intervalle $[K_1, K_2]$ :
 \begin{align*}
 Strangle			& = Put(K_1, T) + Call(K_2, T) \\
 Premium			& = P(K_1, T) + C(K_2, T) > 0 \\
-Payoff				& = 
+Payoff				& =
 \begin{cases}
 K_1 - S_T			& , S_T \leq K_1 \\
 0						& , K_1 < S_T \leq K_2 \\
@@ -295,14 +295,14 @@ S_T - K_2 		& , S_T > K_2 \\
 
 
 \subsection*{Butterfly Spread (BFS)}
-On combine un Straddle($K_2$) et un Strangle($K_1, K_3$) pour spéculer sur la non-volatilité du sous-jacent autour de $K_2$, mais en limitant nos pertes à $K_1 - K_2$ : 
+On combine un Straddle($K_2$) et un Strangle($K_1, K_3$) pour spéculer sur la non-volatilité du sous-jacent autour de $K_2$, mais en limitant nos pertes à $K_1 - K_2$ :
 \begin{align*}
 Butterfly  & = Strangle - Straddle(K_2) \\
 & = Put(K_1, T) - Put(K_2, T) \\
 & - Call(K_2, T) + Call(K_3,T) \\
 Premium	& = P(K_1, T) - P(K_2, T) \\
 & - C(K_2, T) + C(K_3, T) < 0\\
-Payoff		& = 
+Payoff		& =
 \begin{cases}
 K_1 - K_2			& , S_T \leq K_1 \\
 S_T - K_2			& , K_1 < S_T \leq K_2 \\
@@ -310,11 +310,11 @@ K_2 - S_T			& , K_2 < S_T \leq K_3 \\
 K_2 - K_3			& , S_T > K_3 \\
 \end{cases}
 \end{align*}
-\paragraph{Note} De façon générale (plusieurs combinaisons sont possibles), on a 
+\paragraph{Note} De façon générale (plusieurs combinaisons sont possibles), on a
 \[BFS = Bull(K_1, K_2) + Bear(K_2, K_3) \]
 \input{tikz/butterfly_spread}
 
-\paragraph{Asymetric Butterfly Spread} 
+\paragraph{Asymetric Butterfly Spread}
 \begin{itemize}
 \item Comme le Ratio Spread, il est possible de faire une stratégie sur mesure en achetant $n$ Bull Spread et en achetant $m$ Bear Spread en respectant les 3 prix d'exercices $K_1 < K_2 < K_3$.
 \item Si on désire avoir un BFS qui a un profit nul pour $S_T < K_1$ et $S_T > K_3$, alors on trouve $n$ et $m$ tel que
@@ -394,7 +394,7 @@ Le payoff sera $x_t - x_0 \left(  \frac{1+r_D}{1+r_{É}}   \right)^{T}$.
 
 
 \subsection*{Future}
-Essentiellement la même chose qu'un Forward, à quelques différences près : 
+Essentiellement la même chose qu'un Forward, à quelques différences près :
 \begin{itemize}
 \item Surveillé et contrôlé par des instances officielles (aucun \textit{Over-the-counter})
 \item S'applique sur certains types d'actifs définis seulement ;
@@ -428,7 +428,7 @@ Call - Put = Stock - Bond
 \item[$Call(x_0, K, T)$ : ] Option d'achat qui permet d'acheter 1 unité de DÉ pour K unité de DD à l'échéance $t = T$.
 \item[$Put(x_0, K, T)$ : ] Option de vente qui permet d'acheter 1 unité de DÉ pour K unité de DD à l'échéance $t = T$.
 \end{description}
-Alors, on peut réécrire l'équation Put-Call Parity : 
+Alors, on peut réécrire l'équation Put-Call Parity :
 \begin{align*}
 Call(x_0, K,T) - Put(x_0, K, T) = x_0(1+r_{É})^{-T} - K(1+r_D)^{-T}
 \end{align*}
@@ -439,7 +439,7 @@ Call(x_0, K,T) - Put(x_0, K, T) = x_0(1+r_{É})^{-T} - K(1+r_D)^{-T}
 \item[$Call(S_t, Q_t, T - t)$ : ] Option d'achat qui permet d'acheter le sous-jacent $S$ au prix du sous-jacent $Q$ au temps $t = T$.
 \item[$Put(S_t, Q_t, T - t)$ : ] Option de vente qui permet de vendre le sous-jacent $S$ au prix du sous-jacent $Q$ au temps $t = T$.
 \end{description}
-On peut généraliser l'équation Put-Call Parity : 
+On peut généraliser l'équation Put-Call Parity :
 \begin{align*}
 C(S_t, Q_t, T - t) - P(S_t, Q_t, T-t) = F_{t,T}^{P}(S) - F_{t,T}^{P}(Q)
 \end{align*}
@@ -476,16 +476,16 @@ Le moment optimal pour exercer le Put serait tout juste \textbf{après la date e
 \paragraph{Date d'expiration}
 Pour $T_1 < T_2$,
 \begin{align*}
-C(K, T_1) & \leq C(K, T_2) \\ 
+C(K, T_1) & \leq C(K, T_2) \\
 P(K, T_1) & \leq P(K, T_2)
 \end{align*}
 
 
 \paragraph{Prix d'exercice}
-Les différentes conditions énumérées ci-bas doivent être respectées : 
+Les différentes conditions énumérées ci-bas doivent être respectées :
 \begin{tabbing}
 \hspace{5cm}\=\kill
- $C(K,T) \geq S_0 - K$ \>  $ P(K,T) \geq K - S_0$ \\ 
+ $C(K,T) \geq S_0 - K$ \>  $ P(K,T) \geq K - S_0$ \\
   $C(K_1, T) > C(K_2, T)$ \> $P(K_1, T) < P(K_2, T)$ \\
  $C(K_1, T) - C(K_2, T) \leq K_2 - K_1$ \> $P(K_2, T) - P(K_1, T) \leq K_2 - K_1$ \\
  $\frac{C(K_1, T) - C(K_2, T)}{K_2 - K_1} \geq \frac{C(K_2, T) - C(K_3, T)}{K_3 - K_2}$ \>  $\frac{P(K_2, T) - P(K_1, T)}{K_2 - K_1} \geq \frac{P(K_3, T) - P(K_2, T)}{K_3 - K_2}$ \\
@@ -524,6 +524,21 @@ B = e^{-rh} \left( \frac{U \cdot C_d - D \cdot C_u}{U - D} \right) = e^{-rh} \le
 \begin{align*}
 \text{Premium} = \Delta S_0 + B
 \end{align*}
+
+
+\subsection{Paramètre $u$ et $d$}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \end{multicols*}
