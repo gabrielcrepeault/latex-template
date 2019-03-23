@@ -503,7 +503,7 @@ P(K_t, t) & \leq P(K_T, T) \\
 \item $U = uS$ est la valeur supérieure que peut prendre le sous-jacent $S$
 \item $D = dS$ est la valeur inférieure que peut prendre le sous-jacent $S$
 \item $p$ est la probabilité (Bernouilli) que le sous-jacent prenne la valeur $U$.
-\item $C_u$, $C_d$, $P_u$ et $P_d$ sont les payoff d'un call (ou put) selon la valeur du sous-jacent après $h$ périodes.
+\item $\theta_u$ et $\theta_d$ sont les payoff de l'option (Call ou Put) aux branches \emph{up} et \emph{down} respectivement après $h$ périodes.
 \item $r$ et $\delta$ sont respectivement la force d'intérêt sans risque et le taux de dividende continu.
 \end{itemize}
  Alors, la probabilité \textit{neutre au risque} est
@@ -516,17 +516,53 @@ On peut reproduire une option (Call ou Put) avec la stratégie suivante  :
 \[C = \Delta S + B\]
 où $B$ et $\Delta S$ changent de signe selon si c'est un Call ou un Put. On peut obtenir la prime initiale (\textit{Premium}) et les composantes du portefeuille réplicatif avec
 \begin{align*}
-\Delta = e^{-\delta h} \left( \frac{C_u - C_d}{U - D} \right) =   e^{-\delta h} \left( \frac{C_u - C_d}{S(u -d)} \right)
+\Delta = e^{-\delta h} \left( \frac{\theta_u - \theta_d}{U - D} \right) =   e^{-\delta h} \left( \frac{\theta_u - \theta_d}{S(u -d)} \right)
 \end{align*}
 \begin{align*}
-B = e^{-rh} \left( \frac{U \cdot C_d - D \cdot C_u}{U - D} \right) = e^{-rh} \left( \frac{u C_d - d C_u}{u-d} \right)
+B = e^{-rh} \left( \frac{U \cdot \theta_d - D \cdot \theta_u}{U - D} \right) = e^{-rh} \left( \frac{u \theta_d - d \theta_u}{u-d} \right)
 \end{align*}
+où $\theta_u$ et $\theta_d$ sont les \emph{payoff} pour la branche \emph{up} et la branche \emph{down} respectivement.
 \begin{align*}
 \text{Premium} = \Delta S_0 + B
 \end{align*}
 
 
-\subsection{Paramètre $u$ et $d$}
+\subsection*{Paramètre $u$, $d$ et $\sigma$}
+\begin{align*}
+	u & = e^{(r-\delta)h + \sigma \sqrt{h}} \\
+	d & = e^{(r-\delta)h - \sigma \sqrt{h}} \\
+\end{align*}
+
+\subsection*{Rendements composés continûment}
+\begin{align*}
+	r_{t,t+h} = \ln \left( \frac{S_{t+h}}{S_t} \right)
+\end{align*}
+
+
+\subsection*{Calcul du prix de l'option}
+Dans le modèle d'arbre binomial, on peut calculer le prix d'une option $C(K,h)$ comme
+\begin{align*}
+	C(K,h) = (\theta_u * p + \theta_d * (1-p)) e^{-rh}
+\end{align*}
+
+
+
+On peut trouver la volatilité telle que
+\begin{align*}
+	\sigma = \frac{\ln \left( \frac{u}{d} \right)}{2 \sqrt{h}}
+\end{align*}
+Sinon, on peut l'estimer somme la variance non-biaisée des rendements historiques :
+\begin{align*}
+	\hat{\sigma} = \frac{\sum_{t=1}^{n} (r_{t, t+1} - \bar{r})^2}{(n-1)\sqrt{h}}
+\end{align*}
+avec $\bar{r} = \frac{1}{n} \sum_{t=1}^n r_t$.
+
+\subsection{Construction d'un arbre binomial}
+\begin{enumerate}
+	\item On construit l'arbre de gauche à droite. À chaque noeud, on calcule le prix de l'action et le \emph{Payoff} selon le type d'action.
+	\item On calcule le prix de l'option ()
+\end{enumerate}
+
 
 
 
