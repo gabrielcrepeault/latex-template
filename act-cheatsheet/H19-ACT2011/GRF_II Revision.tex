@@ -508,7 +508,7 @@ P(K_t, t) & \leq P(K_T, T) \\
 \end{itemize}
  Alors, la probabilité \textit{neutre au risque} est
 \begin{align*}
-p = \frac{e^{(r-\delta)h} - d}{u-d}
+p* = \frac{e^{(r-\delta)h} - d}{u-d}
 \end{align*}
 
 \subsection*{Portefeuille réplicatif d'une option}
@@ -542,12 +542,12 @@ où $\theta_u$ et $\theta_d$ sont les \emph{payoff} pour la branche \emph{up} et
 \subsection*{Calcul du prix de l'option}
 Dans le modèle d'arbre binomial, on peut calculer le prix d'une option $C(K,h)$ comme
 \begin{align*}
-	C(K,h) = (\theta_u * p + \theta_d * (1-p)) e^{-rh}
+	C(K,h) = (p^* \theta_u + (1-p^*)\theta_d) e^{-rh}
 \end{align*}
 
 
 
-On peut trouver la volatilité telle que
+On peut trouver la volatilité \underline{annuelle} telle que
 \begin{align*}
 	\sigma = \frac{\ln \left( \frac{u}{d} \right)}{2 \sqrt{h}}
 \end{align*}
@@ -559,9 +559,14 @@ avec $\bar{r} = \frac{1}{n} \sum_{t=1}^n r_t$.
 
 \subsection{Construction d'un arbre binomial}
 \begin{enumerate}
-	\item On construit l'arbre de gauche à droite. À chaque noeud, on calcule le prix de l'action et le \emph{Payoff} selon le type d'action.
-	\item On calcule le prix de l'option ()
+	\item On construit l'arbre de gauche à droite. À chaque noeud, on calcule le prix de l'action et le \emph{payoff} selon le type d'action.
+	\item On calcule le prix de l'option et les composantes du portefeuille réplicatif à chaque noeud en fonction des branches $u$ et $d$ de droite à gauche.
+	\item Si l'option est de type américaine, il faut vérifier à chaque noeud si il est plus avantageux d'exécuter l'option ou d'attendre (i.e. si le prix de l'option est plus élevé, on attend)
 \end{enumerate}
+
+
+\subsection{Options sur devise}
+Ce sont exactement les même formules, à l'exception qu'on précise le taux sans risque $r_f$ pour le taux sans risque de la devise domestique $r_{DD}$ et le taux de dividende $\delta$ devient le taux sans risque de la domestique étrangère $r_{DÉ}$.
 
 
 
