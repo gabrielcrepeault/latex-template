@@ -43,7 +43,7 @@
 \begin{definition}[Crédibilité complète]
 Une crédibilité complète d'ordre $(k,p)$ est attribuée à l'expérience $S$ d'un contrat si les paramètres de la distribution de $S$ sont tels que la relation
 \[\prob{(1-k)\esp{S} \leq S \leq (1+k) \esp{S}} \geq p \]
-est vérifiée. Par le théorème Central Limite, on peut démontrer que ça revient à respecter l'inégalité suivante : 
+est vérifiée. Par le théorème Central Limite, on peut démontrer que ça revient à respecter l'inégalité suivante :
 \begin{equation}
 \esp{S} \geq \left( \frac{\Phi^{-1}\left(\frac{p+1}{2} \right)}{k} \right) \sqrt{\variance{S}}
 \end{equation}
@@ -74,7 +74,7 @@ La crédibilité partielle permet de pondérer l'expérience $S$ d'un contrat et
 \[\pi = z S + (1-z) m\]
 \end{definition}
 \begin{itemize}
-\item Plusieurs formules ont été proposés, on retient celle de Whitney : 
+\item Plusieurs formules ont été proposés, on retient celle de Whitney :
 \begin{equation}
 z = \frac{n}{n+K}
 \end{equation}
@@ -101,7 +101,7 @@ z = \frac{n}{n+K}
 
 \subsection*{Définition des 3 types de primes}
 \begin{definition}[Prime de risque]
-Si on connait le niveau de risque du contrat $i$, alors la meilleure prévision est la \textbf{prime de risque} : 
+Si on connait le niveau de risque du contrat $i$, alors la meilleure prévision est la \textbf{prime de risque} :
 \begin{equation}
 \mu(\theta_i) = \esp{S_{it} | \Theta_i = \theta_i} = \int_{0}^{\infty} x f(x | \theta_i) dx
 \end{equation}
@@ -109,7 +109,7 @@ La prime de risque $\mu(\theta_i)$ serait l'idéal, sauf qu'on ne connait pas le
 \end{definition}
 
 \begin{definition}[Prime collective]
-Il s'agit d'une moyenne pondérée de toutes les primes de risque possible pour un contrat donné : 
+Il s'agit d'une moyenne pondérée de toutes les primes de risque possible pour un contrat donné :
 \begin{equation}
 m = \esp{\mu(\Theta_i)} = \int_{-\infty}^{\infty} \mu(\theta) u(\theta) d\theta
 \end{equation}
@@ -125,7 +125,7 @@ B_{i, n+1} & = \esp{\mu(\Theta_i) | S_{i1} = x_{i1}, ..., S_{in} =x_{in}} \\
 \end{definition}
 \begin{itemize}
 \item Comme $m$, la prime Bayésienne est aussi une prime pondérée des primes de risque.
-\item  La différence ici est qu'on utilise la \emph{distribution a postériori}\footnote{La distribution sous-jacente de la distribution \emph{a posteriori} sera toujours la même que celle de la distribution \emph{a priori} (avec des paramètres révisés).} de $\Theta_i$, i.e. la distribution révisée après avoir observé l'espérience $S_{i1}, ..., S_{in}$ : 
+\item  La différence ici est qu'on utilise la \emph{distribution a postériori}\footnote{La distribution sous-jacente de la distribution \emph{a posteriori} sera toujours la même que celle de la distribution \emph{a priori} (avec des paramètres révisés).} de $\Theta_i$, i.e. la distribution révisée après avoir observé l'espérience $S_{i1}, ..., S_{in}$ :
 \begin{align*}
 u(\theta_i | x_{i1}, ..., x_{in}) & = \frac{f(x_{i1}, ..., x_{in} | \theta_i) u(\theta_i)}{\int_{-\infty}^{\infty} f(x_{i1}, ..., x_{in} | \theta_i) u(\theta_i) d \theta_i} \\
 & = \frac{\prod_{t=1}^{n}f(x_{it} | \theta_i) u(\theta_i)}{\int_{-\infty}^{\infty} \prod_{t=1}^{n}f(x_{it} | \theta_i) u(\theta_i) d \theta_i} \\
@@ -150,7 +150,7 @@ avec $z \in [0,1]$, qu'on appelle la prime de crédibilité.
 \item lorsque $n \to \infty$, $z \to 1$, ce qui est aussi facile à justifier
 \end{itemize}
 
-Il existe 5 combinaisons de distribution qui résultent en une prime Bayésienne linéaire : 
+Il existe 5 combinaisons de distribution qui résultent en une prime Bayésienne linéaire :
 \begin{itemize}
 \item $S | \Theta \sim Pois(\Theta)$ et $\Theta \sim \Gamma(\alpha, \lambda)$
 \item $S | \Theta \sim Exp(\Theta)$ et $\Theta \sim \Gamma(\alpha, \lambda)$
@@ -190,25 +190,25 @@ Soit $X,Y$ et $\Theta$ des variables aléatoires dont la densité conjointe exis
     \covar{S_t,S_u} &= a + \delta_{tu}s^2\quad t,u = 1,...,n  \\
     \covar{\mu(\Theta_i),S_t} &= a
 \end{align*} \\
-où $\delta_{iu}$ est le delta de Kronecker 
-\[ 
-\delta_{iu} = 
+où $\delta_{iu}$ est le delta de Kronecker
+\[
+\delta_{iu} =
 \left\{
 \begin{array}{lc}
     1, & t = u \\
     0. & t \neq u
 \end{array}
-\right. 
+\right.
 \]
 
 \subsection*{Modèle de prévision}
 \begin{itemize}
     \item[(B1)] Les contrats $(\Theta_i, \mathbf{S}_i), i = 1,...,I$ sont indépendants, les variables aléatoire $\Theta_1,...,\Theta_I$ sont identiquement distribuées et les variances aléatoire $S_{it}$ ont une variance finie.
-    \item[(B2)] Les variables aléatoires $S_{it}$, sont telles que 
+    \item[(B2)] Les variables aléatoires $S_{it}$, sont telles que
     \begin{align*}
         \esp{S_{it}|\Theta_i} &= \mu(\Theta_i)\quad i = 1,...,I \\
         \covar{S_{it},S_{iu}|\Theta_i} &= \delta_{tu}\sigma^2(\Theta_i)\quad t,u = 1,...,n
-    \end{align*}    
+    \end{align*}
 \end{itemize}
 \begin{definition}[Prime de crédibilité]
     Pour un portefeuille sous les hypothèses (\emph{B1}) et (\emph{B2}), la meilleur approximation non homogène de la prime de risque $\mu(\Theta_i)$ est
@@ -238,6 +238,34 @@ Il est important de savoir que les estimateurs $\hat{m}, \hat{s}^2$ et $\hat{a}$
     \item Plus $s^2$ est petit ($s^2\to 0$), plus l'expérience est globalement stable dans le temps. Les moyennes individuelle $\bar{S}_i$ représente alors bien les niveaux de risque des contrats, ce qui réduit l'utilité de la prime collective.
     \item Plus $a$ est grand ($a\to\infty$), plus le portefeuille est hétérogène. Les moyennes individuelle $\bar{S}_i$ sont de meilleur approximation des primes de risque que la prime collective.
 \end{enumerate}
+
+\section{Modèle de Bühlmann-Straub}
+\subsection*{Modèle de prévision}
+\begin{itemize}
+  \item[(BS1)] Les contrats $(\Theta_i, \mathbf{S}_i), i = 1,...,I$ sont indépendants, les variables aléatoire $\Theta_1,...,\Theta_I$ sont identiquement distribuées et les variances aléatoire $S_{it}$ ont une variance finie.
+  \item[(BS2)] Les variables aléatoire $X_{it}$, sont telles que
+  \begin{align*}
+    \esp{X_{it}|\theta_i} &= \mu(\theta_i)\quad i = i,...,I \\
+    \covar{X_{it},X_{iu}} &= \delta_{tu} \frac{\sigma^2(\theta_i)}{w_{it}}\quad t,u = 1,...,n
+  \end{align*}
+\end{itemize}
+La définition des ratios $X_{it}$ est
+\begin{align*}
+  \hspace*{2cm}
+  X_{it} = \frac{S_{it}}{w_{it}}
+\end{align*}
+
+\begin{definition}[Prime de crédibilité]
+    Pour un portefeuille sous les hypothèses (\emph{BS1}) et (\emph{BS2}), la meilleur approximation linéaire non homogène de la prime de risque $\mu(\Theta_i)$ est
+    \[ \pi_{i,n+1}^{BS} = z_iX_{iw} + (1 - z_i)m \]
+    où
+    \begin{align*}
+        X_{iw} &= \sum_{t=1}^n \frac{w_{it}}{w_{i\Sigma}} X_{it} \\
+        z &= \frac{w_{i\Sigma}}{w_{i\Sigma} + K},\quad K = \frac{s^2}{a}
+    \end{align*}
+\end{definition}
+
+
 
 
 
