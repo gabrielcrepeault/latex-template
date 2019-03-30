@@ -239,21 +239,42 @@ Il est important de savoir que les estimateurs $\hat{m}, \hat{s}^2$ et $\hat{a}$
     \item Plus $a$ est grand ($a\to\infty$), plus le portefeuille est hétérogène. Les moyennes individuelle $\bar{S}_i$ sont de meilleur approximation des primes de risque que la prime collective.
 \end{enumerate}
 
-
-
-% Fin du chapitre 4
-\newpage
 \section{Modèle de Bühlmann-Straub}
-\subsection{Hypothèses du modèle}
-\hl{à compléter}
+\subsection*{Modèle de prévision}
+\begin{itemize}
+  \item[(BS1)] Les contrats $(\Theta_i, \mathbf{S}_i), i = 1,...,I$ sont indépendants, les variables aléatoire $\Theta_1,...,\Theta_I$ sont identiquement distribuées et les variances aléatoire $S_{it}$ ont une variance finie.
+  \item[(BS2)] Les variables aléatoire $X_{it}$, sont telles que
+  \begin{align*}
+    \esp{X_{it}|\theta_i} &= \mu(\theta_i)\quad i = i,...,I \\
+    \covar{X_{it},X_{iu}} &= \delta_{tu} \frac{\sigma^2(\theta_i)}{w_{it}}\quad t,u = 1,...,n
+  \end{align*}
+\end{itemize}
+La définition des ratios $X_{it}$ est
+\begin{align*}
+  \hspace*{2cm}
+  X_{it} = \frac{S_{it}}{w_{it}}
+\end{align*}
 
-
-\subsection*{Notation et relation de covariance à savoir}
 \subsubsection*{Nouvelle notation}
 \begin{align*}
-X_{iw}			& = \sum_{t=1}^{n} \frac{w_{it}}{w_{ i\sum}} X_{it} \text{ , avec } w_{i\sum} = \sum_{t=1}^{n} w_{it} \\
-X_{ww}		& = \sum_{i=1}^{I} \frac{w_{i \sum}}{w_{\sum \sum}} X_{iw} \text{ , avec } w_{\sum \sum} = \sum_{i=1}^{I} w_{i \sum}
+X_{iw}			& = \sum_{t=1}^{n} \frac{w_{it}}{w_{ i\Sigma}} X_{it} \text{ , avec } w_{i\Sigma} = \sum_{t=1}^{n} w_{it} \\
+X_{ww}		& = \sum_{i=1}^{I} \frac{w_{i \Sigma}}{w_{\sum \Sigma}} X_{iw} \text{ , avec } w_{\Sigma \Sigma} = \sum_{i=1}^{I} w_{i \Sigma}
 \end{align*}
+
+\begin{definition}[Prime de crédibilité]
+    Pour un portefeuille sous les hypothèses (\emph{BS1}) et (\emph{BS2}), la meilleur approximation linéaire non homogène de la prime de risque $\mu(\Theta_i)$ est
+    \[ \pi_{i,n+1}^{BS} = z_iX_{iw} + (1 - z_i)m \]
+    où
+    \begin{align*}
+        X_{iw} &= \sum_{t=1}^n \frac{w_{it}}{w_{i\Sigma}} X_{it} \\
+        z &= \frac{w_{i\Sigma}}{w_{i\Sigma} + K},\quad K = \frac{s^2}{a}
+    \end{align*}
+\end{definition}
+
+
+
+
+
 
 
 
