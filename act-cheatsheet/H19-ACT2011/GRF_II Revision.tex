@@ -549,7 +549,7 @@ Dans le modèle d'arbre binomial, on peut calculer le prix d'une option $C(K,h)$
 
 On peut trouver la volatilité \underline{annuelle} telle que
 \begin{align*}
-	\sigma = \frac{\ln \left( \frac{u}{d} \right)}{2 \sqrt{h}}
+	\sigma = \frac{\ln \left( u/d \right)}{2 \sqrt{h}}
 \end{align*}
 Sinon, on peut l'estimer somme la variance non-biaisée des rendements historiques :
 \begin{align*}
@@ -557,7 +557,7 @@ Sinon, on peut l'estimer somme la variance non-biaisée des rendements historiqu
 \end{align*}
 avec $\bar{r} = \frac{1}{n} \sum_{t=1}^n r_t$.
 
-\subsection{Construction d'un arbre binomial}
+\subsection*{Construction d'un arbre binomial}
 \begin{enumerate}
 	\item On construit l'arbre de gauche à droite. À chaque noeud, on calcule le prix de l'action et le \emph{payoff} selon le type d'action.
 	\item On calcule le prix de l'option et les composantes du portefeuille réplicatif à chaque noeud en fonction des branches $u$ et $d$ de droite à gauche.
@@ -565,12 +565,48 @@ avec $\bar{r} = \frac{1}{n} \sum_{t=1}^n r_t$.
 \end{enumerate}
 
 
-\subsection{Options sur devise}
+\subsection*{Options sur devise}
 Ce sont exactement les même formules, à l'exception qu'on précise le taux sans risque $r_f$ pour le taux sans risque de la devise domestique $r_{DD}$ et le taux de dividende $\delta$ devient le taux sans risque de la domestique étrangère $r_{DÉ}$.
 
 
+\section{Formule de Black-Scholes}
+\begin{align*}
+C(S_0, K, r, \sigma, T, \delta) = S_0 e^{-\delta T} N(d_1) - K e^{-rT} N(d_2)
+\end{align*}
+avec 
+\[d_1 = \frac{\ln \left( \frac{S_0}{K}  \right) + \left( r - \delta + \frac{\sigma^2}{2} \right) }{\sigma \sqrt{T}}  \ \ \  \text{ et } d_2 = d_1 - \sigma \sqrt{T}\]
+De façon équivalente \footnote{On utilise la Put-Call Parity}, on a la formule pour l'option de vente : 
+\begin{align*}
+P(S_0, K, r, \sigma, T, \delta) = K e^{-rT} N(-d_2) - S_0 e^{-\delta T} N(-d_1)
+\end{align*}
+$N()$ est la fonction de répartition de la $N(0,1)$.
+
+\subsection*{Black Scholes pour Forward prépayés}
+\begin{align*}
+C(S, K, r, \sigma, T , \delta) & = F_{0,T}^{P}(S) N(d_1) - F_{0,T}^{P}(K) N(d_2) \\
+P(S, K, r, \sigma, T , \delta)  & = F_{0,T}^{P}(K) N(-d_2) - F_{0,T}^{P}(S) N(-d_1)
+\end{align*}
+
+\subsection*{Black Scholes pour options avec actions versant des dividendes}
+
+\paragraph{Dividendes discrets proportionnels} Soit $\phi$ un taux de dividende (une proportion de l'action) versé à intervalle régulier. On connaît d'avance le nombre $n$ de dividendes qui seront versés d'ici l'échéance $T$. Alors,
+\begin{align*}
+C(S, K, r, \sigma, T , \phi) = S(1 - \phi)^{n} N(d_1) - K e^{-rT} N(d_2)
+\end{align*}
+
+\paragraph{Dividendes discrets fixes} On suppose que les dividendes $d_t$ sont verrés à des moments connus d'avance. Alors,
+\begin{align*}
+C(S, K, r, \sigma, T , d_t) = \left( S - \sum_{0 \leq t \leq T} d_t e^{-rt}  \right) N(d_1) - K e^{-rT} N(d_2)
+\end{align*}
 
 
+
+
+
+% Chapitre sur la loi Log Normale
+\setcounter{section}{17}
+\section{Loi lognormale}
+Soit $X \sim N(\mu, \sigma)$, alors $Y = e^{X} \sim LN(\mu, \sigma)$. 
 
 
 
