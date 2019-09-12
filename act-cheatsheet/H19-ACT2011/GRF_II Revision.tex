@@ -633,8 +633,20 @@ Les formules des Greeks sont fournies à l'examen en annexe. Il faut toutefois c
 % Chapitre sur la loi Log Normale
 \setcounter{section}{17}
 \section{Loi lognormale}
-Soit $X \sim N(\mu, \sigma)$, alors $Y = e^{X} \sim LN(\mu, \sigma)$. 
+\begin{itemize}
+\item  Soit $X \sim N(\mu, \sigma)$, alors $Y = e^{X} \sim LN(\mu, \sigma)$.
+\item Soit $X_1, ..., X_n$ des v.a. $N(\mu_i, \sigma_i^2)$, alors
+\[Y = \sum_{i=1}^{n} w_i X_i \sim N\left(\sum_{i=1}^{n} w_i \mu_i, \sum_{i=1}^{n} \sum_{j=1}^{n} w_i w_j  \sigma_i \sigma_j  \rho_{ij} \right)\]
+\item Assumons que le rendement $R(0,t) = \ln \left( \frac{S_t}{S_0} \right) \sim N(\mu, \sigma^2)$, alors
+\[S_t = S_0 e^{R(0,t)} \sim N(\mu, \sigma)\]
+\end{itemize}
 
+
+
+
+
+
+% Chapitre sur les options Exotiques II
 
 
 
