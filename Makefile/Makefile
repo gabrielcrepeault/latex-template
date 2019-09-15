@@ -1,37 +1,30 @@
-# ------------------------------------------------
-# Makefile template used for LaTeX
-# Gabriel Crépeault-Cauchon
-# Last update : 11/09/2019
-# ------------------------------------------------
+# ===============================================================
+# Fichier GNU Make pour compiler LaTeX, knitr et bibtex
+# ===============================================================
+
+# Déterminer les variables contenant les noms des différents fichiers de mon programme
+MAINFILE = 111126819
+RNWFILES = $(addsuffix .Rnw,$(filter-out $(basename ${MAINFILE}), $(basename $(wildcard *.Rnw))))
+TEXFILES = $(addsuffix .tex,$(filter-out $(basename ${RNWFILES} ${MAINFILE}),$(basename $(wildcard *.tex))))
 
 
-# fichier Makefile pour LaTeX
+# Workflow de GNU Make
+all: pdf
 
-# la fonction Sweave créé le fichier .tex
-# la fonction Strangle créé le fichier .R qui extrait d'un Rnw les chunks
-# la fonction pdflatex vient générer (comme à l'habitude) le pdf suite à la compilation d'un fichier .tex
+pdf: $(MAINFILE).pdf
 
-# note : il est possible que votre compilateur LaTeX ne trouve pas instantanément le package Sweave.sty
-# aller voir le site suivant : https://sapa-project.org/blog/2013/08/16/easy-sweaving-for-latex-and-r/
-MASTER=111126819
+tex: ${RNWFILES:.Rnw=.tex} 
 
+%.tex: %.Rnw
+	R -q -e "knitr::knit('$<')"
 
+$(MAINFILE).pdf: $(MAINFILE).tex ${RNWFILES:.Rnw=.tex} ${TEXFILES}
+	latexmk -pdf '$<'
 
-
-
-all:
-	R CMD Sweave *.Rnw
-	R CMD Stangle *.Rnw
-	pdflatex ${MASTER}.tex
-	bibtex ${MASTER}
-	pdflatex ${MASTER}.tex
-	pdflatex ${MASTER}.tex
-	open ${MASTER}.pdf
-
-	rm -rf *.log *.nav *.out *.snm *.vrb *.toc Rplots* .RData
-	# Afficher dans le viewer de TexMaker
-	%.tex|txs:///view-pdf-internal
-
-.PHONY: clean
 clean:
-	rm -rf *.log *.nav *.out *.snm *.vrb  *.aux *.bbl  *.blg *.lof *.lot *.toc Rplots* .RData
+	latexmk -c
+	rm -f *~ \#* .Rhistory
+	rm -f $(MAINFILE).bbl
+
+view:
+	open ${MAINFILE}.pdf
