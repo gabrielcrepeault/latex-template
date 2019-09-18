@@ -1,14 +1,33 @@
-# ===============================================================
-# Fichier GNU Make pour compiler LaTeX, knitr et bibtex
-# ===============================================================
+## ========================================================
+## Makefile pour facilier la compilation d'un projet LaTeX
+## Gabriel Crépeault-Cauchon
+## Dernière maj	: 18/09/2019
+## 
+## UTILISATION
+## indiquer dans la variable MAINFILE le nom
+## de votre fichier .tex principal de votre projet. Le
+## Makefile est bâti de telle sorte que le MAINFILE ne 
+## contient aucun chunk Sweave. Ce fichier importe (avec la
+## commande \include{}) des sous-fichiers .tex et .Rnw
+##
+## COMMANDES À UTILISER
+## make : alias pour make all
+## make all : compilation du projet en entier. Valide si des
+## modifications ont été apportés dans tous les types de 
+## fichiers
+## make tex : recompile les fichiers .Rnw (vers .tex) qui
+## on été modifiés
+## make pdf : recompile uniquement le fichier .tex principal
+## make clean : enlève les fichiers inutiles du projet
+## make view : ouvre le fichier .pdf généré par LaTeX
+## ========================================================
 
-# Déterminer les variables contenant les noms des différents fichiers de mon programme
-MAINFILE = 111126819
+MAINFILE = doc_revision_ACT3000
 RNWFILES = $(addsuffix .Rnw,$(filter-out $(basename ${MAINFILE}), $(basename $(wildcard *.Rnw))))
 TEXFILES = $(addsuffix .tex,$(filter-out $(basename ${RNWFILES} ${MAINFILE}),$(basename $(wildcard *.tex))))
 
 
-# Workflow de GNU Make
+
 all: pdf
 
 pdf: $(MAINFILE).pdf
@@ -16,7 +35,7 @@ pdf: $(MAINFILE).pdf
 tex: ${RNWFILES:.Rnw=.tex} 
 
 %.tex: %.Rnw
-	R -q -e "knitr::knit('$<')"
+	R CMD Sweave --encoding="utf-8" '$<'
 
 $(MAINFILE).pdf: $(MAINFILE).tex ${RNWFILES:.Rnw=.tex} ${TEXFILES}
 	latexmk -pdf '$<'
@@ -27,4 +46,4 @@ clean:
 	rm -f $(MAINFILE).bbl
 
 view:
-	open ${MAINFILE}.pdf
+	open $(MAINFILE).pdf
