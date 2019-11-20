@@ -88,20 +88,19 @@ after title = {\large \hfill \faBook}
 \renewcommand{\labelitemi}{\faAngleRight}
 
 % Mathematics shortcut macros
+\usepackage{cancel}
 \newcommand{\reels}{\mathbb{R}}
 \newcommand{\entiers}{\mathbb{Z}}
 \newcommand{\naturels}{\mathbb{N}}
 \newcommand{\eval}{\biggr \rvert}
-\usepackage{cancel}
 \newcommand{\derivee}[1]{\frac{\partial}{\partial #1}}
 \newcommand{\prob}[1]{\Pr \left( #1 \right)}
 \newcommand{\esp}[1]{\mathrm{E} \left[ #1 \right]}
-\newcommand{\variance}[1]{\mathrm{VaR} \left( #1 \right)}
+\newcommand{\variance}[1]{\mathrm{Var} \left( #1 \right)}
+\newcommand{\covar}[1]{\mathrm{Cov} \left( #1 \right)} 
 \newcommand{\laplace}{\mathcal{L}}
 \newcommand{\indic}[1]{\mathds{1}_{\{ #1 \}}}
-
-% Matricial notation (with simple command \bm{•})
-\usepackage{bm}
+\newcommand{\matr}[1]{\mathbf{#1}} % Notation matricielle
 
 
 % To indicate equation number on a specific line in align environment

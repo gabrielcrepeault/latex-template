@@ -1,0 +1,38 @@
+% ------------------------------------------------------
+% Fichier de configuration Sweave
+% À utiliser lorsqu'on veut mettre du R au travers de notre rapport R
+% Gabriel Crépeault-Cauchon
+% fortement inspiré du préambule des documents .TEX à Vincent Goulet
+% source : https://gitlab.com/vigou3/programmer-avec-r/blob/master/programmer-avec-r.tex
+% ------------------------------------------------------
+\usepackage[noae]{Sweave}
+\usepackage{framed}                  % env. snugshade*, oframed
+
+\definecolor{midnightblue}{HTML}{dfe3f2} 
+%\definecolor{darkred}{rgb}{0.545,0,0} 
+%\DefineVerbatimEnvironment{Sinput}{Verbatim}{fontshape=sl,formatcom={\color{midnightblue}}} 
+%\DefineVerbatimEnvironment{Scode}{Verbatim}{fontshape=sl,formatcom={\color{blue}}} 
+%\DefineVerbatimEnvironment{Soutput}{Verbatim}{formatcom={\color{darkred}}} 
+
+  %% Environnements de Sweave. Les environnements Sinput et Soutput
+  %% utilisent Verbatim (de fancyvrb). On les réinitialise pour
+  %% enlever la configuration par défaut de Sweave, puis on réduit
+  %% l'écart entre les blocs Sinput et Soutput.
+  \DefineVerbatimEnvironment{Sinput}{Verbatim}{}
+  \DefineVerbatimEnvironment{Soutput}{Verbatim}{}
+  \fvset{listparameters={\setlength{\topsep}{0pt}}}
+  %% L'environnement Schunk est complètement redéfini en un hybride
+  %% des environnements snugshade* et leftbar de framed.sty.
+  \makeatletter
+  \renewenvironment{Schunk}{%
+    \setlength{\topsep}{1pt}
+    \def\FrameCommand##1{\hskip\@totalleftmargin
+       \vrule width 2pt\colorbox{midnightblue}{\hspace{3pt}##1}%
+      % There is no \@totalrightmargin, so:
+      \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+    \MakeFramed {\advance\hsize-\width
+      \@totalleftmargin\z@ \linewidth\hsize
+      \advance\labelsep\fboxsep
+      \@setminipage}%
+  }{\par\unskip\@minipagefalse\endMakeFramed}
+  \makeatother

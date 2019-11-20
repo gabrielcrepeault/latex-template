@@ -1,0 +1,123 @@
+\documentclass[aspectratio=169, 12pt, french]{beamer}
+\usetheme{CambridgeUS}
+\usecolortheme{beaver}
+
+
+% Utilisation de Tikz dans la présention
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata, shapes,chains, positioning, backgrounds}
+\tikzstyle{line}=[draw] % here
+% Définition d'une flèche
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+% test
+\usepackage[comma,authoryear]{natbib}
+
+% tabular environment
+\usepackage{tabu}
+
+% Compatibilité avec Sweave
+\input{src/sweave_config}
+
+% Remove navigation symbol
+\setbeamertemplate{navigation symbols}{}
+
+% make sure pause does not increase page count
+\setbeamertemplate{footline}[frame number]{}
+
+
+% Encoding packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}	% Combine with \documentclass[12pt, french]{•}
+\usepackage{lmodern}
+
+
+% Packages mathématiques / newcommand
+\usepackage{amsmath,amsthm,amssymb,latexsym,amsfonts}
+\usepackage{empheq}
+\usepackage{icomma}
+\newcommand{\trainset}{\mathcal{D}_{\mathcal{T}}}
+\newcommand{\testset}{\mathcal{D}_{\mathcal{V}}}
+
+% Informations sur la présentation Beamer (Auteur, date, titre, etc.)
+\title[\hyperlink{start}{ACT 2105}]{\Huge Projet de recherche}
+\subtitle{Modèles de micro-réserve en assurance IARD  \\ Implémentation en R}
+\author{Gabriel Crépeault-Cauchon}
+\institute{Sous la direction de \\ Marie-Pier Côté, professeure adjointe \\ Université Laval}
+\logo{\includegraphics[width=1.5cm]{src/logo_UL.png}}
+\date{4 décembre 2019}
+
+
+%% Style de la bibliographie.
+% \bibliographystyle{francais}
+
+% Options
+
+% Remove navigation symbol
+\setbeamertemplate{navigation symbols}{}
+
+% make sure pause does not increase page count
+\setbeamertemplate{footline}[frame number]{}
+
+%% Style de la bibliographie.
+\bibliographystyle{francais}
+
+
+%% -- DÉBUT DE LA PRÉSENTATION ---
+\begin{document}
+%% ---------------------------------------------
+
+% Page titre
+\begin{frame}
+\titlepage
+\end{frame}
+
+% Table des matières
+\begin{frame}{Éléments de la présentation}
+\tableofcontents
+\end{frame}
+
+\section{Prétraitement des données}
+\include{data-wrangling}
+
+
+
+\include{exemple_graphique}
+
+
+
+
+% Explication du 
+\subsection{Illustration}
+\begin{frame}
+\noindent
+\begin{minipage}{.6\linewidth}
+\scalebox{0.6}{\input{src/data-wrangling-beamer.tikz}}
+\end{minipage}
+\hfill
+\begin{minipage}{.3\linewidth}
+\begin{itemize}
+\onslide<2-3> {\item Censure des données après 2005}
+\onslide<3> {\item Coder les données sous un format \texttt{long}}
+\end{itemize}
+\end{minipage}
+
+\end{frame}
+
+
+
+
+
+
+
+
+
+\begin{frame}{Bibliographie}
+\bibliography{../rapport/micro-reserve-bib}
+\end{frame}
+
+%% -- FIN DE LA PRÉSENTATION -------
+\end{document}
+%% ---------------------------------------------
